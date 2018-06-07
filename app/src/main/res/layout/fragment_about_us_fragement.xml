@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".About_usFragement"
+    android:padding="5dp">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RS vyas"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:id="@+id/name"/>
+        <TextView
+            android:textColor="#000000"
+            android:id="@+id/position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="director"
+            android:textSize="12dp"/>
+        <TextView
+            android:textColor="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/hello_blank_fragment"
+            android:id="@+id/description"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+    <!-- TODO: Update blank fragment layout -->
+</ScrollView>
+
+</FrameLayout>

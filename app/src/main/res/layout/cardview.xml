@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
+        android:id="@+id/cardview"
         android:backgroundTint="#ffffff">
 
         <LinearLayout
@@ -42,16 +43,16 @@
 
                     <ImageButton
                         android:id="@+id/callingbtn"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:backgroundTint="#ffffff"
                         android:src="@drawable/call" />
 
                     <ImageButton
                         android:id="@+id/emailbtn"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:backgroundTint="#ffffff"
                         android:src="@drawable/gmail" />
@@ -73,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="Shubham jain"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/position"
@@ -83,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/name"
                     android:text="Position"
-                    android:textSize="16dp" />
+                    android:textSize="12dp" />
 
 
                 <TextView
@@ -94,7 +95,7 @@
                     android:layout_below="@id/position"
                     android:text=" 9099909999"
                     android:shadowColor="#ce3a3a"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/email"
@@ -103,7 +104,7 @@
                     android:layout_below="@id/phone"
                     android:text="jshubh@gmail.com"
                     android:layout_marginTop="10dp"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
             </RelativeLayout>
         </LinearLayout>
