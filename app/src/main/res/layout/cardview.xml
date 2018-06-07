@@ -1,112 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/cardview"
+    android:padding="5dp"
+    android:layout_margin="5dp"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    >
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:id="@+id/cardview"
-        android:backgroundTint="#ffffff">
+        android:layout_height="match_parent"
+        android:weightSum="2">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="2"
-            android:padding="3dp">
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:layout_weight="1">
 
-            <RelativeLayout
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileimage"
+                android:layout_width="120dp"
+                android:layout_margin="5dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#86D088"
+                app:civ_border_overlay="true"
+                android:src="@drawable/ic_launcher_background" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:layout_weight="1">
+                android:layout_below="@id/profileimage"
+                android:weightSum="2"
+                android:layout_margin="1dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/profileimage"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/ic_launcher"
-                    app:civ_border_width="3dp"
-                    app:civ_border_color="#63d088" />
-
-                <LinearLayout
+                <ImageButton
+                    android:id="@+id/callingbtn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profileimage"
-                    android:weightSum="2">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#67D08B"
+                    android:src="@drawable/ic_call_black_40dp" />
 
-                    <ImageButton
-                        android:id="@+id/callingbtn"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="#ffffff"
-                        android:src="@drawable/call" />
-
-                    <ImageButton
-                        android:id="@+id/emailbtn"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="#ffffff"
-                        android:src="@drawable/gmail" />
-                </LinearLayout>
-            </RelativeLayout>
-<!--<view-->
-    <!--android:layout_width="0.5dp"-->
-    <!--android:layout_height="match_parent"></view>-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:background="#f3f3f3"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="Shubham jain"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/position"
-                    android:layout_marginTop="2dp"
-                    android:textStyle="italic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/name"
-                    android:text="Position"
-                    android:textSize="12dp" />
+                <ImageButton
+                    android:id="@+id/emailbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#5ABD7C"
+                    android:src="@drawable/ic_email_black_40" />
+            </LinearLayout>
+        </RelativeLayout>
 
 
-                <TextView
-                    android:id="@+id/phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@id/position"
-                    android:text=" 9099909999"
-                    android:shadowColor="#ce3a3a"
-                    android:textSize="14dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="#f3f3f3"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/phone"
-                    android:text="jshubh@gmail.com"
-                    android:layout_marginTop="10dp"
-                    android:textSize="14dp" />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                tools:text="RS VYAS"
+                android:textSize="22sp" />
 
-            </RelativeLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-</android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/position"
+                android:layout_marginTop="2dp"
+                android:textStyle="italic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name"
+                tools:text="Position"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/position"
+                tools:text=" 9099909999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/phone"
+                tools:text="rsvyas@gmail.com"
+                android:id="@+id/email"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+

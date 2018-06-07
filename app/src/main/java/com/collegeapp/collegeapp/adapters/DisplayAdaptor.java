@@ -10,8 +10,11 @@ import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
 
 public class DisplayAdaptor extends FragmentPagerAdapter
 {
-    public DisplayAdaptor(FragmentManager fm) {
+    String key;
+    public DisplayAdaptor(FragmentManager fm, String key) {
+
         super( fm );
+        this.key = key;
     }
 
     @Override
@@ -19,11 +22,12 @@ public class DisplayAdaptor extends FragmentPagerAdapter
         switch (position)
         {
             case 0:
-                About_usFragement about_usFragement = new About_usFragement();
+                About_usFragement about_usFragement = new About_usFragement(key);
                 return about_usFragement;
             case 1:
-                ContactLinkFragement contactLinkFragement = new ContactLinkFragement();
+                ContactLinkFragement contactLinkFragement = new ContactLinkFragement(key);
                 return contactLinkFragement;
+
             default:
                 return null;
         }

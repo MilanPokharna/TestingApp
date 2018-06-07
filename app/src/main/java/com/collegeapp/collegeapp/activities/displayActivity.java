@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
@@ -27,8 +28,7 @@ import butterknife.ButterKnife;
 public class displayActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
-    DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
-
+    DatabaseReference myref;
     public String key;
 
     public DisplayAdaptor mDisplayAdapter;
@@ -50,15 +50,7 @@ public class displayActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         key = i.getStringExtra("key");
-        Bundle bundle = new Bundle();
-        bundle.putString("child",key);
-        ContactLinkFragement fragobj = new ContactLinkFragement();
-        fragobj.setArguments(bundle);
-//        Bundle b = new Bundle();
-//        b.putString("master1",key);
-//        About_usFragement fragob = new About_usFragement();
-//        fragob.setArguments(b);
-
+        myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
 
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -73,7 +65,7 @@ public class displayActivity extends AppCompatActivity {
             }
         });
 
-        mDisplayAdapter = new DisplayAdaptor(getSupportFragmentManager());
+        mDisplayAdapter = new DisplayAdaptor(getSupportFragmentManager(),key);
         pager.setAdapter(mDisplayAdapter);
         tablayout.setupWithViewPager(pager);
     }
