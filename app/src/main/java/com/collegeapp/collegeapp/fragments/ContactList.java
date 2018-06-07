@@ -40,11 +40,24 @@ public class ContactList extends Fragment {
     public View v;
     ProgressDialog progressDialog;
 
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-
+    Unbinder unbinder;
     public ContactList() {
         // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
+
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -76,6 +89,8 @@ public class ContactList extends Fragment {
 
                 }
                 recyclerViewAdapter = new RecyclerViewAdapter(getContext(), contactslist, keylist);
+
+
                 progressDialog.dismiss();
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
@@ -90,5 +105,7 @@ public class ContactList extends Fragment {
 
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
+
     }
 }
