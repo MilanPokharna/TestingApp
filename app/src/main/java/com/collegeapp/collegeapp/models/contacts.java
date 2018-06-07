@@ -1,6 +1,21 @@
-package com.collegeapp.collegeapp;
+package com.collegeapp.collegeapp.models;
 
 public class contacts {
+
+    public String name;
+    public String position;
+    public String number;
+    public String email;
+    public String image;
+    public contacts() { }
+    public contacts(String name, String pos,String number,String emailid,String image )
+    {
+        this.name = name;
+        this.position = pos;
+        this.number = number;
+        this.email = emailid;
+        this.image = image;
+    }
 
     public String getName() {
         return name;
@@ -42,14 +57,4 @@ public class contacts {
         this.image = image;
     }
 
-    public String name,position,number,email,image;
-    public contacts() { }
-    public contacts(String name, String pos,String number,String emailid,String image )
-    {
-        this.name = name;
-        this.position = pos;
-        this.number = number;
-        this.email = emailid;
-        this.image = image;
-    }
 }

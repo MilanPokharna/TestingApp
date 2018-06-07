@@ -1,4 +1,4 @@
-package com.collegeapp.collegeapp;
+package com.collegeapp.collegeapp.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,15 +10,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.app.ProgressDialog;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.collegeapp.collegeapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,15 +32,23 @@ import com.google.firebase.database.ValueEventListener;
 public class ContactLinkFragement extends Fragment {
 
     public String key;
-    public String stwitter,sfacebook,semail,snumber;
+    public String stwitter, sfacebook, semail, snumber;
     public View v;
-    TextView twitter,facebook,email,number;
     DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
     ProgressDialog progressDialog;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    @BindView(R.id.twitterid)
+    TextView twitterid;
+    @BindView(R.id.facebookid)
+    TextView facebookid;
+    @BindView(R.id.emailid)
+    TextView emailid;
+    @BindView(R.id.phone)
+    TextView phone;
+    Unbinder unbinder;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -63,18 +72,18 @@ public class ContactLinkFragement extends Fragment {
     public static ContactLinkFragement newInstance(String param1, String param2) {
         ContactLinkFragement fragment = new ContactLinkFragement();
         Bundle args = new Bundle();
-        args.putString( ARG_PARAM1, param1 );
-        args.putString( ARG_PARAM2, param2 );
-        fragment.setArguments( args );
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
+        super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString( ARG_PARAM1 );
-            mParam2 = getArguments().getString( ARG_PARAM2 );
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
     }
@@ -90,21 +99,23 @@ public class ContactLinkFragement extends Fragment {
 //        progressDialog.setCancelable(false);
 //        progressDialog.setCanceledOnTouchOutside(false);
 //        key =  getArguments().getString("key");
-        View view = inflater.inflate( R.layout.fragment_contact_link_fragement, container, false );
-
+        View view = inflater.inflate(R.layout.fragment_contact_link_fragement, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        key = getArguments().getString("child");
+        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+        
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         this.v = view;
-//        twitter = view.findViewById(R.id.twitterid);
-//        facebook = view.findViewById(R.id.facebookid);
-//        email = view.findViewById(R.id.emailid);
-//        number = view.findViewById(R.id.phone);
+        loadData();
+    }
+
+    private void loadData() {
+
 //        myref.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -119,22 +130,22 @@ public class ContactLinkFragement extends Fragment {
 //
 //            }
 //        });
-//        twitter.setText(stwitter);
-//        facebook.setText(sfacebook);
-//        email.setText(semail);
-//        number.setText(snumber);
+//        twitterid.setText(stwitter);
+//        facebookid.setText(sfacebook);
+//        emailid.setText(semail);
+//        phone.setText(snumber);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction( uri );
+            mListener.onFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
-        super.onAttach( context );
+        super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -145,6 +156,12 @@ public class ContactLinkFragement extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     /**

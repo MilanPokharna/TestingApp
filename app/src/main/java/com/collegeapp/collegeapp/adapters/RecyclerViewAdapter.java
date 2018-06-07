@@ -1,43 +1,58 @@
-package com.collegeapp.collegeapp;
+package com.collegeapp.collegeapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.collegeapp.collegeapp.R;
+import com.collegeapp.collegeapp.activities.displayActivity;
+import com.collegeapp.collegeapp.models.contacts;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+
+//    @BindView(R.id.profileimage)
+//    CircleImageView profileimage;
+//    @BindView(R.id.callingbtn)
+//    ImageButton callingbtn;
+//    @BindView(R.id.emailbtn)
+//    ImageButton emailbtn;
+//    @BindView(R.id.name)
+//    TextView name;
+//    @BindView(R.id.position)
+//    TextView posit;
+//    @BindView(R.id.phone)
+//    TextView phone;
+//    @BindView(R.id.email)
+//    TextView email;
+//    @BindView(R.id.cardview)
+//    CardView cardview;
+
     private List<contacts> contactsList = new ArrayList<>();
     private List<String> keyList = new ArrayList<>();
-    Context context;
-    public String sname,sposition,snumber,semail,simage;
-    DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
 
+    Context context;
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
 // inside onCreate of Activity or Fragment
+
         public TextView name;
         public CardView cardView;
         public TextView number;
@@ -46,9 +61,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public CircleImageView img;
         public ImageButton call;
         public ImageButton mail;
+
         public ViewHolder(View itemView) {
 
             super(itemView);
+            //ButterKnife.bind(this,itemView);
             name = itemView.findViewById(R.id.name);
             position = itemView.findViewById(R.id.position);
             number = itemView.findViewById(R.id.phone);
@@ -59,24 +76,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cardView = itemView.findViewById(R.id.cardview);
         }
     }
-    public RecyclerViewAdapter(Context context,List<contacts> tempList,List<String> keylist)
-    {
+
+    public RecyclerViewAdapter(Context context, List<contacts> tempList, List<String> keylist) {
         this.context = context;
         this.contactsList = tempList;
         this.keyList = keylist;
     }
 
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+                                         int viewType) {
         // create a new view
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
-
-
         return viewHolder;
     }
 
@@ -104,15 +118,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View view) {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto",contacts.getEmail().toString(), null));
+                        "mailto", contacts.getEmail().toString(), null));
                 context.startActivity(Intent.createChooser(emailIntent, "Send email..."));
             }
         });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context.getApplicationContext(),Display.class);
-                intent.putExtra("key",s);
+                Intent intent = new Intent(context.getApplicationContext(), displayActivity.class);
+                intent.putExtra("key", s);
                 context.startActivity(intent);
             }
         });
@@ -131,7 +145,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //                holder.number.setText(snumber);
 //                holder.position.setText(sposition);
 //                Glide.with(context.getApplicationContext()).load(simage).into(holder.img);
-            }
+    }
 
 //            @Override
 //            public void onCancelled(@NonNull DatabaseError databaseError) {

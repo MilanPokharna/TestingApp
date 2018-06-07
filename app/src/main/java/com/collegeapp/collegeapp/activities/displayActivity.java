@@ -1,37 +1,52 @@
-package com.collegeapp.collegeapp;
+package com.collegeapp.collegeapp.activities;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.ImageView;
-import android.app.ProgressDialog;
+
 import com.bumptech.glide.Glide;
+import com.collegeapp.collegeapp.R;
+import com.collegeapp.collegeapp.adapters.DisplayAdaptor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Display extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class displayActivity extends AppCompatActivity {
+
     ProgressDialog progressDialog;
     DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
+
     public String key;
-    public ImageView img;
-    public ViewPager mviewpager;
-    public TabLayout mTabLayout;
+
     public DisplayAdaptor mDisplayAdapter;
-    public AppBarLayout appBarLayout;
+
+    @BindView(R.id.profileimage)
+    ImageView profileimage;
+    @BindView(R.id.tablayout)
+    TabLayout tablayout;
+    @BindView(R.id.appbar)
+    AppBarLayout appbar;
+    @BindView(R.id.pager)
+    ViewPager pager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_display );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_display);
+        ButterKnife.bind(this);
         Intent i = getIntent();
+
         key = i.getStringExtra("key");
 //        Bundle bundle = new Bundle();
 //        bundle.putString("key",key);
@@ -41,12 +56,13 @@ public class Display extends AppCompatActivity {
 //        b.putString("master1",key);
 //        About_usFragement fragob = new About_usFragement();
 //        fragob.setArguments(b);
-        img = (ImageView)findViewById(R.id.profileimage);
+
+
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String a = dataSnapshot.child(key).child("image").getValue().toString();
-                Glide.with(getApplicationContext()).load(a).into(img);
+                Glide.with(getApplicationContext()).load(a).into(profileimage);
             }
 
             @Override
@@ -55,10 +71,8 @@ public class Display extends AppCompatActivity {
             }
         });
 
-        mviewpager = findViewById(R.id.pager);
-        mTabLayout = findViewById(R.id.tablayout);
         mDisplayAdapter = new DisplayAdaptor(getSupportFragmentManager());
-        mviewpager.setAdapter(mDisplayAdapter);
-        mTabLayout.setupWithViewPager(mviewpager);
+        pager.setAdapter(mDisplayAdapter);
+        tablayout.setupWithViewPager(pager);
     }
 }

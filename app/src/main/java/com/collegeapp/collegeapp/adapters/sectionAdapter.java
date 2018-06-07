@@ -1,14 +1,16 @@
-package com.collegeapp.collegeapp;
+package com.collegeapp.collegeapp.adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class DisplayAdaptor extends FragmentPagerAdapter
-{
-    public DisplayAdaptor(FragmentManager fm) {
-        super( fm );
+import com.collegeapp.collegeapp.fragments.BusRoute;
+import com.collegeapp.collegeapp.fragments.ContactList;
+
+public class sectionAdapter extends FragmentPagerAdapter {
+    public sectionAdapter(FragmentManager fm) {
+        super(fm);
     }
 
     @Override
@@ -16,11 +18,11 @@ public class DisplayAdaptor extends FragmentPagerAdapter
         switch (position)
         {
             case 0:
-                About_usFragement about_usFragement = new About_usFragement();
-                return about_usFragement;
+                ContactList contactList =new ContactList();
+                return  contactList;
             case 1:
-                ContactLinkFragement contactLinkFragement = new ContactLinkFragement();
-                return contactLinkFragement;
+                BusRoute busRoute = new BusRoute();
+                return busRoute;
             default:
                 return null;
         }
@@ -35,13 +37,14 @@ public class DisplayAdaptor extends FragmentPagerAdapter
         switch (position)
         {
             case 0:
-                return "About Us";
+                return "Contact List";
             case 1:
-                return "Contact Link";
-            default:
-                return null ;
+                return "Bus Route";
+                default:
+                    return null ;
         }
     }
+
     @Override
     public int getCount() {
         return 2;

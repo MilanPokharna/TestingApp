@@ -1,4 +1,4 @@
-package com.collegeapp.collegeapp;
+package com.collegeapp.collegeapp.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,55 +7,57 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.collegeapp.collegeapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.sql.DatabaseMetaData;
-import java.util.ArrayList;
-import java.util.List;
-import android.app.ProgressDialog;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ContactList.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ContactList#newInstance} factory method to
+ * Use the {@link About_usFragement#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ContactList extends Fragment {
-    public RecyclerView recyclerView;
-    public RecyclerViewAdapter recyclerViewAdapter;
-    public LinearLayoutManager layoutManager;
-    public List<contacts> contactslist=new ArrayList<>();
-    public DatabaseReference myref;
-    public List<String> keylist = new ArrayList<>();
+public class About_usFragement extends Fragment {
+
+    public String key;
+    public String sname;
+    public String spos;
+    public String sdesc;
     public View v;
-    public TextView textView;
+
     ProgressDialog progressDialog;
+    DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.position)
+    TextView position;
+    @BindView(R.id.description)
+    TextView description;
+    Unbinder unbinder;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public ContactList() {
+    public About_usFragement() {
         // Required empty public constructor
     }
 
@@ -65,11 +67,11 @@ public class ContactList extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ContactList.
+     * @return A new instance of fragment About_usFragement.
      */
     // TODO: Rename and change types and number of parameters
-    public static ContactList newInstance(String param1, String param2) {
-        ContactList fragment = new ContactList();
+    public static About_usFragement newInstance(String param1, String param2) {
+        About_usFragement fragment = new About_usFragement();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -90,57 +92,45 @@ public class ContactList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_contact_list, container, false);
 
-        return view;
+//        key = getArguments().getString("key");
+
+//        progressDialog = new ProgressDialog(getContext());
+//        progressDialog.setMessage("Loading Details");
+//        progressDialog.show();
+//        progressDialog.setCancelable(false);
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.show();
+        View rootView = inflater.inflate(R.layout.fragment_about_us_fragement, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading Contact List");
-        progressDialog.show();
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        init();
-        loaddata();
+        loadData();
+
     }
 
-    private void loaddata() {
-        myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
-        contactslist.clear();
-        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
-                    contacts contactvar = new contacts(snapshot.child("name").getValue().toString(),snapshot.child("pos").getValue().toString(),
-                            snapshot.child("number").getValue().toString(),snapshot.child("emailid").getValue().toString(),snapshot.child("image").getValue().toString());
-                    contactslist.add(contactvar);
-                    String value = snapshot.getKey();
-                    keylist.add(value);
-
-                }
-                recyclerViewAdapter = new RecyclerViewAdapter(getContext(),contactslist,keylist);
-                progressDialog.dismiss();
-                recyclerView.setAdapter(recyclerViewAdapter);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-    }
-
-    private void init() {
-
-        recyclerView = (RecyclerView)v.findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(this.getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-
-
-
+    private void loadData() {
+//        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                sname = dataSnapshot.child(key).child("name").getValue().toString();
+//                spos = dataSnapshot.child(key).child("pos").getValue().toString();
+//                sdesc = dataSnapshot.child(key).child("description").getValue().toString();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//        name.setText(sname);
+//        position.setText(spos);
+//        description.setText(sdesc);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -163,6 +153,12 @@ public class ContactList extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     /**
