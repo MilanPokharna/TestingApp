@@ -27,22 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-//    @BindView(R.id.profileimage)
-//    CircleImageView profileimage;
-//    @BindView(R.id.callingbtn)
-//    ImageButton callingbtn;
-//    @BindView(R.id.emailbtn)
-//    ImageButton emailbtn;
-//    @BindView(R.id.name)
-//    TextView name;
-//    @BindView(R.id.position)
-//    TextView posit;
-//    @BindView(R.id.phone)
-//    TextView phone;
-//    @BindView(R.id.email)
-//    TextView email;
-//    @BindView(R.id.cardview)
-//    CardView cardview;
+
 
     private List<contacts> contactsList = new ArrayList<>();
     private List<String> keyList = new ArrayList<>();
@@ -53,27 +38,44 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 // inside onCreate of Activity or Fragment
 
-        public TextView name;
-        public CardView cardView;
-        public TextView number;
-        public TextView position;
-        public TextView email;
-        public CircleImageView img;
-        public ImageButton call;
-        public ImageButton mail;
+            @BindView(R.id.profileimage)
+    CircleImageView profileimage;
+    @BindView(R.id.callingbtn)
+    ImageButton callingbtn;
+    @BindView(R.id.emailbtn)
+    ImageButton emailbtn;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.position)
+    TextView posit;
+    @BindView(R.id.phone)
+    TextView phone;
+    @BindView(R.id.email)
+    TextView email;
+    @BindView(R.id.cardview)
+    CardView cardview;
+//        public TextView name;
+//        public CardView cardView;
+//        public TextView number;
+//        public TextView position;
+//        public TextView email;
+//        public CircleImageView img;
+//        public ImageButton call;
+//        public ImageButton mail;
 
         public ViewHolder(View itemView) {
 
             super(itemView);
-            //ButterKnife.bind(this,itemView);
-            name = itemView.findViewById(R.id.name);
-            position = itemView.findViewById(R.id.position);
-            number = itemView.findViewById(R.id.phone);
-            email = itemView.findViewById(R.id.email);
-            img = itemView.findViewById(R.id.profileimage);
-            mail = itemView.findViewById(R.id.emailbtn);
-            call = itemView.findViewById(R.id.callingbtn);
-            cardView = itemView.findViewById(R.id.cardview);
+            ButterKnife.bind(this,itemView);
+
+//            name = itemView.findViewById(R.id.name);
+//            posit = itemView.findViewById(R.id.position);
+//            phone = itemView.findViewById(R.id.phone);
+//            email = itemView.findViewById(R.id.email);
+//            profileimage = itemView.findViewById(R.id.profileimage);
+//            emailbtn = itemView.findViewById(R.id.emailbtn);
+//            callingbtn = itemView.findViewById(R.id.callingbtn);
+//            cardview = itemView.findViewById(R.id.cardview);
         }
     }
 
@@ -101,12 +103,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // - replace the contents of the view with that element
         final contacts contacts = contactsList.get(position);
         final String s = keyList.get(position).toString();
-        holder.position.setText(contacts.getPos());
+        holder.posit.setText(contacts.getPos());
         holder.name.setText(contacts.getName());
         holder.email.setText(contacts.getEmail());
-        holder.number.setText(contacts.getNumber());
-        Glide.with(context.getApplicationContext()).load(contacts.getImage()).into(holder.img);
-        holder.call.setOnClickListener(new View.OnClickListener() {
+        holder.phone.setText(contacts.getNumber());
+        Glide.with(context.getApplicationContext()).load(contacts.getImage()).into(holder.profileimage);
+        holder.callingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
@@ -114,7 +116,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 context.startActivity(callIntent);
             }
         });
-        holder.mail.setOnClickListener(new View.OnClickListener() {
+        holder.emailbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
@@ -122,7 +124,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 context.startActivity(Intent.createChooser(emailIntent, "Send email..."));
             }
         });
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context.getApplicationContext(), displayActivity.class);

@@ -46,7 +46,6 @@ public class ContactList extends Fragment {
     public DatabaseReference myref;
     public List<String> keylist = new ArrayList<>();
     public View v;
-    public TextView textView;
     ProgressDialog progressDialog;
 
     private static final String ARG_PARAM1 = "param1";

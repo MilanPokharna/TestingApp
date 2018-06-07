@@ -99,12 +99,11 @@ public class ContactLinkFragement extends Fragment {
 //        progressDialog.setCancelable(false);
 //        progressDialog.setCanceledOnTouchOutside(false);
 //        key =  getArguments().getString("key");
-        View view = inflater.inflate(R.layout.fragment_contact_link_fragement, container, false);
-        unbinder = ButterKnife.bind(this, view);
         key = getArguments().getString("child");
-        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-        
-        return view;
+        View rootView = inflater.inflate(R.layout.fragment_contact_link_fragement, container, false);
+        Toast.makeText(rootView.getContext(), key, Toast.LENGTH_SHORT).show();
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     @Override

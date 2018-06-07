@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.DisplayAdaptor;
+import com.collegeapp.collegeapp.fragments.About_usFragement;
+import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,10 +50,10 @@ public class displayActivity extends AppCompatActivity {
         Intent i = getIntent();
 
         key = i.getStringExtra("key");
-//        Bundle bundle = new Bundle();
-//        bundle.putString("key",key);
-//        ContactLinkFragement fragobj = new ContactLinkFragement();
-//        fragobj.setArguments(bundle);
+        Bundle bundle = new Bundle();
+        bundle.putString("child",key);
+        ContactLinkFragement fragobj = new ContactLinkFragement();
+        fragobj.setArguments(bundle);
 //        Bundle b = new Bundle();
 //        b.putString("master1",key);
 //        About_usFragement fragob = new About_usFragement();
