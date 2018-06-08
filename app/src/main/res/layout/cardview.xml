@@ -3,11 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/cardview"
-    android:padding="5dp"
-    android:layout_margin="5dp"
     android:layout_height="wrap_content"
+    tool:contentPadding="3dp"
+    tool:cardCornerRadius="5dp"
+    tool:cardElevation="3dp"
     xmlns:tool="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
     >
 
     <LinearLayout
@@ -23,9 +24,9 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profileimage"
-                android:layout_width="120dp"
-                android:layout_margin="5dp"
-                android:layout_height="120dp"
+                android:layout_width="100dp"
+                android:layout_margin="3dp"
+                android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 app:civ_border_width="2dp"
@@ -42,16 +43,16 @@
 
                 <ImageButton
                     android:id="@+id/callingbtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     android:background="#67D08B"
                     android:src="@drawable/ic_call_black_40dp" />
 
                 <ImageButton
                     android:id="@+id/emailbtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     android:background="#5ABD7C"
                     android:src="@drawable/ic_email_black_40" />
@@ -98,12 +99,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phone"
-                tools:text="rsvyas@gmail.com"
                 android:id="@+id/email"
+                tools:text="rsvyas@gmail.com"
                 android:layout_marginTop="10dp"
                 android:textSize="16sp" />
 
         </RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
-

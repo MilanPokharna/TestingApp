@@ -3,46 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
-    tools:context=".fragments.ContactLinkFragement">
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    tools:context=".ContactLinkFragement">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
-
         android:layout_width="match_parent"
-
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
         <LinearLayout
             android:layout_width="match_parent"
-        android:id="@+id/lin"
-            android:padding="5dp"
+            android:id="@+id/lin"
             android:layout_height="wrap_content"
             android:weightSum="2">
             <ImageView
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/twitter"/>
             <TextView
+
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:textColor="#000000"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/twitterid"
-                android:text="sajsh.twiiter"/>
+                tools:text="sajsh.twiiter"/>
         </LinearLayout>
+        <view
+            android:background="#86D066"
+            android:orientation="horizontal"
+            android:layout_below="@id/lin"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"></view>
+
 
         <LinearLayout
-            android:padding="5dp"
             android:layout_below="@id/lin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2"
             android:id="@+id/lin1">
             <ImageView
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/facebook"/>
@@ -56,15 +61,24 @@
                 android:id="@+id/facebookid"
                 android:text="sajsh.twiiter"/>
         </LinearLayout>
+
+        <view
+            android:orientation="horizontal"
+            android:layout_below="@id/lin1"
+            android:background="#86D066"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp">
+
+        </view>
+
         <LinearLayout
-            android:padding="5dp"
             android:layout_below="@id/lin1"
             android:layout_width="match_parent"
             android:id="@+id/lin2"
             android:layout_height="wrap_content"
             android:weightSum="2">
             <ImageView
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/email"/>
@@ -72,20 +86,28 @@
                 android:textColor="#000000"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/emailid"
-                android:text="sajsh.twiiter"/>
+                android:id="@+id/email"
+                tools:text="sajsh.twiiter"/>
         </LinearLayout>
-        <LinearLayout
-            android:padding="5dp"
+
+        <view
+            android:orientation="horizontal"
+            android:background="#86D066"
             android:layout_below="@id/lin2"
             android:layout_width="match_parent"
+            android:layout_height="0.5dp">
+        </view>
+        <LinearLayout
+            android:layout_below="@id/lin2"
+            android:layout_width="match_parent"
+            android:id="@+id/lin3"
             android:layout_height="wrap_content"
             android:weightSum="2">
             <ImageView
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/phone1"/>
@@ -93,12 +115,21 @@
                 android:textColor="#000000"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/phone"
-                android:text="sajsh.twiiter"/>
+                tools:text="sajsh.twiiter"/>
         </LinearLayout>
+        <view
+            android:orientation="horizontal"
+            android:layout_below="@id/lin3"
+            android:background="#86D066"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp">
+
+        </view>
+
     </RelativeLayout>
 
 </FrameLayout>

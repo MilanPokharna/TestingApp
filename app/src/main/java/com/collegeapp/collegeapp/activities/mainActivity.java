@@ -20,7 +20,7 @@ public class mainActivity extends AppCompatActivity {
     TabLayout tablayout;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
-    @BindView(R.id.pager)
+    @BindView(R.id.mpager)
     ViewPager pager;
 
     @Override

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
-import com.collegeapp.collegeapp.activities.displayActivity;
+import com.collegeapp.collegeapp.ScrollingActivity;
 import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
 import com.collegeapp.collegeapp.models.contacts;
 import com.google.firebase.database.DatabaseReference;
@@ -129,7 +129,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context.getApplicationContext(), displayActivity.class);
+                Intent intent = new Intent(context.getApplicationContext(), ScrollingActivity.class);
                 intent.putExtra("key", s);
                 context.startActivity(intent);
             }
