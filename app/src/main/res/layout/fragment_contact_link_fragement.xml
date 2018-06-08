@@ -37,7 +37,9 @@
             android:orientation="horizontal"
             android:layout_below="@id/lin"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"></view>
+            android:layout_height="0.5dp">
+
+        </view>
 
 
         <LinearLayout
@@ -89,7 +91,7 @@
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/email"
+                android:id="@+id/emailid"
                 tools:text="sajsh.twiiter"/>
         </LinearLayout>
 
