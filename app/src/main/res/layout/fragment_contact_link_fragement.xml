@@ -32,16 +32,6 @@
                 android:id="@+id/twitterid"
                 tools:text="sajsh.twiiter"/>
         </LinearLayout>
-        <view
-            android:background="#86D066"
-            android:orientation="horizontal"
-            android:layout_below="@id/lin"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp">
-
-        </view>
-
-
         <LinearLayout
             android:layout_below="@id/lin"
             android:layout_width="match_parent"
@@ -63,15 +53,6 @@
                 android:id="@+id/facebookid"
                 android:text="sajsh.twiiter"/>
         </LinearLayout>
-
-        <view
-            android:orientation="horizontal"
-            android:layout_below="@id/lin1"
-            android:background="#86D066"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp">
-
-        </view>
 
         <LinearLayout
             android:layout_below="@id/lin1"
@@ -95,13 +76,6 @@
                 tools:text="sajsh.twiiter"/>
         </LinearLayout>
 
-        <view
-            android:orientation="horizontal"
-            android:background="#86D066"
-            android:layout_below="@id/lin2"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp">
-        </view>
         <LinearLayout
             android:layout_below="@id/lin2"
             android:layout_width="match_parent"
@@ -123,14 +97,6 @@
                 android:id="@+id/phone"
                 tools:text="sajsh.twiiter"/>
         </LinearLayout>
-        <view
-            android:orientation="horizontal"
-            android:layout_below="@id/lin3"
-            android:background="#86D066"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp">
-
-        </view>
 
     </RelativeLayout>
 

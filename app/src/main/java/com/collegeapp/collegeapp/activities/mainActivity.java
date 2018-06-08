@@ -5,6 +5,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.sectionAdapter;
@@ -22,6 +23,8 @@ public class mainActivity extends AppCompatActivity {
     AppBarLayout appbar;
     @BindView(R.id.mpager)
     ViewPager pager;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,8 @@ public class mainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         msectionAdapter = new sectionAdapter(getSupportFragmentManager());
         pager.setAdapter(msectionAdapter);

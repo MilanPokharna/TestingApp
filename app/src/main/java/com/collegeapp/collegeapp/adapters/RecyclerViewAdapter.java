@@ -2,6 +2,8 @@ package com.collegeapp.collegeapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,12 +36,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<contacts> contactsList = new ArrayList<>();
     private List<String> keyList = new ArrayList<>();
-
+    public Typeface typeface;
     Context context;
 
     class ViewHolder extends RecyclerView.ViewHolder {
-
-// inside onCreate of Activity or Fragment
 
             @BindView(R.id.profileimage)
     CircleImageView profileimage;
@@ -56,29 +57,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     TextView email;
     @BindView(R.id.cardview)
     CardView cardview;
-//        public TextView name;
-//        public CardView cardView;
-//        public TextView number;
-//        public TextView position;
-//        public TextView email;
-//        public CircleImageView img;
-//        public ImageButton call;
-//        public ImageButton mail;
-
         public ViewHolder(View itemView) {
 
             super(itemView);
             ButterKnife.bind(this,itemView);
-
-//            name = itemView.findViewById(R.id.name);
-//            posit = itemView.findViewById(R.id.position);
-//            phone = itemView.findViewById(R.id.phone);
-//            email = itemView.findViewById(R.id.email);
-//            profileimage = itemView.findViewById(R.id.profileimage);
-//            emailbtn = itemView.findViewById(R.id.emailbtn);
-//            callingbtn = itemView.findViewById(R.id.callingbtn);
-//            cardview = itemView.findViewById(R.id.cardview);
-        }
+            }
     }
 
     public RecyclerViewAdapter(Context context, List<contacts> tempList, List<String> keylist) {
@@ -105,6 +88,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // - replace the contents of the view with that element
         final contacts contacts = contactsList.get(position);
         final String s = keyList.get(position).toString();
+        AssetManager am = context.getApplicationContext().getAssets();
+
+        typeface = Typeface.createFromAsset(am,
+                String.format(Locale.US, "fonts/%s", "opensans.ttf"));
+        holder.posit.setTypeface(typeface);
+        holder.name.setTypeface(typeface);
+        holder.email.setTypeface(typeface);
+        holder.phone.setTypeface(typeface);
+
         holder.posit.setText(contacts.getPos());
         holder.name.setText(contacts.getName());
         holder.email.setText(contacts.getEmail());
@@ -134,33 +126,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 context.startActivity(intent);
             }
         });
-//
-//        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                sname = dataSnapshot.child(s).child("name").getValue().toString();
-//                sposition = dataSnapshot.child(s).child("pos").getValue().toString();
-//                snumber = dataSnapshot.child(s).child("number").getValue().toString();
-//                semail = dataSnapshot.child(s).child("emailid").getValue().toString();
-//                simage = dataSnapshot.child(s).child("image").getValue().toString();
-
-//                holder.name.setText(sname);
-//                holder.email.setText(semail);
-//                holder.number.setText(snumber);
-//                holder.position.setText(sposition);
-//                Glide.with(context.getApplicationContext()).load(simage).into(holder.img);
     }
-
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//    }
-
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
+@Override
     public int getItemCount() {
 
         return contactsList.size();

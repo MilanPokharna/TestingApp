@@ -33,19 +33,19 @@ public class ScrollingActivity extends AppCompatActivity {
     TabLayout mtablayout;
 
     public CollapsingToolbarLayout collapsingToolbarLayout;
-    @BindView(R.id.toolbar)
+    @BindView(com.collegeapp.collegeapp.R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.profileimage)
+    @BindView(com.collegeapp.collegeapp.R.id.profileimage)
     ImageView profileimage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
+        setContentView(com.collegeapp.collegeapp.R.layout.activity_scrolling);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        mViewpager =(ViewPager)findViewById(R.id.pager);
-        mtablayout =(TabLayout)findViewById(R.id.tablayout);
+        mViewpager =(ViewPager)findViewById(com.collegeapp.collegeapp.R.id.pager);
+        mtablayout =(TabLayout)findViewById(com.collegeapp.collegeapp.R.id.tablayout);
         Intent i = getIntent();
 
         key = i.getStringExtra("key");

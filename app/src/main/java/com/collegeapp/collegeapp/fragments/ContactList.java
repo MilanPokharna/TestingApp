@@ -40,9 +40,6 @@ public class ContactList extends Fragment {
     public View v;
     ProgressDialog progressDialog;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     Unbinder unbinder;
