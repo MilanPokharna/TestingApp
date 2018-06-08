@@ -65,12 +65,13 @@ public class BusRoute extends Fragment {
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren())
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (int i = 1;i<11;i++)
                 {
-                    contacts contactvar = new contacts(snapshot.child("name").getValue().toString(), snapshot.child("route").getValue().toString(),
-                            snapshot.child("number").getValue().toString(), snapshot.child("profilepic").getValue().toString());
+                    contacts contactvar = new contacts(snapshot.child("bus"+i).child("name").getValue().toString(), snapshot.child("bus"+i).child("route").getValue().toString(),
+                            snapshot.child("bus"+i).child("number").getValue().toString(), snapshot.child("bus"+i).child("profilepic").getValue().toString());
                     contactsList.add(contactvar);
+
                 }
                 recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
                 recyclerView.setAdapter(recyclerViewAdapterTwo);
