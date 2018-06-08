@@ -66,12 +66,11 @@ public class BusRoute extends Fragment {
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (int i = 1;i<11;i++)
+                for (int i=1;i<11;i++)
                 {
                     contacts contactvar = new contacts(snapshot.child("bus"+i).child("name").getValue().toString(), snapshot.child("bus"+i).child("route").getValue().toString(),
-                            snapshot.child("bus"+i).child("number").getValue().toString(), snapshot.child("bus"+i).child("profilepic").getValue().toString());
+                            snapshot.child("bus"+i).child("number").getValue().toString());
                     contactsList.add(contactvar);
-
                 }
                 recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
                 recyclerView.setAdapter(recyclerViewAdapterTwo);

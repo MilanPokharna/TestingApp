@@ -16,12 +16,11 @@ public class contacts {
         this.email = emailid;
         this.image = image;
     }
-    public contacts(String name, String pos,String number,String image )
+    public contacts(String name, String pos,String number )
     {
         this.name = name;
         this.position = pos;
         this.number = number;
-        this.image = image;
     }
 
     public String getName() {

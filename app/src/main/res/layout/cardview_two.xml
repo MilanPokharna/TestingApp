@@ -23,23 +23,21 @@
             android:background="#ffffff"
             android:layout_weight="1">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <TextView
                 android:id="@+id/profileimage"
-                android:layout_width="100dp"
+                android:text="BUS 1"
+                android:textSize="40sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
                 android:layout_margin="3dp"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#86D088"
-                app:civ_border_overlay="true"
-                android:src="@drawable/ic_launcher_background" />
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/profileimage"
-                android:weightSum="2"
                 android:layout_margin="1dp">
 
                 <ImageButton
@@ -50,13 +48,6 @@
                     android:background="#67D08B"
                     android:src="@drawable/ic_call_black_40dp" />
 
-                <ImageButton
-                    android:id="@+id/emailbtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:background="#5ABD7C"
-                    android:src="@drawable/ic_email_black_40" />
             </LinearLayout>
         </RelativeLayout>
 

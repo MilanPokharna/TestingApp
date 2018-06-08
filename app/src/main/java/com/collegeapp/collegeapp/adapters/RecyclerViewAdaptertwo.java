@@ -38,7 +38,7 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.profileimage)
-        CircleImageView profileimage;
+        TextView profileimage;
         @BindView(R.id.callingbtn)
         ImageButton callingbtn;
         @BindView(R.id.name)
@@ -79,11 +79,13 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
         holder.route.setTypeface(typeface);
         holder.name.setTypeface(typeface);
         holder.phone.setTypeface(typeface);
+        holder.profileimage.setTypeface(typeface);
 
+        holder.profileimage.setText("bus "+(position+1));
         holder.route.setText(contacts.getPos());
         holder.name.setText(contacts.getName());
         holder.phone.setText(contacts.getNumber());
-        Glide.with(context.getApplicationContext()).load(contacts.getImage()).into(holder.profileimage);
+        //Glide.with(context.getApplicationContext()).load(contacts.getImage()).into(holder.profileimage);
         holder.callingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
