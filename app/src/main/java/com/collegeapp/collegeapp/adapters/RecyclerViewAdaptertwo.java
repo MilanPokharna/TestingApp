@@ -72,14 +72,11 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final contacts contacts = templist.get(position);
-        AssetManager am = context.getApplicationContext().getAssets();
-
-        typeface = Typeface.createFromAsset(am,
-                String.format(Locale.US, "fonts/%s", "opensans.ttf"));
-        holder.route.setTypeface(typeface);
-        holder.name.setTypeface(typeface);
-        holder.phone.setTypeface(typeface);
-        holder.profileimage.setTypeface(typeface);
+//                String.format(Locale.US, "fonts/%s", "opensans.ttf"));
+//        holder.route.setTypeface(typeface);
+//        holder.name.setTypeface(typeface);
+//        holder.phone.setTypeface(typeface);
+//        holder.profileimage.setTypeface(typeface);
 
         holder.profileimage.setText("bus "+(position+1));
         holder.route.setText(contacts.getPos());
@@ -101,6 +98,5 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
     public int getItemCount() {
         return templist.size();
     }
-
 
 }

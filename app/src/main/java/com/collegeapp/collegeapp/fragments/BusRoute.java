@@ -57,7 +57,9 @@ public class BusRoute extends Fragment {
         this.view = view;
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
+//        init();
         loadData();
+
     }
 
     private void loadData() {
@@ -81,6 +83,12 @@ public class BusRoute extends Fragment {
 
             }
         });
+    }
+    private void init() {
+
+        layoutManager = new LinearLayoutManager(this.getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
     }
 
     @Override
