@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tool="http://schemas.android.com/apk/res-auto"
-    tools:context=".ContactLinkFragement">
-
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
-        <LinearLayout
+    tools:context=".ContactLinkFragement"
+    android:orientation="vertical">
+     <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/lin"
             android:layout_height="wrap_content"
@@ -98,6 +94,4 @@
                 tools:text="sajsh.twiiter"/>
         </LinearLayout>
 
-    </RelativeLayout>
-
-</FrameLayout>
+    </LinearLayout>

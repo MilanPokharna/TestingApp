@@ -19,12 +19,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.displayActivity"
-            android:screenOrientation="userPortrait" />
-        <activity
-            android:name=".ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".activities.scrollActivity"
+            android:label="@string/a"
+            android:screenOrientation="userPortrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.mainActivity" />
+        </activity>
     </application>
 
 </manifest>

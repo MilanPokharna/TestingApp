@@ -44,8 +44,10 @@ import butterknife.ButterKnife;
             setContentView(com.collegeapp.collegeapp.R.layout.activity_scrolling);
             ButterKnife.bind(this);
             setSupportActionBar(toolbar);
-            mViewpager =(ViewPager)findViewById(com.collegeapp.collegeapp.R.id.pager);
-            mtablayout =(TabLayout)findViewById(com.collegeapp.collegeapp.R.id.tablayout);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            mViewpager =(ViewPager)findViewById(com.collegeapp.collegeapp.R.id.Vpager);
+            mtablayout =(TabLayout)findViewById(com.collegeapp.collegeapp.R.id.tablayout_);
             Intent i = getIntent();
 
             key = i.getStringExtra("key");

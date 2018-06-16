@@ -38,7 +38,6 @@ public class ContactList extends Fragment {
     public DatabaseReference myref;
     public List<String> keylist = new ArrayList<>();
     public View v;
-    ProgressDialog progressDialog;
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -59,11 +58,6 @@ public class ContactList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading Contact List");
-        progressDialog.show();
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
         init();
         loaddata();
     }
@@ -85,8 +79,6 @@ public class ContactList extends Fragment {
                 }
                 recyclerViewAdapter = new RecyclerViewAdapter(getContext(), contactslist, keylist);
 
-
-                progressDialog.dismiss();
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
 

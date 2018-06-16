@@ -73,8 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                tools:text="RS VYAS"
-                android:textSize="22sp" />
+                style="@style/name"
+                tools:text="RS VYAS" />
 
             <TextView
                 android:id="@+id/position"

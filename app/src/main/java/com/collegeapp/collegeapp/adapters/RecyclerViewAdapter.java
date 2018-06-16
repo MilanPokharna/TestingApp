@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,11 +15,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
-import com.collegeapp.collegeapp.ScrollingActivity;
-import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
+import com.collegeapp.collegeapp.activities.scrollActivity;
 import com.collegeapp.collegeapp.models.contacts;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,12 +86,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final String s = keyList.get(position).toString();
         AssetManager am = context.getApplicationContext().getAssets();
 
-        typeface = Typeface.createFromAsset(am,
-                String.format(Locale.US, "fonts/%s", "opensans.ttf"));
-        holder.posit.setTypeface(typeface);
-        holder.name.setTypeface(typeface);
-        holder.email.setTypeface(typeface);
-        holder.phone.setTypeface(typeface);
 
         holder.posit.setText(contacts.getPos());
         holder.name.setText(contacts.getName());
@@ -121,7 +111,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context.getApplicationContext(), ScrollingActivity.class);
+                Intent intent = new Intent(context.getApplicationContext(), scrollActivity.class);
                 intent.putExtra("key", s);
                 context.startActivity(intent);
             }

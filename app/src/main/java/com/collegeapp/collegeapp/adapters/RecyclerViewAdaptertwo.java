@@ -78,7 +78,7 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
 //        holder.phone.setTypeface(typeface);
 //        holder.profileimage.setTypeface(typeface);
 
-        holder.profileimage.setText("bus "+(position+1));
+        holder.profileimage.setText(""+(position+1));
         holder.route.setText(contacts.getPos());
         holder.name.setText(contacts.getName());
         holder.phone.setText(contacts.getNumber());

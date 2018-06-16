@@ -10,9 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.collegeapp.collegeapp.R;
-import com.collegeapp.collegeapp.adapters.RecyclerViewAdapter;
 import com.collegeapp.collegeapp.adapters.RecyclerViewAdaptertwo;
 import com.collegeapp.collegeapp.models.contacts;
 import com.google.firebase.database.DataSnapshot;
@@ -36,8 +36,14 @@ public class BusRoute extends Fragment {
     public LinearLayoutManager layoutManager;
     public RecyclerViewAdaptertwo recyclerViewAdapterTwo;
     public View view;
-    public List<contacts>contactsList=new ArrayList<>();
-    DatabaseReference myref;
+    public List<contacts> contactsList = new ArrayList<>();
+    DatabaseReference myref, dt;
+    ProgressDialog progressDialog;
+    @BindView(R.id.date)
+    TextView date;
+    @BindView(R.id.time)
+    TextView time;
+
     public BusRoute() {
         // Required empty public constructor
     }
@@ -55,6 +61,11 @@ public class BusRoute extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Loading Contact List");
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 //        init();
@@ -64,17 +75,32 @@ public class BusRoute extends Fragment {
 
     private void loadData() {
         contactsList.clear();
+        dt = FirebaseDatabase.getInstance().getReference().child("root");
+        dt.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String d = dataSnapshot.child("date").getValue().toString();
+                String t = dataSnapshot.child("time").getValue().toString();
+                date.setText(d);
+                time.setText(t);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (int i=1;i<11;i++)
-                {
-                    contacts contactvar = new contacts(snapshot.child("bus"+i).child("name").getValue().toString(), snapshot.child("bus"+i).child("route").getValue().toString(),
-                            snapshot.child("bus"+i).child("number").getValue().toString());
+                for (int i = 1; i < 11; i++) {
+                    contacts contactvar = new contacts(snapshot.child("bus" + i).child("name").getValue().toString(), snapshot.child("bus" + i).child("route").getValue().toString(),
+                            snapshot.child("bus" + i).child("number").getValue().toString());
                     contactsList.add(contactvar);
                 }
                 recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
+                progressDialog.dismiss();
                 recyclerView.setAdapter(recyclerViewAdapterTwo);
             }
 
@@ -84,12 +110,7 @@ public class BusRoute extends Fragment {
             }
         });
     }
-    private void init() {
 
-        layoutManager = new LinearLayoutManager(this.getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-
-    }
 
     @Override
     public void onDestroyView() {

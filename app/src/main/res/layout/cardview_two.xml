@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tool:contentPadding="3dp"
     android:id="@+id/cardview2"
     tool:cardCornerRadius="5dp"
     tool:cardElevation="3dp"
@@ -17,47 +16,42 @@
         android:layout_height="match_parent"
         android:weightSum="2">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#ffffff"
-            android:layout_weight="1">
+            android:layout_weight="0.3">
 
             <TextView
                 android:id="@+id/profileimage"
-                android:text="BUS 1"
+                android:text="1"
                 android:textSize="40sp"
                 android:textColor="@color/colorPrimary"
-                android:layout_width="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
                 />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/profileimage"
-                android:layout_margin="1dp">
+
 
                 <ImageButton
                     android:id="@+id/callingbtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="#67D08B"
                     android:src="@drawable/ic_call_black_40dp" />
 
-            </LinearLayout>
-        </RelativeLayout>
+
+        </LinearLayout>
 
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="#f3f3f3"
+            android:padding="6dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="10dp">
+            android:layout_weight="1.7">
 
             <TextView
                 android:id="@+id/name"
@@ -65,36 +59,26 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 tools:text="RS VYAS"
-                android:textSize="22sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/position"
-                android:layout_marginTop="2dp"
                 android:textStyle="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/name"
+                android:layout_below="@id/phone"
                 tools:text="Position"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
 
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/position"
+                android:layout_below="@id/name"
                 tools:text=" 9099909999"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/phone"
-                android:id="@+id/email"
-                tools:text="rsvyas@gmail.com"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp" />
 
         </RelativeLayout>
     </LinearLayout>

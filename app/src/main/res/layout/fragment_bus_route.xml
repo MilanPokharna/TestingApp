@@ -4,11 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.BusRoute">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DATE"
+                android:textSize="20sp"
+                android:id="@+id/date" />
+            <TextView
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="TIME"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/time" />
+
+
+        </LinearLayout>
+
 <android.support.v7.widget.RecyclerView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:id="@+id/recyclerView2">
 
 </android.support.v7.widget.RecyclerView>
-
+    </LinearLayout>
 </FrameLayout>
