@@ -45,7 +45,6 @@ public class BusRoute extends Fragment {
     TextView time;
 
     public BusRoute() {
-        // Required empty public constructor
     }
 
     @Override
