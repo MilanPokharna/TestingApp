@@ -73,13 +73,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                style="@style/name"
+                android:fontFamily="@font/comicpanels"
                 tools:text="RS VYAS" />
 
             <TextView
                 android:id="@+id/position"
+                android:fontFamily="serif-monospace"
                 android:layout_marginTop="2dp"
-                android:textStyle="italic"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/name"
@@ -89,6 +90,7 @@
 
             <TextView
                 android:id="@+id/phone"
+                android:fontFamily="@font/opensans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -101,6 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phone"
                 android:id="@+id/email"
+                android:fontFamily="@font/opensans"
                 tools:text="rsvyas@gmail.com"
                 android:layout_marginTop="10dp"
                 android:textSize="16sp" />
