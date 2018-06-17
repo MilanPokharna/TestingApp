@@ -72,12 +72,6 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final contacts contacts = templist.get(position);
-//                String.format(Locale.US, "fonts/%s", "opensans.ttf"));
-//        holder.route.setTypeface(typeface);
-//        holder.name.setTypeface(typeface);
-//        holder.phone.setTypeface(typeface);
-//        holder.profileimage.setTypeface(typeface);
-
         holder.profileimage.setText(contacts.getBus());
         holder.route.setText(contacts.getRoute());
         holder.name.setText(contacts.getDriver());
