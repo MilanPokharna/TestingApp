@@ -74,7 +74,7 @@ public class BusRoute extends Fragment {
 
     private void loadData() {
         contactsList.clear();
-        dt = FirebaseDatabase.getInstance().getReference().child("root");
+        dt = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
         dt.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -89,13 +89,13 @@ public class BusRoute extends Fragment {
 
             }
         });
-        myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
+        myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes").child("going buses");
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (int i = 1; i < 11; i++) {
-                    contacts contactvar = new contacts(snapshot.child("bus" + i).child("name").getValue().toString(), snapshot.child("bus" + i).child("route").getValue().toString(),
-                            snapshot.child("bus" + i).child("number").getValue().toString());
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                for (DataSnapshot snapshot : datasnapshot.getChildren()) {
+                    contacts contactvar = new contacts(snapshot.child("bus").getValue().toString(), snapshot.child("driver").getValue().toString() ,snapshot.child("number").getValue().toString(),
+                            snapshot.child("route").getValue().toString());
                     contactsList.add(contactvar);
                 }
                 recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);

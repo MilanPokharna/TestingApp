@@ -7,6 +7,11 @@ public class contacts {
     public String number;
     public String email;
     public String image;
+    public String bus;
+    public String driver;
+    public String contact;
+    public String route;
+
     public contacts() { }
     public contacts(String name, String pos,String number,String emailid,String image )
     {
@@ -16,11 +21,46 @@ public class contacts {
         this.email = emailid;
         this.image = image;
     }
-    public contacts(String name, String pos,String number )
+
+    public String getBus() {
+        return bus;
+    }
+
+    public void setBus(String bus) {
+        this.bus = bus;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
+
+    public contacts(String bus, String driver, String contact, String route )
     {
-        this.name = name;
-        this.position = pos;
-        this.number = number;
+        this.bus = bus;
+        this.driver = driver;
+
+        this.contact = contact;
+        this.route = route;
     }
 
     public String getName() {

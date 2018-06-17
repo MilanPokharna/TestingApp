@@ -78,16 +78,16 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
 //        holder.phone.setTypeface(typeface);
 //        holder.profileimage.setTypeface(typeface);
 
-        holder.profileimage.setText(""+(position+1));
-        holder.route.setText(contacts.getPos());
-        holder.name.setText(contacts.getName());
-        holder.phone.setText(contacts.getNumber());
+        holder.profileimage.setText(contacts.getBus());
+        holder.route.setText(contacts.getRoute());
+        holder.name.setText(contacts.getDriver());
+        holder.phone.setText(contacts.getContact());
         //Glide.with(context.getApplicationContext()).load(contacts.getImage()).into(holder.profileimage);
         holder.callingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + contacts.getNumber().toString()));
+                callIntent.setData(Uri.parse("tel:" + contacts.getContact().toString()));
                 context.startActivity(callIntent);
             }
         });
