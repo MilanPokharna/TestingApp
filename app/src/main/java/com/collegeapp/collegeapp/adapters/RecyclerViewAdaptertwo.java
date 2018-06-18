@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
+import com.collegeapp.collegeapp.activities.MapsActivity;
 import com.collegeapp.collegeapp.models.contacts;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -77,6 +78,13 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
         holder.name.setText(contacts.getDriver());
         holder.phone.setText(contacts.getContact());
         //Glide.with(context.getApplicationContext()).load(contacts.getImage()).into(holder.profileimage);
+        holder.cardview2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, MapsActivity.class);
+                context.startActivity(i);
+            }
+        });
         holder.callingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
