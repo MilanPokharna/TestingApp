@@ -58,12 +58,12 @@
             <TextView
                 android:id="@+id/name"
                 android:layout_centerHorizontal="true"
-                android:fontFamily="@font/opensans"
+                android:fontFamily="@font/fallingsky"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 tools:text="RS VYAS"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/phone"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/name"
                 tools:text=" 9099909999"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/position"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phone"
                 tools:text="Position"
-                android:textSize="15sp" />
+                android:textSize="16sp" />
 
 
         </RelativeLayout>
