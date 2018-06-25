@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.LinearLayout;
 
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.sectionAdapter;
@@ -31,7 +32,7 @@ public class mainActivity extends AppCompatActivity {
     ViewPager pager;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
+    private int tabIcons = R.drawable.ic_group_black_24dp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,14 +42,20 @@ public class mainActivity extends AppCompatActivity {
         {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+
             msectionAdapter = new sectionAdapter(getSupportFragmentManager());
             pager.setAdapter(msectionAdapter);
             tablayout.setupWithViewPager(pager);
+            tablayout.getTabAt(0).setIcon(tabIcons);
+            LinearLayout layout = ((LinearLayout) ((LinearLayout) tablayout.getChildAt(0)).getChildAt(0));
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layout.getLayoutParams();
+            layoutParams.weight = 0.5f;
+            layout.setLayoutParams(layoutParams);
         }
         else
         {
             AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
-            dialog.setTitle("Connectino Error ");
+            dialog.setTitle("Connection Error ");
             dialog.setCancelable(false);
             dialog.setMessage("Unable to connect with the server.\n Check your Internet connection and try again." );
             dialog.setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
@@ -62,6 +69,8 @@ public class mainActivity extends AppCompatActivity {
     }
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
         return cm.getActiveNetworkInfo() != null;
     }
+
 }

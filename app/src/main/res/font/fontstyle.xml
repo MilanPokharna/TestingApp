@@ -4,6 +4,11 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="200"
+        android:font="@font/googlesans"
+        />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="200"
         android:font="@font/comickings" />
     <font
         android:fontStyle="italic"

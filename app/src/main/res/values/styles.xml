@@ -5,7 +5,21 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/materiablue</item>
+    </style>
+
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.NoActionBar">
+
+        <!-- Original AppCompat attributes. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/materiablue</item>
+
+        <!-- New MaterialComponents attributes. -->
+        <item name="colorSecondary">?attr/colorPrimary</item>
+        <item name="scrimBackground">@color/mtrl_scrim_color</item>
+        <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -18,8 +32,13 @@
     <style name="name">
         <item name="android:textColor">#6e87f5</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/grbld</item>
+        <item name="android:fontFamily">@font/googlesans</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
+    </style>
+    <style name="view">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@android:color/darker_gray</item>
     </style>
 </resources>

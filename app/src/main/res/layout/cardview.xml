@@ -2,60 +2,68 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tool:contentPadding="3dp"
     android:id="@+id/cardview"
     tool:cardCornerRadius="5dp"
     tool:cardElevation="3dp"
-    xmlns:tool="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:baselineAligned="false"
         android:weightSum="4">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             android:background="#ffffff"
             android:layout_weight="2.5">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileimage"
-                android:layout_width="100dp"
-                android:layout_margin="3dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileimage"
+                android:layout_width="72dp"
+                android:layout_margin="3dp"
+                android:layout_height="72dp"
+                android:layout_centerHorizontal="true"
                 app:civ_border_width="2dp"
-                app:civ_border_color="#86D088"
+                app:civ_border_color="@color/materiablue"
                 app:civ_border_overlay="true"
                 android:src="@drawable/ic_launcher_background" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginTop="4dp"
                 android:layout_below="@id/profileimage"
-                android:weightSum="2"
-                android:layout_margin="1dp">
+                android:weightSum="2">
 
                 <ImageButton
                     android:id="@+id/callingbtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#67D08B"
+                    android:background="#64b5f6"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_call_black_40dp" />
-
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#e0e0e0"/>
                 <ImageButton
                     android:id="@+id/emailbtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#5ABD7C"
+                    android:scaleType="fitCenter"
+                    android:background="#64b5f6"
                     android:src="@drawable/ic_email_black_40" />
             </LinearLayout>
         </RelativeLayout>
@@ -63,7 +71,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="#f3f3f3"
+            android:background="#e0e0e0"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="10dp">
@@ -74,12 +82,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:fontFamily="@font/fallingsky"
+                android:fontFamily="@font/googlesans"
                 tools:text="RS VYAS" />
 
             <TextView
                 android:id="@+id/position"
-                android:fontFamily="serif-monospace"
+                android:fontFamily="@font/googlesans"
                 android:layout_marginTop="2dp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -91,23 +99,22 @@
 
             <TextView
                 android:id="@+id/phone"
-                android:fontFamily="@font/opensans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_below="@id/position"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/googlesans"
                 tools:text=" 9099909999"
-                android:textSize="16sp" />
+                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phone"
+                android:fontFamily="@font/googlesans"
                 android:id="@+id/email"
-                android:fontFamily="@font/opensans"
                 tools:text="rsvyas@gmail.com"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp" />
+                 />
 
         </RelativeLayout>
     </LinearLayout>

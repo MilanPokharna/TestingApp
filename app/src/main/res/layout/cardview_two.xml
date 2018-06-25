@@ -6,87 +6,112 @@
     android:layout_height="wrap_content"
     android:id="@+id/cardview2"
     tool:cardCornerRadius="5dp"
-    tool:cardElevation="3dp"
+    tool:cardElevation="5dp"
     xmlns:tool="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
-    >
+    android:layout_marginTop="8dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="2">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#ffffff"
-            android:layout_weight="0.3">
-
-            <TextView
-                android:id="@+id/profileimage"
-                android:text="1"
-                android:textSize="40sp"
-                android:textColor="@color/colorPrimary"
+    <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profileimage"
+                android:text="10"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:background="@drawable/item_circle"
+                android:fontFamily="@font/googlesans"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/name"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/googlesans"
+                tools:text="RS VYAS"
+                android:layout_centerHorizontal="true"
                 />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text=" 9099909999"
+                android:textColor="@android:color/black"
+                android:id="@+id/phone"
+                android:fontFamily="@font/googlesans"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/name"/>
+            <ImageButton
+                android:id="@+id/callingbtn"
+                android:layout_gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_circle"
+                android:scaleType="centerInside"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_call_black_40dp" />
+        <View
+            style="@style/view"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/view"
+            android:layout_below="@id/profileimage"
+            />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Routes"
+                android:layout_below="@id/view"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/position"
+                android:layout_centerVertical="true"
+                android:textAlignment="center"
+                android:fontFamily="@font/googlesans"
+                android:textSize="16sp" />
+        <View
+            style="@style/view"
+            android:id="@+id/emptyview"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_below="@id/position" />
 
-                <ImageButton
-                    android:id="@+id/callingbtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="#67D08B"
-                    android:src="@drawable/ic_call_black_40dp" />
-
-
-        </LinearLayout>
-
-
-        <RelativeLayout
-            android:padding="6dp"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.7">
+            android:textColor="@color/materiablue"
+            android:layout_below="@id/emptyview"
+            android:text="Get direction"
+            android:gravity="center"
+            android:layout_toLeftOf="@id/arrow"
+            android:textStyle="bold"
+            android:layout_margin="1dp"
+            android:id="@+id/getdirections"
+            android:textAlignment="center"
+            android:fontFamily="@font/googlesans"
+            android:padding="4dp"
+            />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/fallingsky"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                tools:text="RS VYAS"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/phone"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/opensans"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/name"
-                tools:text=" 9099909999"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/position"
-                android:textStyle="bold"
-                android:fontFamily="serif-monospace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/phone"
-                tools:text="Position"
-                android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/materiablue"
+            android:layout_below="@id/emptyview"
+            android:layout_alignParentEnd="true"
+            android:text=">"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:id="@+id/arrow"
+            android:fontFamily="@font/googlesans"
+            android:padding="4dp"
+            />
+    </RelativeLayout>
 
 
-        </RelativeLayout>
-    </LinearLayout>
 </android.support.v7.widget.CardView>
