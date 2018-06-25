@@ -41,7 +41,6 @@ public class mainActivity extends AppCompatActivity {
         {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-
             msectionAdapter = new sectionAdapter(getSupportFragmentManager());
             pager.setAdapter(msectionAdapter);
             tablayout.setupWithViewPager(pager);
@@ -63,8 +62,6 @@ public class mainActivity extends AppCompatActivity {
     }
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
         return cm.getActiveNetworkInfo() != null;
     }
-
 }
