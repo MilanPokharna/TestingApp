@@ -5,6 +5,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_scrolling">RS Vyas</string>
+    <string name="passwordless_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="passwordless_title_text">Passwordless Sign In</string>
+    <string name="status_email_not_sent">Send link to your email to get started.</string>
+    <string name="status_email_sent">Link sent, check your email to continue.</string>
+    <string name="status_link_found">Link received, enter email to sign in.</string>
+    <string name="signed_in">Signed In</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="label_passwordless">Passwordless Authentication</string>
+    <string name="desc_passwordless">Use only an email to authenticate with Firebase.</string>
+
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

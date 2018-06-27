@@ -35,12 +35,19 @@
         </activity>
         <activity
             android:name=".activities.MapsActivity"
-            android:screenOrientation="userPortrait"></activity>
+            android:screenOrientation="userPortrait" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="yoursite.example.com" android:scheme="http"/>
+                <data android:host="yoursite.example.com" android:scheme="https"/>
             </intent-filter>
         </activity>
     </application>

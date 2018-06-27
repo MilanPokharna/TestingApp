@@ -2,6 +2,9 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="title_bottom_margin">16dp</dimen>
+    <dimen name="icon_top_margin">24dp</dimen>
+    <dimen name="icon_bottom_margin">24dp</dimen>
     <dimen name="detail_backdrop_height">300dp</dimen>
     <dimen name="backdrop_title">30dp</dimen>
     <dimen name="backdrop_subtitle">18dp</dimen>
