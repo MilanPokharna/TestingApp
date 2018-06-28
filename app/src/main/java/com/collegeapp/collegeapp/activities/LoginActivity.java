@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                         false, /* install if not available? */
                         null   /* minimum app version */)
                 .setHandleCodeInApp(true)
-                .setUrl("https://auth.example.com/emailSignInLink")
+                .setUrl("https://com.collegeapp.collegeapp/finishSignUp?cardId=1234")
                 .build();
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
