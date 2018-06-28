@@ -17,7 +17,7 @@
 
         <!-- New MaterialComponents attributes. -->
         <item name="colorSecondary">?attr/colorPrimary</item>
-        <item name="scrimBackground">@color/mtrl_scrim_color</item>
+        <item name="scrimBackground" tools:ignore="PrivateResource">@color/mtrl_scrim_color</item>
         <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
 
     </style>
@@ -78,7 +78,7 @@
     </style>
 
     <style name="ToolBarWithNavigationBack">
-        <item name="navigationIcon">@drawable/abc_ic_ab_back_material</item>
+        <item name="navigationIcon" tools:ignore="PrivateResource">@drawable/abc_ic_ab_back_material</item>
     </style>
 
     <style name="CollapsingTextAppearance" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title"/>
