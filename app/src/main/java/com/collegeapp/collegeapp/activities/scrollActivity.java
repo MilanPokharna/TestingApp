@@ -74,7 +74,7 @@ public class scrollActivity extends AppCompatActivity implements AppBarLayout.On
             myref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String a = dataSnapshot.child(key).child("image").getValue().toString();
+                    String a = (String) dataSnapshot.child(key).child("image").getValue();
                     Glide.with(getApplicationContext()).load(a).into(mProfileImage);
                 }
 
