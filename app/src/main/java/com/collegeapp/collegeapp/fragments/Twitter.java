@@ -86,8 +86,6 @@ public class Twitter extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
                     userList.add(user);
-                    Toast.makeText(getContext(), snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
-
                 }
                 adapter = new TwitterAdapter(getContext(), userList);
                 twitterRecycler.setAdapter(adapter);

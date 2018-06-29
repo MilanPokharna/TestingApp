@@ -65,12 +65,11 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(LoginActivity.this);
         open();
 
-
-
         mAuth= FirebaseAuth.getInstance();
-
+        user = mAuth.getCurrentUser();
         googleButton = (Button) findViewById(R.id.signIn);
         googleButton.setVisibility(View.VISIBLE);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -92,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
-
     }
 
 
@@ -128,8 +126,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         updateUI(user);
-
-
     }
 
     private void updateUI(FirebaseUser user) {
