@@ -2,8 +2,11 @@ package com.collegeapp.collegeapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,12 +19,19 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import android.app.ProgressDialog;
 import butterknife.BindView;
@@ -52,6 +62,8 @@ public class NewPostActivity extends AppCompatActivity {
     public FirebaseUser user;
     Uri image;
     ProgressDialog progressDialog;
+    int CAMERA_REQUEST = 1;
+    StorageReference reference = FirebaseStorage.getInstance().getReference().child("images");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,48 +81,80 @@ public class NewPostActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.closeButton:
-                startActivity(new Intent(NewPostActivity.this,mainActivity.class));
+                startActivity(new Intent(NewPostActivity.this, mainActivity.class));
                 break;
-            case R.id.postButton:
-            {
+            case R.id.postButton: {
                 progressDialog.setMessage("Uploading Post");
                 progressDialog.setCancelable(false);
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
                 String des = Description.getText().toString();
-                if (!(TextUtils.isEmpty(des)))
-                {
+                if (!(TextUtils.isEmpty(des))) {
 
                     myref = myref.push();
                     myref.child("email").setValue(user.getEmail());
                     myref.child("name").setValue(user.getDisplayName());
                     myref.child("postdata").setValue(des);
-                    String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+                    final String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
                     myref.child("posttime").setValue(mydate);
-                    if (postImage.getDrawable() == null)
+                    if (postImage.getDrawable() == null) {
+                        Toast.makeText(this, "No Image Selected", Toast.LENGTH_SHORT).show();
                         myref.child("postimage").setValue("0");
-                    else {
-                        Toast.makeText(this, "image is not Uploaded", Toast.LENGTH_SHORT).show();
-                        myref.child("postimage").setValue("0");
+                        myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                progressDialog.cancel();
+                                startActivity(new Intent(NewPostActivity.this, mainActivity.class));
+                            }
+                        });
+                    } else {
+                        reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Uri uri = taskSnapshot.getUploadSessionUri();
+                                Toast.makeText(NewPostActivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
+//                                myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        progressDialog.cancel();
+//                                        startActivity(new Intent(NewPostActivity.this, mainActivity.class));
+//                                    }
+//                                });
+                            }
+                        });
                     }
-                    myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            progressDialog.cancel();
-                            startActivity(new Intent(NewPostActivity.this,mainActivity.class));
-                        }
-                    });
+
                 }
             }
-                break;
+            break;
             case R.id.imageRemoveButton:
                 postImage.setVisibility(View.GONE);
                 imageRemoveButton.setVisibility(View.GONE);
                 break;
-            case R.id.CameraIntent:
-                break;
+            case R.id.CameraIntent: {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            }
+            break;
             case R.id.ImageChooser:
                 break;
         }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == CAMERA_REQUEST) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            postImage.setVisibility(View.VISIBLE);
+//            image = getImageUri(getApplicationContext(), photo);
+            postImage.setImageBitmap(photo);
+        }
+    }
+
+    private Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }
