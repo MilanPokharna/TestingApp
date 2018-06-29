@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -84,13 +85,13 @@ public class NewPostActivity extends AppCompatActivity {
                 startActivity(new Intent(NewPostActivity.this, mainActivity.class));
                 break;
             case R.id.postButton: {
-                progressDialog.setMessage("Uploading Post");
-                progressDialog.setCancelable(false);
-                progressDialog.setCanceledOnTouchOutside(false);
-                progressDialog.show();
+
                 String des = Description.getText().toString();
                 if (!(TextUtils.isEmpty(des))) {
-
+                    progressDialog.setMessage("Uploading Post");
+                    progressDialog.setCancelable(false);
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.show();
                     myref = myref.push();
                     myref.child("email").setValue(user.getEmail());
                     myref.child("name").setValue(user.getDisplayName());
@@ -111,8 +112,8 @@ public class NewPostActivity extends AppCompatActivity {
                         reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Uri uri = taskSnapshot.getUploadSessionUri();
-                                Toast.makeText(NewPostActivity.this, uri.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NewPostActivity.this, taskSnapshot.getTask().getResult().toString(), Toast.LENGTH_LONG).show();
+                                progressDialog.cancel();
 //                                myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
 //                                    @Override
 //                                    public void onSuccess(Void aVoid) {
@@ -124,6 +125,10 @@ public class NewPostActivity extends AppCompatActivity {
                         });
                     }
 
+                }
+                else
+                {
+                    Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
                 }
             }
             break;
@@ -146,7 +151,7 @@ public class NewPostActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             postImage.setVisibility(View.VISIBLE);
-//            image = getImageUri(getApplicationContext(), photo);
+            image = getImageUri(getApplicationContext(), photo);
             postImage.setImageBitmap(photo);
         }
     }
