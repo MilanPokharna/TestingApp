@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
+import android.app.ProgressDialog;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.activities.NewPostActivity;
 import com.collegeapp.collegeapp.adapters.TwitterAdapter;
@@ -53,6 +53,7 @@ public class Twitter extends Fragment {
     FloatingActionButton fab;
     @BindView(R.id.twitter_recycler)
     RecyclerView twitterRecycler;
+    ProgressDialog progressDialog;
 
     public Twitter() {
     }
@@ -62,6 +63,7 @@ public class Twitter extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_twitter, container, false);
         unbinder = ButterKnife.bind(this, view);
+        progressDialog = new ProgressDialog(getActivity());
         return view;
     }
 
@@ -69,6 +71,10 @@ public class Twitter extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
+        progressDialog.setMessage("Loading");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         loadData();
     }
 
@@ -89,7 +95,7 @@ public class Twitter extends Fragment {
                 }
                 adapter = new TwitterAdapter(getContext(), userList);
                 twitterRecycler.setAdapter(adapter);
-
+                progressDialog.cancel();
             }
 
             @Override

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/app_bar_fav"
+        android:title="News Feed"
+        android:icon="@drawable/ic_featured_play_list_black_24dp"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/app_bar_search"
+        android:icon="@drawable/ic_inbox_black_24dp"
+        android:title="My Profile"
+        app:showAsAction="never"/>
+    </group>
+</menu>
