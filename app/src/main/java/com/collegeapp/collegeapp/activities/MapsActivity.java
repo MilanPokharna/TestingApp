@@ -157,7 +157,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    @SuppressLint("StaticFieldLeak")
     private class ParserTask extends AsyncTask<String,Integer, List<List<HashMap<String , String >>>> {
         @Override
         protected List<List<HashMap<String, String>>> doInBackground(

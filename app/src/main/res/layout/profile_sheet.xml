@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#fff"
     android:orientation="vertical"
-    android:padding="8dp"
     app:behavior_hideable="true"
-    app:behavior_peekHeight="56dp"
+    app:behavior_peekHeight="36dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_sheet"
+        android:id="@+id/empty"/>
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,18 +22,23 @@
             android:layout_width="match_parent"
             style="@style/Widget.MaterialComponents.BottomAppBar"
             android:backgroundTint="@color/colorPrimary"
-            android:layout_gravity="start"
-            android:layout_height="40dp">
+            android:layout_marginTop="32dp"
+            android:layout_height="wrap_content"
+            app:fabCradleRoundedCornerRadius="60dp"
+            app:fabCradleMargin="0.1dp">
 
         </android.support.design.bottomappbar.BottomAppBar>
         <android.support.design.widget.FloatingActionButton
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
             android:id="@+id/fab"
             app:backgroundTint="@color/materialorange"
             android:src="@drawable/ic_mode_edit_black_24dp"
-            app:layout_anchor="@id/bar"/>
+            app:layout_anchor="@id/bar"
+            />
+
 
     </android.support.design.widget.CoordinatorLayout>
 
-</LinearLayout>
+</FrameLayout>

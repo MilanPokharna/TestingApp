@@ -1,8 +1,9 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/materiablue</item>
@@ -11,13 +12,14 @@
     <style name="Theme.MyApp" parent="Theme.MaterialComponents.NoActionBar">
 
         <!-- Original AppCompat attributes. -->
+        <item name="android:fontFamily">@font/googlesans</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/materiablue</item>
 
         <!-- New MaterialComponents attributes. -->
         <item name="colorSecondary">?attr/colorPrimary</item>
-        <item name="scrimBackground" tools:ignore="PrivateResource">@color/mtrl_scrim_color</item>
+        <item name="scrimBackground">@color/mtrl_scrim_color</item>
         <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
 
     </style>
@@ -40,80 +42,18 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@android:color/darker_gray</item>
-    </style>
-    <style name="ThemeOverlay.FirebaseIcon" parent="AppTheme">
-        <item name="android:layout_marginTop">@dimen/icon_top_margin</item>
-        <item name="android:layout_marginBottom">@dimen/icon_bottom_margin</item>
+
     </style>
 
-    <style name="ThemeOverlay.MyTextDetail" parent="AppTheme">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:fadeScrollbars">true</item>
-        <item name="android:gravity">center</item>
-        <item name="android:maxLines">5</item>
-        <item name="android:padding">4dp</item>
-        <item name="android:scrollbars">vertical</item>
-        <item name="android:textSize">14sp</item>
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
     </style>
 
-    <style name="ThemeOverlay.MyDarkButton" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="colorButtonNormal">@color/grey_500</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:layout_marginRight">4dp</item>
-        <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:textColor">@android:color/white</item>
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
-
-    <style name="ThemeOverlay.MyTitleText" parent="AppTheme">
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">36sp</item>
+    <style name="MyTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Original AppCompat attributes. -->
+        <item name="colorPrimaryDark">#563D81</item>
     </style>
-
-
-
-    <style name="AppTheme.SimpleCoordinatorTheme">
-        <item name="android:windowDrawsSystemBarBackgrounds" tools:ignore="NewApi">true</item>
-        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
-    </style>
-
-    <style name="ToolBarWithNavigationBack">
-        <item name="navigationIcon" tools:ignore="PrivateResource">@drawable/abc_ic_ab_back_material</item>
-    </style>
-
-    <style name="CollapsingTextAppearance" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title"/>
-    <style name="CollapsingTextAppearance.Inverse" >
-        <item name="android:textSize">30sp</item>
-    </style>
-
-
-    <style name="TextComponent"/>
-
-    <style name="TextComponent.ItemRow">
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:minHeight">48dp</item>
-    </style>
-
-    <style name="TextComponent.ItemRow.Selectable">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:clickable">true</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-    </style>
-
-
-
-    <style name="TextAppearance" parent="TextAppearance.AppCompat"/>
-    <style name="TextAppearance.Header">
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textColor">?colorAccent</item>
-    </style>
-
-    <style name="TextAppearance.ItemExample">
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">#5f5f5f</item>
-    </style>
-
 </resources>

@@ -8,6 +8,58 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:416842227130:android:8557501f05b78058",
+        "android_client_info": {
+          "package_name": "com.android.rajsingh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416842227130-ape24psst3sbnkaoep7ubh8e0rragrsl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.rajsingh",
+            "certificate_hash": "9f5974c655253b08fec9bdac4bf52fa646acaf5e"
+          }
+        },
+        {
+          "client_id": "416842227130-ep4fuedrn8lpdhapd07bemmt32tjkal8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.rajsingh",
+            "certificate_hash": "b115f3693d326f3b8b506a4b7432ea473f4d5ab5"
+          }
+        },
+        {
+          "client_id": "416842227130-qsn3ljjar2qk6nk93k4t1llcdq5e4n6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwMRK1e4WKB-JqDg9wji1SmTKlMlajaKI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416842227130-qsn3ljjar2qk6nk93k4t1llcdq5e4n6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:416842227130:android:0e86c6366925b3c2",
         "android_client_info": {
           "package_name": "com.collegeapp.collegeapp"
@@ -23,8 +75,64 @@
           }
         },
         {
+          "client_id": "416842227130-u0kh6jk5b6qc2dfe3l5r54vua1afbtsg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.collegeapp.collegeapp",
+            "certificate_hash": "b115f3693d326f3b8b506a4b7432ea473f4d5ab5"
+          }
+        },
+        {
+          "client_id": "416842227130-b1780q2elf0tl5r8ip4llnd79v9fdnbf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.collegeapp.collegeapp",
+            "certificate_hash": "e806972993ebac8ed1464c0df87005a5fef596c7"
+          }
+        },
+        {
           "client_id": "416842227130-qsn3ljjar2qk6nk93k4t1llcdq5e4n6p.apps.googleusercontent.com",
           "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwMRK1e4WKB-JqDg9wji1SmTKlMlajaKI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416842227130-qsn3ljjar2qk6nk93k4t1llcdq5e4n6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416842227130:android:d7ac3a5df83520f9",
+        "android_client_info": {
+          "package_name": "com.mohit.trial.firebase_notification_sender"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416842227130-d6un198b58hal3mjdmudn0op2qsk6vb7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mohit.trial.firebase_notification_sender",
+            "certificate_hash": "479ea4351ee79bd364e992fd92f4763e8eb09913"
+          }
         },
         {
           "client_id": "416842227130-qsn3ljjar2qk6nk93k4t1llcdq5e4n6p.apps.googleusercontent.com",

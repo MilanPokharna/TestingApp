@@ -36,11 +36,6 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
     public Typeface typeface;
     public List<contacts> templist = new ArrayList<contacts>();
 
-    public RecyclerViewAdaptertwo(Context context, List<contacts> contactsList) {
-        this.context = context;
-        this.templist = contactsList;
-    }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.profileimage)
@@ -69,6 +64,12 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
+
+    public RecyclerViewAdaptertwo(Context context, List<contacts> contactsList) {
+        this.context = context;
+        this.templist = contactsList;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final contacts contacts = templist.get(position);

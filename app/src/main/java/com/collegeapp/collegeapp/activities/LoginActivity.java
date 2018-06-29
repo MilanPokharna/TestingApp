@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                         false, /* install if not available? */
                         null   /* minimum app version */)
                 .setHandleCodeInApp(true)
-                .setUrl("https://com.collegeapp.collegeapp/finishSignUp")
+                .setUrl("https://com.collegeapp.collegeapp/finishSignUp?cardId=1234")
                 .build();
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
