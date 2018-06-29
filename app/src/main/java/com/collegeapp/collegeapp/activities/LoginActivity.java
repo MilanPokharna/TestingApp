@@ -157,8 +157,6 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 updateUI(null);
                             }
-
-                            // ...
                         }
                     });
 
@@ -170,7 +168,6 @@ public class LoginActivity extends AppCompatActivity {
             googleButton.setVisibility(View.VISIBLE);
 
         }
-//
     }
 
 
