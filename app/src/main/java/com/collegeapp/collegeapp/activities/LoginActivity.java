@@ -45,7 +45,7 @@ import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1;
     private TextView mStatusTextView;
@@ -62,7 +62,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_login );
-        progressDialog = new ProgressDialog(Login.this);
+        progressDialog = new ProgressDialog(LoginActivity.this);
         open();
 
 
@@ -135,7 +135,7 @@ public class Login extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             progressDialog.dismiss();
-            Intent intent = new Intent(Login.this,mainActivity.class);
+            Intent intent = new Intent(LoginActivity.this,mainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -231,7 +231,7 @@ public class Login extends AppCompatActivity {
 
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder( Login.this )
+        new AlertDialog.Builder( LoginActivity.this )
                 .setMessage( message )
                 .setPositiveButton( "OK", okListener )
                 .create()
