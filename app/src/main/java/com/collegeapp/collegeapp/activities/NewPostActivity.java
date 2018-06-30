@@ -114,13 +114,13 @@ public class NewPostActivity extends AppCompatActivity {
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 Toast.makeText(NewPostActivity.this, taskSnapshot.getTask().getResult().toString(), Toast.LENGTH_LONG).show();
                                 progressDialog.cancel();
-//                                myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        progressDialog.cancel();
-//                                        startActivity(new Intent(NewPostActivity.this, mainActivity.class));
-//                                    }
-//                                });
+                               myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                   @Override
+                                   public void onSuccess(Void aVoid) {
+                                       progressDialog.cancel();
+                                       startActivity(new Intent(NewPostActivity.this, mainActivity.class));
+                                   }
+                               });
                             }
                         });
                     }
