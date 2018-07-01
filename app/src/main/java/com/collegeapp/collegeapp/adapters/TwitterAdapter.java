@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.models.User;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -23,10 +26,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHolder> {
     Context context;
     List<User> userList;
+    StorageReference ref = FirebaseStorage.getInstance().getReference().child("images");
+    StorageReference reference = FirebaseStorage.getInstance().getReference();
 
     public TwitterAdapter(Context context, List<User> user) {
         this.context = context;
         this.userList = user;
+
     }
 
 
@@ -53,8 +59,10 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
         }
         else
         {
+            reference = ref.child(user.getPostimage());
             holder.postimg.setVisibility(View.VISIBLE);
-            Glide.with(context.getApplicationContext()).load(user.getPostimage()).into(holder.postimg);
+            //Glide.with(context.getApplicationContext()).load(user.getPostimage()).into(holder.postimg);
+            Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(holder.postimg);
         }
         holder.description.setText(user.getPostdata());
 

@@ -73,4 +73,9 @@ public class mainActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
 }

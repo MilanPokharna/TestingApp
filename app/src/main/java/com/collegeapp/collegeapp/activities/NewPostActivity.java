@@ -64,6 +64,8 @@ public class NewPostActivity extends AppCompatActivity {
     Uri image;
     ProgressDialog progressDialog;
     int CAMERA_REQUEST = 1;
+    public static final int PICK_IMAGE = 2;
+    String string;
     StorageReference reference = FirebaseStorage.getInstance().getReference().child("images");
 
     @Override
@@ -93,6 +95,7 @@ public class NewPostActivity extends AppCompatActivity {
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
                     myref = myref.push();
+                    string = myref.getKey().toString();
                     myref.child("email").setValue(user.getEmail());
                     myref.child("name").setValue(user.getDisplayName());
                     myref.child("postdata").setValue(des);
@@ -108,19 +111,20 @@ public class NewPostActivity extends AppCompatActivity {
                                 startActivity(new Intent(NewPostActivity.this, mainActivity.class));
                             }
                         });
-                    } else {
-                        reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    }
+                    else {
+                        reference.child(string).putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Toast.makeText(NewPostActivity.this, taskSnapshot.getTask().getResult().toString(), Toast.LENGTH_LONG).show();
+                                myref.child("postimage").setValue(string);
                                 progressDialog.cancel();
-//                                myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        progressDialog.cancel();
-//                                        startActivity(new Intent(NewPostActivity.this, mainActivity.class));
-//                                    }
-//                                });
+                                myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        progressDialog.cancel();
+                                        startActivity(new Intent(NewPostActivity.this, mainActivity.class));
+                                    }
+                                });
                             }
                         });
                     }
@@ -142,17 +146,30 @@ public class NewPostActivity extends AppCompatActivity {
             }
             break;
             case R.id.ImageChooser:
+            {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+            }
                 break;
         }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == CAMERA_REQUEST) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            postImage.setVisibility(View.VISIBLE);
-            image = getImageUri(getApplicationContext(), photo);
-            postImage.setImageBitmap(photo);
+        if (resultCode != RESULT_CANCELED) {
+            if ((requestCode == CAMERA_REQUEST) && (data != null)) {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                postImage.setVisibility(View.VISIBLE);
+                imageRemoveButton.setVisibility(View.VISIBLE);
+                image = getImageUri(getApplicationContext(), photo);
+                postImage.setImageBitmap(photo);
+            }
+            else if ((requestCode == PICK_IMAGE) && (data != null)) {
+                image = data.getData();
+                postImage.setImageURI(image);
+            }
         }
     }
 
