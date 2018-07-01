@@ -56,6 +56,7 @@ public class Twitter extends Fragment {
     ProgressDialog progressDialog;
 
     public Twitter() {
+        //only constructor
     }
 
     @Override
