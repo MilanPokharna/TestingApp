@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.collegeapp.collegeapp.Manifest;
 import com.collegeapp.collegeapp.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -41,6 +42,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -180,14 +183,21 @@ public class LoginActivity extends AppCompatActivity {
     public Boolean checkPermission()
     {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(),INTERNET);
-
-        return result == PackageManager.PERMISSION_GRANTED ;
+        int result2 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
+        int result3 = ContextCompat.checkSelfPermission(getApplicationContext(),WRITE_EXTERNAL_STORAGE);
+        int result4 = ContextCompat.checkSelfPermission(getApplicationContext(),ACCESS_FINE_LOCATION);
+        int result5 = ContextCompat.checkSelfPermission(getApplicationContext(),STORAGE_SERVICE);
+        return (result == PackageManager.PERMISSION_GRANTED
+                && result2 == PackageManager.PERMISSION_GRANTED
+                && result3 == PackageManager.PERMISSION_GRANTED
+                && result4 == PackageManager.PERMISSION_GRANTED
+                && result5 == PackageManager.PERMISSION_GRANTED ) ;
     }
 
     public  void requestPermission()
     {
         int requestCode;
-        ActivityCompat.requestPermissions(this,new String[]{WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,INTERNET},requestCode=1);
+        ActivityCompat.requestPermissions(this,new String[]{CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,INTERNET},requestCode=1);
     }
 
     @Override
@@ -214,10 +224,7 @@ public class LoginActivity extends AppCompatActivity {
                             return;
                         }
                     }
-
                 }
-
-
                 break;
         }
     }

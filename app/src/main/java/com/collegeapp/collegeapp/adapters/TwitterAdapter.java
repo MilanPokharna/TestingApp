@@ -50,7 +50,6 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
 
         User user=userList.get(i);
         holder.name.setText(user.getName());
-        holder.email.setText(user.getEmail());
         holder.date.setText(user.getPosttime());
         Glide.with(context.getApplicationContext()).load(user.getProfileimage()).into(holder.profileimg);
         String postimage = user.getPostimage();
@@ -77,12 +76,8 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
         CircleImageView profileimg;
         @BindView(R.id.name)
         TextView name;
-        @BindView(R.id.email)
-        TextView email;
         @BindView(R.id.date)
         TextView date;
-        @BindView(R.id.lin)
-        LinearLayout lin;
         @BindView(R.id.description)
         TextView description;
         @BindView(R.id.postimg)

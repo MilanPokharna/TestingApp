@@ -38,10 +38,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.mainActivity" />
         </activity>
+        <activity android:name=".activities.NewPostActivity"/>
         <activity
             android:name=".activities.MapsActivity"
             android:screenOrientation="userPortrait" />
-        <activity android:name=".activities.NewPostActivity" />
         <activity android:name=".activities.LoginActivity"
             android:theme="@style/MyTheme">
             <intent-filter>
