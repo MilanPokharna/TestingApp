@@ -6,4 +6,5 @@
     <dimen name="backdrop_title">30dp</dimen>
     <dimen name="backdrop_subtitle">18dp</dimen>
     <dimen name="App_bar_height">320dp</dimen>
+    <dimen name="card_padding">60dp</dimen>
 </resources>
