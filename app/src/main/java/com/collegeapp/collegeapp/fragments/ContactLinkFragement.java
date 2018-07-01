@@ -40,7 +40,7 @@ public class ContactLinkFragement extends Fragment {
     TextView facebookid;
     @BindView(R.id.emailid)
     TextView emailid;
-    @BindView(R.id.phone)
+    @BindView(R.id.linkedinid)
     TextView phone;
     Unbinder unbinder;
 

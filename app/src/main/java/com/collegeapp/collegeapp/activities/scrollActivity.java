@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class scrollActivity extends AppCompatActivity {
 
@@ -34,7 +36,14 @@ public class scrollActivity extends AppCompatActivity {
     @BindView(com.collegeapp.collegeapp.R.id.tool_bar)
     Toolbar toolbar;
     @BindView(R.id.profileImg)
-    ImageView profileimage;
+    CircleImageView profileimage;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.position)
+    TextView position;
+    @BindView(R.id.phone)
+    TextView phone;
+
     private boolean mShowingFragments = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +63,12 @@ public class scrollActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String a = dataSnapshot.child(key).child("image").getValue().toString();
+                String na = dataSnapshot.child(key).child("name").getValue().toString();
+                String ph = dataSnapshot.child(key).child("pos").getValue().toString();
+                String num = dataSnapshot.child(key).child("number").getValue().toString();
+                name.setText(na);
+                position.setText(ph);
+                phone.setText(ph);
                 Glide.with(getApplicationContext()).load(a).into(profileimage);
             }
 
