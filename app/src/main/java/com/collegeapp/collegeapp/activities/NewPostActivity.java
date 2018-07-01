@@ -158,6 +158,7 @@ public class NewPostActivity extends AppCompatActivity {
             break;
             case R.id.imageRemoveButton:
                 postImage.setVisibility(View.GONE);
+                image = null;
                 imageRemoveButton.setVisibility(View.GONE);
                 break;
             case R.id.CameraIntent: {
@@ -167,7 +168,7 @@ public class NewPostActivity extends AppCompatActivity {
                 }
                 else
                 {
-
+                    requestPermission();
                 }
             }
             break;
@@ -179,6 +180,10 @@ public class NewPostActivity extends AppCompatActivity {
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
                 }
+                else
+                {
+                    requestPermission();
+                }
             }
             break;
         }
@@ -188,13 +193,10 @@ public class NewPostActivity extends AppCompatActivity {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(),INTERNET);
         int result2 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
         int result3 = ContextCompat.checkSelfPermission(getApplicationContext(),WRITE_EXTERNAL_STORAGE);
-        int result4 = ContextCompat.checkSelfPermission(getApplicationContext(),ACCESS_FINE_LOCATION);
-        int result5 = ContextCompat.checkSelfPermission(getApplicationContext(),STORAGE_SERVICE);
         return (result == PackageManager.PERMISSION_GRANTED
                 && result2 == PackageManager.PERMISSION_GRANTED
                 && result3 == PackageManager.PERMISSION_GRANTED
-                && result4 == PackageManager.PERMISSION_GRANTED
-                && result5 == PackageManager.PERMISSION_GRANTED ) ;
+                 ) ;
     }
     public  void requestPermission()
     {

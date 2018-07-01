@@ -2,16 +2,20 @@ package com.collegeapp.collegeapp.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
+import com.collegeapp.collegeapp.fragments.Canteen;
 import com.collegeapp.collegeapp.models.User;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
@@ -64,6 +68,12 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
             Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(holder.postimg);
         }
         holder.description.setText(user.getPostdata());
+        holder.postimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
 
@@ -82,6 +92,7 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
         TextView description;
         @BindView(R.id.postimg)
         ImageView postimg;
+
 
         public ViewHolder(View itemView) {
             super(itemView);

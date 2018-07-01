@@ -20,6 +20,7 @@
 </FrameLayout>
 
 
+
     <android.support.design.bottomappbar.BottomAppBar
         android:id="@+id/bar"
         android:layout_width="match_parent"
