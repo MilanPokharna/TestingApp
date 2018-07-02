@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -112,6 +113,7 @@ public class fragment_my_post extends Fragment {
                     String a = snapshot.getValue().toString();
                     userList.add(a);
                 }
+                Collections.reverse(userList);
                 adapter = new profileAdapter(getContext(), userList);
                 recyclerView.setAdapter(adapter);
                 progressDialog.cancel();

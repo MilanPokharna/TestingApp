@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -101,6 +102,7 @@ public class Twitter extends Fragment {
                     User user = snapshot.getValue(User.class);
                     userList.add(user);
                 }
+                Collections.reverse(userList);
                 adapter = new TwitterAdapter(getContext(), userList);
                 twitterRecycler.setAdapter(adapter);
                 progressDialog.cancel();
