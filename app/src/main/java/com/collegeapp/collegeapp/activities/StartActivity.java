@@ -46,8 +46,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -358,14 +361,33 @@ public class StartActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                String a = user.getUid().toString();
-                                mref.child(a).child("email").setValue(user.getEmail().toString());
-                                mref.child(a).child("name").setValue(user.getDisplayName().toString());
-                                mref.child(a).child("uid").setValue(user.getUid().toString());
-                                mref.child(a).child("value").setValue("0");
-                                progressDialog.dismiss();
-                                updateUI(user);
+                                final FirebaseUser user = mAuth.getCurrentUser();
+                                final String a = user.getUid().toString();
+                                mref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.hasChild(a))
+                                        {
+                                            progressDialog.dismiss();
+                                            updateUI(user);
+                                        }
+                                        else
+                                            {
+                                            mref.child(a).child("email").setValue(user.getEmail().toString());
+                                            mref.child(a).child("name").setValue(user.getDisplayName().toString());
+                                            mref.child(a).child("uid").setValue(user.getUid().toString());
+                                            mref.child(a).child("value").setValue("0");
+                                            progressDialog.dismiss();
+                                            updateUI(user);
+                                            }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
                             } else {
                                 updateUI(null);
                             }

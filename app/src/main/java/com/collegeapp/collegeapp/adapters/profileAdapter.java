@@ -87,7 +87,7 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
         viewHolder.dustbin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(context.getApplicationContext());
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
                 dialog.setTitle("Remove This Post");
                 dialog.setCancelable(false);
                 dialog.setMessage("Are you sure?");
