@@ -6,10 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.models.canteen;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +27,7 @@ public class staggeredgridviewadapter extends RecyclerView.Adapter<staggeredgrid
 
     public Context context;
     public List<canteen> canteenlist = new ArrayList<>();
-
+    StorageReference reference = FirebaseStorage.getInstance().getReference().child("canteen");
 
     public staggeredgridviewadapter(Context context, List<canteen> list) {
         this.canteenlist = list;
@@ -40,6 +46,8 @@ public class staggeredgridviewadapter extends RecyclerView.Adapter<staggeredgrid
         TextView dish;
         @BindView(R.id.dishprice)
         TextView dishprice;
+        @BindView(R.id.i)
+        ImageView img;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,6 +61,9 @@ public class staggeredgridviewadapter extends RecyclerView.Adapter<staggeredgrid
         canteen var = canteenlist.get(i);
         viewHolder.dish.setText(var.getDish().toString());
         viewHolder.dishprice.setText(var.getDishprice().toString());
+        String a = var.getImg();
+        Toast.makeText(context, a, Toast.LENGTH_SHORT).show();
+        Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference.child(a)).into(viewHolder.img);
     }
 
     @Override

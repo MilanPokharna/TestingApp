@@ -237,11 +237,13 @@ public class NewPostActivity extends AppCompatActivity {
         if (resultCode != RESULT_CANCELED) {
             if ((requestCode == CAMERA_REQUEST) && (data != null)) {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
+                cardv.setVisibility(View.VISIBLE);
                 postImage.setVisibility(View.VISIBLE);
                 imageRemoveButton.setVisibility(View.VISIBLE);
                 image = getImageUri(getApplicationContext(), photo);
                 postImage.setImageBitmap(photo);
             } else if ((requestCode == PICK_IMAGE) && (data != null)) {
+                cardv.setVisibility(View.VISIBLE);
                 image = data.getData();
                 postImage.setImageURI(image);
                 imageRemoveButton.setVisibility(View.VISIBLE);

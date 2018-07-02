@@ -85,7 +85,7 @@ public class Twitter extends Fragment {
         twitterRecycler.setHasFixedSize(true);
         twitterRecycler.setLayoutManager(layoutManager);
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
-
+        userList.clear();
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
