@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     Button googleButton;
     private FirebaseAuth mAuth;
     FirebaseUser user;
-    DatabaseReference mref;
+    DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
     ProgressDialog progressDialog;
 
 
@@ -88,14 +89,39 @@ public class LoginActivity extends AppCompatActivity {
         googleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.setMessage("Logging you in");
-                progressDialog.show();
-                googleButton.setVisibility(View.GONE);
-                signIn();
-            }
+                clickme();
+    }
         });
     }
+    public void clickme()
+    {
+        if (isNetworkConnected()) {
+            progressDialog.setMessage("Logging you in");
+            progressDialog.show();
+            googleButton.setVisibility(View.GONE);
+            signIn();
+        }
+        else
+        {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
+            dialog.setTitle("Connectino Error ");
+            dialog.setCancelable(false);
+            dialog.setMessage("Unable to connect with the server.\n Check your Internet connection and try again." );
+            dialog.setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    clickme();
+                }
+            }).show();
+        }
+    }
 
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
+    }
 
     public void signIn()
     {
@@ -152,6 +178,10 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                String a = user.getUid().toString();
+                                mref.child(a).child("email").setValue(user.getEmail().toString());
+                                mref.child(a).child("name").setValue(user.getDisplayName().toString());
+                                mref.child(a).child("uid").setValue(user.getUid().toString());
                                 updateUI(user);
                             } else {
                                 updateUI(null);

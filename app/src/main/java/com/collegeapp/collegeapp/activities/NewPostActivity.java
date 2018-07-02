@@ -67,6 +67,7 @@ public class NewPostActivity extends AppCompatActivity {
     @BindView(R.id.ImageChooser)
     ImageButton ImageChooser;
     DatabaseReference myref = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference refe = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
     public FirebaseAuth mauth = FirebaseAuth.getInstance();
     public FirebaseUser user;
     Uri image;
@@ -107,6 +108,8 @@ public class NewPostActivity extends AppCompatActivity {
                     progressDialog.show();
                     myref = myref.push();
                     string = myref.getKey().toString();
+                    refe = refe.child(user.getUid());
+                    refe.push().setValue(string);
                     myref.child("email").setValue(user.getEmail());
                     myref.child("name").setValue(user.getDisplayName());
                     myref.child("postdata").setValue(des);

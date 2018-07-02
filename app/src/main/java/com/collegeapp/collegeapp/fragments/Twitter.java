@@ -1,6 +1,9 @@
 package com.collegeapp.collegeapp.fragments;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import android.app.ProgressDialog;
 import com.collegeapp.collegeapp.R;
+import com.collegeapp.collegeapp.activities.LoginActivity;
 import com.collegeapp.collegeapp.activities.NewPostActivity;
 import com.collegeapp.collegeapp.adapters.TwitterAdapter;
 import com.collegeapp.collegeapp.models.User;
@@ -35,6 +40,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class Twitter extends Fragment {
 
@@ -77,6 +84,7 @@ public class Twitter extends Fragment {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         loadData();
+
     }
 
     private void loadData() {
