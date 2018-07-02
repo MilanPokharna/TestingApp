@@ -47,7 +47,6 @@ public class Twitter extends Fragment {
 
 
     DatabaseReference mref;
-    RecyclerView recyclerView;
     TwitterAdapter adapter;
     List<User> userList = new ArrayList<>();
     View v;

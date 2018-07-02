@@ -76,9 +76,6 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
 
             }
         });
-
-
-
     }
 
 
