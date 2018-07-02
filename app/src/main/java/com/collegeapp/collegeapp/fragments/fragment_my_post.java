@@ -45,6 +45,7 @@ public class fragment_my_post extends Fragment {
         View rootview = inflater.inflate(R.layout.myprofile, container, false);
         progressDialog = new ProgressDialog(getActivity());
         user = auth.getCurrentUser();
+        recyclerView = (RecyclerView)rootview.findViewById(R.id.profilerecycler);
         return rootview;
 
     }

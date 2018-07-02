@@ -117,6 +117,7 @@ public class Twitter extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        i = R.id.app_bar_fav;
         unbinder.unbind();
     }
 
