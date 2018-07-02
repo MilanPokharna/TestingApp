@@ -363,6 +363,7 @@ public class StartActivity extends AppCompatActivity {
                                 mref.child(a).child("email").setValue(user.getEmail().toString());
                                 mref.child(a).child("name").setValue(user.getDisplayName().toString());
                                 mref.child(a).child("uid").setValue(user.getUid().toString());
+                                mref.child(a).child("value").setValue("0");
                                 progressDialog.dismiss();
                                 updateUI(user);
                             } else {

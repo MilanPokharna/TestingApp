@@ -2,8 +2,19 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/text"
+        android:text="No Posts Available "
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/googlesans"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/profilerecycler"
         android:padding="10dp"

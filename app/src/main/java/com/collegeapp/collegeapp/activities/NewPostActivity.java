@@ -108,8 +108,9 @@ public class NewPostActivity extends AppCompatActivity {
                     progressDialog.show();
                     myref = myref.push();
                     string = myref.getKey().toString();
-                    refe = refe.child(user.getUid()).child("posts");
-                    refe.push().setValue(string);
+                    refe = refe.child(user.getUid());
+                    refe.child("value").setValue("1");
+                    refe.child("posts").push().setValue(string);
                     myref.child("email").setValue(user.getEmail());
                     myref.child("name").setValue(user.getDisplayName());
                     myref.child("postdata").setValue(des);

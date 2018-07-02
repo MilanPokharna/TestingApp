@@ -81,7 +81,7 @@ public class Canteen extends Fragment {
         dishlist.clear();
 
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("canteen").child(bld);
-        myref.addValueEventListener(new ValueEventListener() {
+        myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren())
