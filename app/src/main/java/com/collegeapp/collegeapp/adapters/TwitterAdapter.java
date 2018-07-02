@@ -30,6 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHolder> {
     Context context;
     List<User> userList;
+
     StorageReference ref = FirebaseStorage.getInstance().getReference().child("images");
     StorageReference reference = FirebaseStorage.getInstance().getReference();
 
@@ -44,6 +45,7 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardfornews, parent, false);
+
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
