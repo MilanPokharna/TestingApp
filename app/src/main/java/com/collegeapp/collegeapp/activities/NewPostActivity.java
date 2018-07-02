@@ -1,6 +1,6 @@
 package com.collegeapp.collegeapp.activities;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,27 +10,22 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -40,14 +35,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
 import java.util.Calendar;
-import android.app.ProgressDialog;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -80,6 +75,8 @@ public class NewPostActivity extends AppCompatActivity {
     public static final int PICK_IMAGE = 2;
     String string;
     StorageReference reference = FirebaseStorage.getInstance().getReference().child("images");
+    @BindView(R.id.cardv)
+    CardView cardv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +87,7 @@ public class NewPostActivity extends AppCompatActivity {
         user = mauth.getCurrentUser();
         Glide.with(getApplicationContext()).load(user.getPhotoUrl()).into(profileImage);
         imageRemoveButton.setVisibility(View.INVISIBLE);
+        cardv.setVisibility(View.GONE);
         progressDialog = new ProgressDialog(this);
     }
 
@@ -112,7 +110,7 @@ public class NewPostActivity extends AppCompatActivity {
                     myref.child("email").setValue(user.getEmail());
                     myref.child("name").setValue(user.getDisplayName());
                     myref.child("postdata").setValue(des);
-                    final String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+                    final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
                     myref.child("posttime").setValue(mydate);
                     if (postImage.getDrawable() == null) {
                         Toast.makeText(this, "No Image Selected", Toast.LENGTH_SHORT).show();
@@ -124,8 +122,7 @@ public class NewPostActivity extends AppCompatActivity {
                                 startActivity(new Intent(NewPostActivity.this, mainActivity.class));
                             }
                         });
-                    }
-                    else {
+                    } else {
                         reference.child(string).putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -149,39 +146,33 @@ public class NewPostActivity extends AppCompatActivity {
                         });
                     }
 
-                }
-                else
-                {
+                } else {
                     Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
                 }
             }
             break;
             case R.id.imageRemoveButton:
+                postImage.setImageDrawable(null);
                 postImage.setVisibility(View.GONE);
-                image = null;
+                cardv.setVisibility(View.GONE);
                 imageRemoveButton.setVisibility(View.GONE);
                 break;
             case R.id.CameraIntent: {
                 if (check()) {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                }
-                else
-                {
+                } else {
                     requestPermission();
                 }
             }
             break;
-            case R.id.ImageChooser:
-            {
+            case R.id.ImageChooser: {
                 if (check()) {
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-                }
-                else
-                {
+                } else {
                     requestPermission();
                 }
             }
@@ -190,18 +181,18 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
     private boolean check() {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(),INTERNET);
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), INTERNET);
         int result2 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
-        int result3 = ContextCompat.checkSelfPermission(getApplicationContext(),WRITE_EXTERNAL_STORAGE);
+        int result3 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
         return (result == PackageManager.PERMISSION_GRANTED
                 && result2 == PackageManager.PERMISSION_GRANTED
                 && result3 == PackageManager.PERMISSION_GRANTED
-                 ) ;
+        );
     }
-    public  void requestPermission()
-    {
+
+    public void requestPermission() {
         int requestCode;
-        ActivityCompat.requestPermissions(this,new String[]{CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,INTERNET},requestCode=1);
+        ActivityCompat.requestPermissions(this, new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET}, requestCode = 1);
     }
 
     @Override
@@ -214,17 +205,17 @@ public class NewPostActivity extends AppCompatActivity {
                     boolean cameraAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (shouldShowRequestPermissionRationale( WRITE_EXTERNAL_STORAGE )) {
-                            showMessageOKCancel( "You need to allow access to both the permissions",
+                        if (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) {
+                            showMessageOKCancel("You need to allow access to both the permissions",
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                requestPermissions( new String[]{ WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET},
-                                                        1 );
+                                                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET},
+                                                        1);
                                             }
                                         }
-                                    } );
+                                    });
                             return;
                         }
                     }
@@ -232,6 +223,7 @@ public class NewPostActivity extends AppCompatActivity {
                 break;
         }
     }
+
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(NewPostActivity.this)
                 .setMessage(message)
@@ -249,12 +241,13 @@ public class NewPostActivity extends AppCompatActivity {
                 imageRemoveButton.setVisibility(View.VISIBLE);
                 image = getImageUri(getApplicationContext(), photo);
                 postImage.setImageBitmap(photo);
-            }
-            else if ((requestCode == PICK_IMAGE) && (data != null)) {
+            } else if ((requestCode == PICK_IMAGE) && (data != null)) {
                 image = data.getData();
                 postImage.setImageURI(image);
                 imageRemoveButton.setVisibility(View.VISIBLE);
             }
+        } else {
+            Toast.makeText(this, "no image selected", Toast.LENGTH_SHORT).show();
         }
     }
 
