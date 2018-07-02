@@ -100,7 +100,7 @@ public class NewPostActivity extends AppCompatActivity {
                 break;
             case R.id.postButton: {
 
-                String des = Description.getText().toString();
+                String des = Description.getText().toString().trim();
                 if (!(TextUtils.isEmpty(des))) {
                     progressDialog.setMessage("Uploading Post");
                     progressDialog.setCancelable(false);

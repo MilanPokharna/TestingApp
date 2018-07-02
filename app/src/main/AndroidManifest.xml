@@ -42,7 +42,7 @@
         <activity
             android:name=".activities.MapsActivity"
             android:screenOrientation="userPortrait" />
-        <activity android:name=".activities.LoginActivity"
+        <activity android:name=".activities.StartActivity"
             android:theme="@style/MyTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +51,7 @@
             </intent-filter>
 
         </activity>
+        <activity android:name=".activities.LoginActivity"/>
     </application>
 
 </manifest>
