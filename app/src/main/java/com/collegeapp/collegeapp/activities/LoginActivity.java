@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
     ProgressDialog progressDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );

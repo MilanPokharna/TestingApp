@@ -1,49 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
-    app:cardCornerRadius="8dp"
-    android:layout_marginBottom="16dp"
-    >
+    app:cardCornerRadius="8dp">
 
     <!--<FrameLayout-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content">-->
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/i"
         android:src="@drawable/rsvyas"
         android:scaleType="fitXY"/>
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="#66000000" />-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000" />
     <!--</FrameLayout>-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
         <TextView
             android:textAlignment="center"
             android:id="@+id/dish"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/googlesans"
             android:text="dosa"
+            android:textSize="28sp"
             android:textColor="#ffffff" />
 
         <TextView
-            android:textAlignment="center"
             android:id="@+id/dishprice"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dish"
             android:fontFamily="@font/googlesans"
             android:text="rs_50"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:textAlignment="center"
             android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:numStars="5"
+            style="?android:ratingBarStyleSmall"
+            android:stepSize="0.1" />
 
     </RelativeLayout>
+
 
 </android.support.v7.widget.CardView>
