@@ -39,6 +39,8 @@ public class About_usFragement extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     @BindView(R.id.name)
     TextView name;
+    @BindView(R.id.position)
+    TextView position;
     @BindView(R.id.description)
     TextView description;
     Unbinder unbinder;
@@ -80,6 +82,7 @@ public class About_usFragement extends Fragment {
                 sname = (String) dataSnapshot.child("name").getValue();
                 sdesc = (String) dataSnapshot.child("description").getValue();
                 name.setText(sname);
+                position.setText(spos);
                 description.setText(sdesc);
                 progressDialog.dismiss();
             }

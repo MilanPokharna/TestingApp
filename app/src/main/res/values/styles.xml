@@ -56,8 +56,4 @@
         <!-- Original AppCompat attributes. -->
         <item name="colorPrimaryDark">#563D81</item>
     </style>
-    <style name="MyFloatingButton" >
-        <item name="colorAccent">#66000000</item>
-    </style>
-
 </resources>

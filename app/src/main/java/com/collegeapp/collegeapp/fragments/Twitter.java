@@ -1,9 +1,6 @@
 package com.collegeapp.collegeapp.fragments;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,9 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import android.app.ProgressDialog;
+
 import com.collegeapp.collegeapp.R;
-import com.collegeapp.collegeapp.activities.LoginActivity;
 import com.collegeapp.collegeapp.activities.NewPostActivity;
 import com.collegeapp.collegeapp.adapters.TwitterAdapter;
 import com.collegeapp.collegeapp.models.User;
@@ -34,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,12 +36,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import static android.support.v4.content.ContextCompat.getSystemService;
-
 public class Twitter extends Fragment {
 
 
     DatabaseReference mref;
+    RecyclerView recyclerView;
     TwitterAdapter adapter;
     List<User> userList = new ArrayList<>();
     View v;
@@ -60,10 +53,8 @@ public class Twitter extends Fragment {
     FloatingActionButton fab;
     @BindView(R.id.twitter_recycler)
     RecyclerView twitterRecycler;
-    ProgressDialog progressDialog;
 
     public Twitter() {
-        //only constructor
     }
 
     @Override
@@ -71,7 +62,6 @@ public class Twitter extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_twitter, container, false);
         unbinder = ButterKnife.bind(this, view);
-        progressDialog = new ProgressDialog(getActivity());
         return view;
     }
 
@@ -79,12 +69,7 @@ public class Twitter extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
-        progressDialog.setMessage("Loading");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
         loadData();
-
     }
 
     private void loadData() {
@@ -93,7 +78,7 @@ public class Twitter extends Fragment {
         twitterRecycler.setHasFixedSize(true);
         twitterRecycler.setLayoutManager(layoutManager);
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
-        userList.clear();
+
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -101,11 +86,12 @@ public class Twitter extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
                     userList.add(user);
+                    Toast.makeText(getContext(), snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
+
                 }
-                Collections.reverse(userList);
                 adapter = new TwitterAdapter(getContext(), userList);
                 twitterRecycler.setAdapter(adapter);
-                progressDialog.cancel();
+
             }
 
             @Override
@@ -119,7 +105,6 @@ public class Twitter extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        i = R.id.app_bar_fav;
         unbinder.unbind();
     }
 
@@ -141,6 +126,7 @@ public class Twitter extends Fragment {
 
                     case R.id.app_bar_fav:
                         i = menuItem.getItemId();
+                        Toast.makeText(getContext(), "fav", Toast.LENGTH_LONG).show();
                         newFragment = new Twitter();
                         transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
                         transaction.replace(R.id.twitter_recycle, newFragment);
@@ -155,6 +141,7 @@ public class Twitter extends Fragment {
                         transaction.replace(R.id.twitter_recycle, newFragment);
                         transaction.commit();
                         dialog.dismiss();
+                        Toast.makeText(getContext(), "search", Toast.LENGTH_LONG).show();
                         break;
                 }
 
@@ -167,6 +154,7 @@ public class Twitter extends Fragment {
     @OnClick(R.id.fab)
     public void onFabClicked() {
 
+        Toast.makeText(getContext(), "fab", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getActivity(), NewPostActivity.class);
         getActivity().startActivity(intent);
     }

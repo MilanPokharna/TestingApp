@@ -3,7 +3,6 @@ package com.collegeapp.collegeapp.models;
 public class canteen {
     public String dish;
     public String dishprice;
-    public String image;
 
     public String getDish() {
         return dish;
@@ -23,19 +22,9 @@ public class canteen {
 
     public canteen(){}
 
-    public String getImg() {
-        return image;
-    }
-
-    public void setImg(String image) {
-        this.image = image;
-    }
-
-    public canteen(String dish , String dishprice, String image)
+    public canteen(String dish ,String dishprice)
     {
-
         this.dish = dish;
         this.dishprice = dishprice;
-        this.image = image;
     }
 }
