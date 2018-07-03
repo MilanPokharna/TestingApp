@@ -62,7 +62,6 @@ public class staggeredgridviewadapter extends RecyclerView.Adapter<staggeredgrid
         viewHolder.dish.setText(var.getDish().toString());
         viewHolder.dishprice.setText(var.getDishprice().toString());
         String a = var.getImg();
-        Toast.makeText(context, a, Toast.LENGTH_SHORT).show();
         Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference.child(a)).into(viewHolder.img);
     }
 
