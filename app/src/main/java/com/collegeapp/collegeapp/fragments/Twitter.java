@@ -141,7 +141,6 @@ public class Twitter extends Fragment {
 
                     case R.id.app_bar_fav:
                         i = menuItem.getItemId();
-                        Toast.makeText(getContext(), "fav", Toast.LENGTH_LONG).show();
                         newFragment = new Twitter();
                         transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
                         transaction.replace(R.id.twitter_recycle, newFragment);
@@ -156,7 +155,6 @@ public class Twitter extends Fragment {
                         transaction.replace(R.id.twitter_recycle, newFragment);
                         transaction.commit();
                         dialog.dismiss();
-                        Toast.makeText(getContext(), "search", Toast.LENGTH_LONG).show();
                         break;
                 }
 
@@ -169,7 +167,6 @@ public class Twitter extends Fragment {
     @OnClick(R.id.fab)
     public void onFabClicked() {
 
-        Toast.makeText(getContext(), "fab", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getActivity(), NewPostActivity.class);
         getActivity().startActivity(intent);
     }
