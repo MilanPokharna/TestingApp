@@ -17,14 +17,15 @@
         android:layout_height="wrap_content" />
     <ScrollView
         android:scrollbars="vertical"
+        android:layout_marginBottom="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/profilerecycler"
         android:paddingTop="5dp"
+        android:layout_marginBottom="60dp"
         android:paddingLeft="2dp"
         android:layout_width="match_parent"
-        android:layout_marginBottom="60dp"
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
