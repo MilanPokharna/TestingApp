@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.profileAdapter;
+import com.collegeapp.collegeapp.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,10 +34,11 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class fragment_my_post extends Fragment {
-    DatabaseReference mref, ref;
+    DatabaseReference mref, ref,reference;
     RecyclerView recyclerView;
     profileAdapter adapter;
     List<String> userList = new ArrayList<>();
+    List<User> posts = new ArrayList<>();
     View v;
     String uid;
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -113,8 +115,28 @@ public class fragment_my_post extends Fragment {
                     String a = snapshot.getValue().toString();
                     userList.add(a);
                 }
-                Collections.reverse(userList);
-                adapter = new profileAdapter(getContext(), userList);
+                callme2();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void callme2() {
+        reference = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (String z : userList)
+                {
+                    User user = dataSnapshot.child(z).getValue(User.class);
+                    posts.add(user);
+                }
+                Collections.reverse(posts);
+                adapter = new profileAdapter(getContext(), posts);
                 recyclerView.setAdapter(adapter);
                 progressDialog.cancel();
             }
@@ -124,6 +146,7 @@ public class fragment_my_post extends Fragment {
 
             }
         });
+
     }
 
     @Override

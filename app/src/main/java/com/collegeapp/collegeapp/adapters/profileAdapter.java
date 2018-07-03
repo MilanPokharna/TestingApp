@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
+import com.collegeapp.collegeapp.models.User;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,17 +35,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHolder> {
     public Context context;
-    public List<String> userList = new ArrayList<>();
+    public List<User> userList = new ArrayList<>();
     public FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user;
-    public DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
-    public DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
-    public DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
-    public StorageReference myref = FirebaseStorage.getInstance().getReference().child("images");
+    StorageReference ref = FirebaseStorage.getInstance().getReference().child("images");
+    StorageReference reference = FirebaseStorage.getInstance().getReference();
 
 
 
-    public profileAdapter(Context context, List<String> user) {
+    public profileAdapter(Context context, List<User> user) {
         this.context = context;
         this.userList = user;
 
@@ -62,46 +61,30 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         user = auth.getCurrentUser();
-        final String key = userList.get(i);
-        reference = reference.child(key);
+        User key = userList.get(i);
         viewHolder.name.setText(user.getDisplayName());
         Glide.with(context.getApplicationContext()).load(user.getPhotoUrl()).into(viewHolder.profileimg);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                viewHolder.description.setText(dataSnapshot.child("postdata").getValue().toString());
-                viewHolder.date.setText(dataSnapshot.child("posttime").getValue().toString());
-                String img = dataSnapshot.child("postimage").getValue().toString();
-                if (img.equals("0")) {
-                    viewHolder.card.setVisibility(View.GONE);
-                } else {
-                    Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(myref.child(img)).into(viewHolder.postimg);
-                }
-            }
+        viewHolder.date.setText(key.getPosttime());
+        String postimage = key.getPostimage();
+        if((postimage.equals("0"))){
+            viewHolder.postimg.setVisibility(View.GONE);
+            viewHolder.card.setVisibility(View.GONE);
+        }
+        else
+        {
+            reference = ref.child(key.getPostimage());
+            viewHolder.postimg.setVisibility(View.VISIBLE);
+            viewHolder.card.setVisibility(View.VISIBLE);
+            //Glide.with(context.getApplicationContext()).load(user.getPostimage()).into(holder.postimg);
+            Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(viewHolder.postimg);
+        }
+        viewHolder.description.setText(key.getPostdata());
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+
         viewHolder.dustbin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-                dialog.setTitle("Remove This Post");
-                dialog.setCancelable(false);
-                dialog.setMessage("Are you sure?");
-                dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ref.child(key).removeValue();
-                        ref2.child(user.getUid()).child("posts").child(key).removeValue();
-                    }
-                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                }).show();
 
             }
         });
