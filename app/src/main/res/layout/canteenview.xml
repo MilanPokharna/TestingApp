@@ -50,14 +50,6 @@
             android:textColor="#ffffff" />
         </LinearLayout>
 
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:numStars="5"
-            style="?android:ratingBarStyleSmall"
-            android:stepSize="0.1" />
 
     </RelativeLayout>
 
