@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.activities.scrollActivity;
 import com.collegeapp.collegeapp.models.contacts;
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements FastScrollRecyclerView.SectionedAdapter{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
 
 
@@ -37,10 +35,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public Typeface typeface;
     Context context;
 
-
     class ViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.profileimage)
+            @BindView(R.id.profileimage)
     CircleImageView profileimage;
     @BindView(R.id.callingbtn)
     ImageButton callingbtn;
@@ -120,16 +117,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
     }
-    @Override
+@Override
     public int getItemCount() {
 
         return contactsList.size();
     }
-    @NonNull
-    @Override
-    public String getSectionName(int position) {
-        return contactsList.get(position).getName().substring(0,1);
-    }
-
 
 }
