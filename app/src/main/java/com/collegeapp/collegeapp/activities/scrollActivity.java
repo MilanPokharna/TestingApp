@@ -68,7 +68,7 @@ public class scrollActivity extends AppCompatActivity {
                 String num = dataSnapshot.child(key).child("number").getValue().toString();
                 name.setText(na);
                 position.setText(ph);
-                phone.setText(ph);
+                phone.setText(num);
                 Glide.with(getApplicationContext()).load(a).into(profileimage);
             }
 

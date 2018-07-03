@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradientforprofile"
     android:fitsSystemWindows="true">
 
@@ -22,14 +22,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImg"
             android:layout_width="120dp"
+            app:civ_border_color="#0b0b0b"
+            app:civ_border_width="3dp"
             android:layout_height="120dp"
             android:src="@drawable/rsvyas" />
         <TextView
@@ -56,11 +58,11 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="350dp"
         android:layout_gravity="bottom"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingBottom="40dp"
+        android:paddingBottom="60dp"
         android:paddingEnd="@dimen/card_padding"
         android:paddingLeft="@dimen/card_padding"
         android:paddingRight="@dimen/card_padding"
