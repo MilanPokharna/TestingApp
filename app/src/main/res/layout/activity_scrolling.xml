@@ -29,8 +29,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImg"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@drawable/rsvyas" />
         <TextView
             android:layout_margin="3dp"
@@ -56,11 +56,11 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="280dp"
         android:layout_gravity="bottom"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingBottom="30dp"
+        android:paddingBottom="40dp"
         android:paddingEnd="@dimen/card_padding"
         android:paddingLeft="@dimen/card_padding"
         android:paddingRight="@dimen/card_padding"
