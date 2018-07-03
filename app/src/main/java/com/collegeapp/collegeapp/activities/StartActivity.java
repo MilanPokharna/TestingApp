@@ -369,6 +369,7 @@ public class StartActivity extends AppCompatActivity {
                                         if (dataSnapshot.hasChild(a))
                                         {
                                             progressDialog.dismiss();
+                                            Toast.makeText(StartActivity.this, "Welcome Back to CollegeApp", Toast.LENGTH_SHORT).show();
                                             updateUI(user);
                                         }
                                         else
