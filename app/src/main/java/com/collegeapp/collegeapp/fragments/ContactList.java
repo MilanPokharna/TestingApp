@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class ContactList extends Fragment {
     public View v;
 
     @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    FastScrollRecyclerView recyclerView;
     Unbinder unbinder;
     public ContactList() {
     }
