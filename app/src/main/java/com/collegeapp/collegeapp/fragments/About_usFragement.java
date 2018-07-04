@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.collegeapp.collegeapp.R;
+
+import com.collegeapp.collegeapp.adapters.DisplayAdaptor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +34,7 @@ public class About_usFragement extends Fragment {
     public String sname;
     public String spos;
     public String sdesc;
+    static CardView cardView;
     public View v;
 
     ProgressDialog progressDialog;
@@ -39,8 +43,6 @@ public class About_usFragement extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     @BindView(R.id.name)
     TextView name;
-    @BindView(R.id.position)
-    TextView position;
     @BindView(R.id.description)
     TextView description;
     Unbinder unbinder;
@@ -63,6 +65,10 @@ public class About_usFragement extends Fragment {
         progressDialog.show();
         View rootView = inflater.inflate(R.layout.fragment_about_us_fragement, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        cardView=(CardView)rootView.findViewById(R.id.cardViewdetails);
+        cardView.setMaxCardElevation(cardView.getCardElevation()
+                * DisplayAdaptor.MAX_ELEVATION_FACTOR);
+
         return rootView;
     }
 
@@ -82,7 +88,6 @@ public class About_usFragement extends Fragment {
                 sname = (String) dataSnapshot.child("name").getValue();
                 sdesc = (String) dataSnapshot.child("description").getValue();
                 name.setText(sname);
-                position.setText(spos);
                 description.setText(sdesc);
                 progressDialog.dismiss();
             }
@@ -91,5 +96,9 @@ public class About_usFragement extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+
+    public static CardView getCardView() {
+        return cardView;
     }
 }

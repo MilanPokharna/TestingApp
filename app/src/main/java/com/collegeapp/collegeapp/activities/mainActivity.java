@@ -13,7 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
-
+import android.app.ProgressDialog;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.sectionAdapter;
 
@@ -33,12 +33,13 @@ public class mainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     private int tabIcons = R.drawable.ic_group_black_24dp;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        if (isNetworkConnected())
+      //  if (isNetworkConnected())
         {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -50,27 +51,29 @@ public class mainActivity extends AppCompatActivity {
             LinearLayout layout = ((LinearLayout) ((LinearLayout) tablayout.getChildAt(0)).getChildAt(0));
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) layout.getLayoutParams();
             layoutParams.weight = 0.5f;
+
             layout.setLayoutParams(layoutParams);
         }
-        else
-        {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
-            dialog.setTitle("Connection Error ");
-            dialog.setCancelable(false);
-            dialog.setMessage("Unable to connect with the server.\n Check your Internet connection and try again." );
-            dialog.setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(getApplicationContext(),mainActivity.class);
-                    startActivity(intent);
-                }
-            }).show();
-        }
+//        else
+//        {
+//            AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
+//            dialog.setTitle("Connection Error ");
+//            dialog.setCancelable(false);
+//            dialog.setMessage("Unable to connect with the server.\n Check your Internet connection and try again." );
+//            dialog.setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    Intent intent = new Intent(getApplicationContext(),mainActivity.class);
+//                    startActivity(intent);
+//                }
+//            }).show();
+//        }
     }
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
     }
+
 
 }

@@ -102,4 +102,13 @@
     <string name="name">R s Vyas</string>
     <string name="asa">email address</string>
     <string name="_17_jun">28 june</string>
+    <string name="slide_1_title">The One for All App</string>
+    <string name="slide_1_desc">The only app you need to survive at Techno India NJR</string>
+
+    <string name="slide_2_title">Say no to clutter</string>
+    <string name="slide_2_desc">All the information you need, just at the right time</string>
+
+    <string name="slide_3_title"> Let\'s begin!</string>
+    <string name="slide_3_desc">Setup your login details in settings menu.</string>
+
 </resources>

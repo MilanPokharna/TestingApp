@@ -49,7 +49,6 @@ public class ContactList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
-
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -64,6 +63,7 @@ public class ContactList extends Fragment {
 
     private void loaddata() {
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
+        myref.keepSynced(true);
         contactslist.clear();
 
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -78,7 +78,6 @@ public class ContactList extends Fragment {
 
                 }
                 recyclerViewAdapter = new RecyclerViewAdapter(getContext(), contactslist, keylist);
-
                 recyclerView.setAdapter(recyclerViewAdapter);
             }
 

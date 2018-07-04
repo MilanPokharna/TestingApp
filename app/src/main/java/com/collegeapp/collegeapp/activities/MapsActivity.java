@@ -3,7 +3,9 @@ package com.collegeapp.collegeapp.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,12 +15,17 @@ import android.util.Log;
 
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.models.PathJSONParser;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONObject;
 
@@ -32,9 +39,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    public UiSettings mUiSettings;
     public static final int code=100;
     ArrayList<LatLng> list;
 
@@ -46,10 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
         list=new ArrayList<>();
-
     }
 
 
@@ -58,6 +65,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        FusedLocationProviderClient locationClient = getFusedLocationProviderClient(this);
+
 
         if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -72,7 +82,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         list.add(new LatLng(24.550,73.7575));
         list.add(new LatLng(24.5993,73.7763));
         mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.zoomBy(10));
+
+        locationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                LatLng latLng=new LatLng(location.getLatitude(),location.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14.0f));
+                mMap.animateCamera( CameraUpdateFactory.newLatLng( latLng ) );
+                mMap.addMarker( new MarkerOptions()
+                        .position( latLng )
+                        .snippet( "My location" )
+                        .icon( BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED) )
+                );
+
+            }
+        });
+
+
 
         for(int i=0;i<list.size()-1;++i) {
 

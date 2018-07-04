@@ -60,11 +60,6 @@ public class BusRoute extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading Contact List");
-        progressDialog.show();
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 //        init();
@@ -75,6 +70,7 @@ public class BusRoute extends Fragment {
     private void loadData() {
         contactsList.clear();
         dt = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
+        dt.keepSynced(true);
         dt.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -90,6 +86,7 @@ public class BusRoute extends Fragment {
             }
         });
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes").child("going buses");
+        myref.keepSynced(true);
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {
@@ -99,7 +96,6 @@ public class BusRoute extends Fragment {
                     contactsList.add(contactvar);
                 }
                 recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
-                progressDialog.dismiss();
                 recyclerView.setAdapter(recyclerViewAdapterTwo);
             }
 

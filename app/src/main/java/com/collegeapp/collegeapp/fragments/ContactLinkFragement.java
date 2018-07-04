@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.collegeapp.collegeapp.R;
+
+import com.collegeapp.collegeapp.adapters.DisplayAdaptor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +36,7 @@ public class ContactLinkFragement extends Fragment {
     public String stwitter, sfacebook, semail, snumber;
     public View v;
     DatabaseReference myref;
+    static CardView cardView;
 
     @BindView(R.id.twitterid)
     TextView twitterid;
@@ -40,7 +44,7 @@ public class ContactLinkFragement extends Fragment {
     TextView facebookid;
     @BindView(R.id.emailid)
     TextView emailid;
-    @BindView(R.id.phone)
+    @BindView(R.id.linkedinid)
     TextView phone;
     Unbinder unbinder;
 
@@ -56,6 +60,13 @@ public class ContactLinkFragement extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_contact_link_fragement, container, false);
+        cardView=(CardView)rootView.findViewById(R.id.cardViewcontectlink);
+        cardView.setMaxCardElevation(cardView.getCardElevation()
+                * DisplayAdaptor.MAX_ELEVATION_FACTOR);
+
+//        cardView.setCardElevation(20);
+//        cardView.animate().scaleX(1.1f);
+//        cardView.animate().scaleY(1.1f);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -94,4 +105,7 @@ public class ContactLinkFragement extends Fragment {
         phone.setText(snumber);
     }
 
+    public static CardView getCardView() {
+        return cardView;
+    }
 }

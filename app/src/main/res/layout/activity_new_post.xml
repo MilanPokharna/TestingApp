@@ -84,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
+            android:id="@+id/cardv"
             app:cardCornerRadius="8dp"
             android:layout_marginBottom="16dp">
             <ImageView
@@ -92,12 +93,13 @@
                 android:adjustViewBounds="true"
                 android:clipToPadding="true"
                 android:id="@+id/postImage"
-                android:src="@drawable/rsvyas"
+                android:background="@drawable/round_outline"
                  />
 
             <ImageView
                 android:layout_gravity="right"
                 android:layout_width="wrap_content"
+                android:background="@drawable/round_outline"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageRemoveButton"
                 android:src="@drawable/ic_close_black_24dp" />

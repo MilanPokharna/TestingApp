@@ -8,4 +8,34 @@
     <color name="scrollcolor">#82b1ff</color>
     <color name="materialorange">#F9AA33</color>
     <color name="colorPrimaryLight">#4A6572</color>
+    <color name="desccolor">#ffffff</color>
+    <color name="bg_screen1">#7147c1</color>
+    <color name="bg_screen2">#65c0f7</color>
+    <color name="bg_screen4">#12b635</color>
+
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen1">#d9d4d4</color>
+    <color name="dot_dark_screen2">#d9d4d4</color>
+    <color name="dot_dark_screen3">#d9d4d4</color>
+    <color name="dot_dark_screen4">#d9d4d4</color>
+
+    <!-- dots active colors -->
+    <color name="dot_light_screen1">#616161</color>
+    <color name="dot_light_screen2">#616161</color>
+    <color name="dot_light_screen3">#616161</color>
+    <color name="dot_light_screen4">#616161</color>
+    <array name="array_dot_active">
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen2</item>
+        <item>@color/dot_light_screen3</item>
+        <item>@color/dot_light_screen4</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen2</item>
+        <item>@color/dot_dark_screen3</item>
+        <item>@color/dot_dark_screen4</item>
+    </array>
+
 </resources>

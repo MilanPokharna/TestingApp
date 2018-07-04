@@ -4,13 +4,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.widget.CardView;
 
 import com.collegeapp.collegeapp.fragments.About_usFragement;
 import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
 
 public class DisplayAdaptor extends FragmentPagerAdapter
 {
+
+
+    public static final int MAX_ELEVATION_FACTOR = 8;
     String key;
+    Fragment fragment;
     public DisplayAdaptor(FragmentManager fm, String key) {
 
         super( fm );
@@ -49,8 +54,27 @@ public class DisplayAdaptor extends FragmentPagerAdapter
                 return null ;
         }
     }
+
+
+    public CardView getCardViewAt(int position) {
+        switch (position) {
+            case 0:
+                return About_usFragement.getCardView();
+            case 1:
+                return ContactLinkFragement.getCardView();
+            default:
+                return null;
+        }
+    }
+
     @Override
     public int getCount() {
         return 2;
     }
+
+    public float getBaseElevation() {
+        return 2;
+    }
+
+
 }

@@ -44,6 +44,7 @@
         app:civ_border_width="6dp"
         android:layout_marginTop="4dp"
         android:layout_gravity="center_horizontal"
+        android:id="@+id/profilephoto"
         android:layout_centerHorizontal="true"
         />
 </FrameLayout>
