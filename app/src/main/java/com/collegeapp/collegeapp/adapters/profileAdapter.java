@@ -3,7 +3,13 @@ package com.collegeapp.collegeapp.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +17,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
+import com.collegeapp.collegeapp.fragments.fragment_my_post;
 import com.collegeapp.collegeapp.models.User;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,19 +44,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHolder> {
+import static com.collegeapp.collegeapp.fragments.fragment_my_post.snakebar;
+import static com.collegeapp.collegeapp.fragments.fragment_my_post.text;
+
+public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHolder>  {
+
     public Context context;
     public List<User> userList = new ArrayList<>();
+    public List<String> post = new ArrayList<>();
     public FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user;
     StorageReference ref = FirebaseStorage.getInstance().getReference().child("images");
     StorageReference reference = FirebaseStorage.getInstance().getReference();
+    DatabaseReference delete = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
+    DatabaseReference delet = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
 
-
-
-    public profileAdapter(Context context, List<User> user) {
+    public profileAdapter(Context context, List<User> user,List<String> list) {
         this.context = context;
         this.userList = user;
+        this.post = list;
 
     }
 
@@ -59,9 +76,11 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+        User key;
+        final String value;
         user = auth.getCurrentUser();
-        User key = userList.get(i);
+        key = userList.get(i);
         viewHolder.name.setText(user.getDisplayName());
         Glide.with(context.getApplicationContext()).load(user.getPhotoUrl()).into(viewHolder.profileimg);
         viewHolder.date.setText(key.getPosttime());
@@ -75,17 +94,60 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
             reference = ref.child(key.getPostimage());
             viewHolder.postimg.setVisibility(View.VISIBLE);
             viewHolder.card.setVisibility(View.VISIBLE);
-            //Glide.with(context.getApplicationContext()).load(user.getPostimage()).into(holder.postimg);
             Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(viewHolder.postimg);
         }
         viewHolder.description.setText(key.getPostdata());
 
-
-
         viewHolder.dustbin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View vieww) {
 
+                Snackbar snackbar = Snackbar
+                        .make(snakebar, "Delete this Post", Snackbar.LENGTH_LONG)
+                        .setAction("Delete", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                delete.child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        delet.child(user.getUid()).child("posts").child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                delet.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        if (!(dataSnapshot.hasChild("posts")))
+                                                        {
+                                                            delet.child(user.getUid()).child("value").setValue("0").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    text.setVisibility(View.VISIBLE);
+                                                                    Snackbar snackbar1 = Snackbar.make(snakebar, "Post Deleted Successfully", Snackbar.LENGTH_SHORT);
+                                                                    snackbar1.show();
+                                                                }
+                                                            });
+
+                                                        }
+                                                        else
+                                                        {
+
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                    }
+                                });
+                            }
+                        });
+
+                snackbar.show();
             }
         });
     }
@@ -116,5 +178,15 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
     @Override
     public int getItemCount() {
         return userList.size();
+    }
+    public void clear() {
+        final int size = userList.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                userList.remove(0);
+            }
+
+            notifyItemRangeRemoved(0, size);
+        }
     }
 }

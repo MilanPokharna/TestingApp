@@ -65,7 +65,7 @@ public class StartActivity extends AppCompatActivity {
     TextView googleButton;
     private FirebaseAuth mAuth;
     FirebaseUser user;
-    DatabaseReference mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
+    DatabaseReference mref;
     ProgressDialog progressDialog;
 
     private ViewPager viewPager;
@@ -80,11 +80,13 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         // Checking for first time launch - before calling setContentView()
         mAuth= FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser();
+        mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

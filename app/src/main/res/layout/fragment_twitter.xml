@@ -31,7 +31,7 @@
         android:layout_height="?attr/actionBarSize"
         app:fabAlignmentMode="center"
         app:fabAttached="true"
-        app:navigationIcon="@drawable/ic_mode_edit_black_24dp">
+        app:navigationIcon="@drawable/ic_dehaze_black_24dp">
 
     </android.support.design.bottomappbar.BottomAppBar>
     <android.support.design.widget.FloatingActionButton

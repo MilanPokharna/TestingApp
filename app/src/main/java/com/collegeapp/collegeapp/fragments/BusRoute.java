@@ -70,6 +70,7 @@ public class BusRoute extends Fragment {
     private void loadData() {
         contactsList.clear();
         dt = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
+        dt.keepSynced(true);
         dt.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -85,6 +86,7 @@ public class BusRoute extends Fragment {
             }
         });
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes").child("going buses");
+        myref.keepSynced(true);
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot datasnapshot) {

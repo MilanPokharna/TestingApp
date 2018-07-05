@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.DisplayAdaptor;
+import com.collegeapp.collegeapp.models.ShadowTransformer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +34,7 @@ public class scrollActivity extends AppCompatActivity {
     public ViewPager mViewpager;
 
     public CollapsingToolbarLayout collapsingToolbarLayout;
-    @BindView(com.collegeapp.collegeapp.R.id.tool_bar)
+    @BindView(R.id.tool_bar)
     Toolbar toolbar;
     @BindView(R.id.profileImg)
     CircleImageView profileimage;
@@ -48,7 +49,7 @@ public class scrollActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.collegeapp.collegeapp.R.layout.activity_scrolling);
+        setContentView(R.layout.activity_scrolling);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         mViewpager =(ViewPager)findViewById( R.id.viewPager);
@@ -79,7 +80,10 @@ public class scrollActivity extends AppCompatActivity {
         });
 
         displayAdaptor = new DisplayAdaptor(getSupportFragmentManager(), key);
+        ShadowTransformer shadowTransformer=new ShadowTransformer(mViewpager,displayAdaptor);
         mViewpager.setAdapter(displayAdaptor);
+        mViewpager.setPageTransformer(false,shadowTransformer);
+        mViewpager.setOffscreenPageLimit(2);
 
 
     }
