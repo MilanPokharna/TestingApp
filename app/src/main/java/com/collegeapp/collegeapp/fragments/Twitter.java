@@ -55,7 +55,7 @@ public class Twitter extends Fragment {
     NavigationView navigationView;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-    @BindView(R.id.twitter_recycler)
+
     RecyclerView twitterRecycler;
     ProgressDialog progressDialog;
     public FirebaseUser user;
@@ -78,6 +78,7 @@ public class Twitter extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
+        twitterRecycler = (RecyclerView)v.findViewById(R.id.twitter_recycler);
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
