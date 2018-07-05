@@ -64,11 +64,12 @@ public class ContactList extends Fragment {
     private void loaddata() {
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
         myref.keepSynced(true);
-        contactslist.clear();
 
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                contactslist.clear();
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     contacts contactvar = new contacts(snapshot.child("name").getValue().toString(), snapshot.child("pos").getValue().toString(),
                             snapshot.child("number").getValue().toString(), snapshot.child("emailid").getValue().toString(), snapshot.child("image").getValue().toString());

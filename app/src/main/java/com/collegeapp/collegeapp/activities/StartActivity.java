@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -80,7 +81,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         // Checking for first time launch - before calling setContentView()
         mAuth= FirebaseAuth.getInstance();
@@ -203,6 +204,22 @@ public class StartActivity extends AppCompatActivity {
                     launchHomeScreen();
                 }
             }).show();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences prefs = this.getSharedPreferences(
+                "checklogin", Context.MODE_PRIVATE );
+        int flag = prefs.getInt( "login",  0 );
+        if(flag==1)
+        {
+            startActivity(new Intent(this,mainActivity.class));
+        }
+        else
+        {
+            Toast.makeText(this, "flag :"+flag, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -342,6 +359,9 @@ public class StartActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+            final SharedPreferences prefs = this.getSharedPreferences(
+                    "checklogin", Context.MODE_PRIVATE );
+            prefs.edit().putInt("login",1).apply();
             Intent intent = new Intent(this,mainActivity.class);
             startActivity(intent);
             finish();

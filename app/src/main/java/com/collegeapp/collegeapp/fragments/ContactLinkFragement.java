@@ -80,6 +80,7 @@ public class ContactLinkFragement extends Fragment {
 
     private void loadData() {
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
+        myref.keepSynced(true);
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

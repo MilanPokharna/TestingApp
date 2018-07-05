@@ -80,13 +80,13 @@ public class Canteen extends Fragment {
     }
 
     private void loadData() {
-        dishlist.clear();
 
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("canteen").child(bld);
         myref.keepSynced(true);
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dishlist.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
                     canteen canteen = snapshot.getValue(com.collegeapp.collegeapp.models.canteen.class);

@@ -113,6 +113,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
 
 
         ref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users").child(uid).child("value");
+        ref.keepSynced(true);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

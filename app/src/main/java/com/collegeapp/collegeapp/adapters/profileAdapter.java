@@ -77,12 +77,15 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+        delet.keepSynced(true);
+        delete.keepSynced(true);
         User key;
         final String value;
         user = auth.getCurrentUser();
         key = userList.get(i);
         viewHolder.name.setText(user.getDisplayName());
         Glide.with(context.getApplicationContext()).load(user.getPhotoUrl()).into(viewHolder.profileimg);
+
         viewHolder.date.setText(key.getPosttime());
         String postimage = key.getPostimage();
         if((postimage.equals("0"))){

@@ -56,6 +56,7 @@ public class BlankFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         String string = getArguments().getString("imageurl");
         StorageReference reference = FirebaseStorage.getInstance().getReference().child("images").child(string);
+
         Glide.with(getContext()).using(new FirebaseImageLoader()).load(reference).into(fullimageview);
         toolbarpost.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbarpost.setNavigationOnClickListener(new View.OnClickListener() {

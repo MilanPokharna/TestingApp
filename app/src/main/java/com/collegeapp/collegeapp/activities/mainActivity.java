@@ -40,7 +40,7 @@ public class mainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
       //  if (isNetworkConnected())
-        {
+
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -53,7 +53,7 @@ public class mainActivity extends AppCompatActivity {
             layoutParams.weight = 0.5f;
 
             layout.setLayoutParams(layoutParams);
-        }
+
 //        else
 //        {
 //            AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
@@ -75,5 +75,12 @@ public class mainActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+        int pid=android.os.Process.myPid();
+        android.os.Process.killProcess(pid);
 
+    }
 }

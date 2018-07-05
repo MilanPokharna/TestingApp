@@ -31,7 +31,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAdaptertwo.ViewHolder> {
-    public DatabaseReference myref;
     public Context context;
     public Typeface typeface;
     public List<contacts> templist = new ArrayList<contacts>();
