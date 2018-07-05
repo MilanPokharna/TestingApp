@@ -104,8 +104,8 @@ public class Twitter extends Fragment {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 layoutManager.setStackFromEnd(true);
                 layoutManager.setReverseLayout(true);
-                twitterRecycler.setHasFixedSize(true);
                 twitterRecycler.setLayoutManager(layoutManager);
+                twitterRecycler.setHasFixedSize(true);
                 twitterRecycler.setAdapter(adapter);
                 progressDialog.cancel();
             }

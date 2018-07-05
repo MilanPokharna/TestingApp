@@ -102,6 +102,7 @@ public class NewPostActivity extends AppCompatActivity {
 
                 final String des = Description.getText().toString().trim();
                 if (!(TextUtils.isEmpty(des))) {
+                    final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
                     progressDialog.setMessage("Uploading Post");
                     progressDialog.setCancelable(false);
                     progressDialog.setCanceledOnTouchOutside(false);
@@ -110,19 +111,18 @@ public class NewPostActivity extends AppCompatActivity {
                     string = myref.getKey().toString();
 
                     if (postImage.getDrawable() == null) {
-                        refe = refe.child(user.getUid());
-                        refe.child("value").setValue("1");
-                        refe.child("posts").child(string).setValue(string);
-                        myref.child("email").setValue(user.getEmail());
-                        myref.child("name").setValue(user.getDisplayName());
-                        myref.child("postdata").setValue(des);
-                        final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-                        myref.child("posttime").setValue(mydate);
-                        Toast.makeText(this, "No Image Selected", Toast.LENGTH_SHORT).show();
-                        myref.child("postimage").setValue("0");
                         myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                refe = refe.child(user.getUid());
+                                refe.child("value").setValue("1");
+                                refe.child("posts").child(string).setValue(string);
+                                myref.child("email").setValue(user.getEmail());
+                                myref.child("name").setValue(user.getDisplayName());
+                                myref.child("postdata").setValue(des);
+                                myref.child("posttime").setValue(mydate);
+                                Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+                                myref.child("postimage").setValue("0");
                                 progressDialog.cancel();
                                 finish();
                             }
