@@ -103,7 +103,7 @@ public class ContactLinkFragement extends Fragment {
                 sname = dataSnapshot.child(key).child("name").getValue().toString();
                 slinkedin = dataSnapshot.child(key).child("linkedin").getValue().toString();
                 sdes = dataSnapshot.child(key).child("description").getValue().toString();
-                spos = dataSnapshot.child(key).child("position").getValue().toString();
+                spos = dataSnapshot.child(key).child("pos").getValue().toString();
                 snum = dataSnapshot.child(key).child("number").getValue().toString();
                 imgurl = dataSnapshot.child(key).child("image").getValue().toString();
                 username.setText(sname);
