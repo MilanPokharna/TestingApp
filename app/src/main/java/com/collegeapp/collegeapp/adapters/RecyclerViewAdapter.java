@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +19,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.activities.scrollActivity;
+import com.collegeapp.collegeapp.fragments.BlankFragment;
+import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
 import com.collegeapp.collegeapp.models.contacts;
 
 import java.util.ArrayList;
@@ -111,9 +116,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context.getApplicationContext(), scrollActivity.class);
-                intent.putExtra("key", s);
-                context.startActivity(intent);
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new ContactLinkFragement();
+                Bundle bundle = new Bundle();
+                bundle.putString("key",s);
+                myFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contactlistfragment, myFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

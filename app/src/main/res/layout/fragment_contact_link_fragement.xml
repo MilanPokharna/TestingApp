@@ -1,76 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardViewcontectlink"
-    android:layout_margin="5dp"
-    app:cardUseCompatPadding="true"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center">
-    <RelativeLayout
-        android:layout_margin="8dp"
+    android:background="#A6000000"
+    android:padding="48dp"
+    android:clickable="true"
+    android:focusable="true">
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/lin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="30dp"
-                android:id="@+id/profileimage_contactlink"
-                android:layout_height="30dp"
-                android:src="@drawable/rsvyas"/>
-            <TextView
-                android:layout_marginLeft="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RsVyas"
-                android:id="@+id/username"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-        <TextView
-            android:layout_below="@id/lin"
-            android:layout_width="match_parent"
-            android:layout_margin="14dp"
-            android:layout_height="wrap_content"
-            android:text="@string/hide_bottom_view_on_scroll_behavior"
-            android:id="@+id/description_contactlink"/>
-        <LinearLayout
-            android:layout_below="@id/description_contactlink"
-            android:layout_margin="8dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardViewcontectlink"
+            app:cardUseCompatPadding="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4"
-            >
-            <ImageView
-                android:id="@+id/twitterid"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/twitter"/>
+            app:cardMaxElevation="0dp"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="8dp">
 
-            <ImageView
-                android:id="@+id/facebookid"
-                android:layout_weight="1"
+            <RelativeLayout
+                android:layout_margin="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/facebook"/>
-            <ImageView
-                android:id="@+id/gmailid"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/googleplus"/>
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/linkedinid"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/linkedin"/>
-        </LinearLayout>
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs Vyas"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/googlesans"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/username" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/linearcard"
+                    android:layout_marginBottom="4dp"
+                    android:weightSum="2"
+                    android:layout_below="@id/username">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Director"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:textSize="16dp"
+                        android:fontFamily="@font/googlesans"
+                        android:id="@+id/cardposition" />
 
-</android.support.v7.widget.CardView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+91 123456790"
+                        android:textSize="16dp"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/googlesans"
+                        android:id="@+id/cardnumber"/>
+
+                </LinearLayout>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linearcard"
+                    android:id="@+id/cardscroll">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:fontFamily="@font/googlesans"
+                        android:layout_height="wrap_content"
+                        android:text="He's the director of techno njr college of technoology usne apni btech har kahis e ki har kahis se ki hai isne btech fargi college of the world to get admitted in this collge dont come to this college reny moe asjjas dada sa as as as as as as as as as assdfdrf f fr we wewe ewqw er re tr tr rtrt rt rt  tr rt rt we dfdffd df fdf jdsd sd ds ds sd dffgh h  hjhj j hiu u iu i yu ty tr rt  er er dsd d  df fg fh g j uy t rrt r t re e ef  fg  h"
+                        android:id="@+id/description_contactlink"/>
+                </ScrollView>
+                <LinearLayout
+                    android:layout_below="@id/cardscroll"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+                    <ImageView
+                        android:id="@+id/twitterid"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/twitter"/>
+
+                    <ImageView
+                        android:id="@+id/facebookid"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/facebook"/>
+                    <ImageView
+                        android:id="@+id/gmailid"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/googleplus"/>
+
+                    <ImageView
+                        android:id="@+id/linkedinid"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/linkedin"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileimage_contactlink"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center_horizontal"
+            android:elevation="3dp"
+            app:civ_border_color="#1A000000"
+            app:civ_border_width="2dp"
+            android:src="@drawable/facebook" />
+
+    </FrameLayout>
+</RelativeLayout>

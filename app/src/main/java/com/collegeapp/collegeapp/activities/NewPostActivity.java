@@ -23,6 +23,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,6 +84,10 @@ public class NewPostActivity extends AppCompatActivity {
     StorageReference reference = FirebaseStorage.getInstance().getReference().child("images");
     @BindView(R.id.cardv)
     CardView cardv;
+    @BindView(R.id.lin)
+    LinearLayout lin;
+    @BindView(R.id.newpostlayout)
+    RelativeLayout newpostlayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +109,7 @@ public class NewPostActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.postButton: {
-                if (isNetworkConnected())
-                {
+                if (isNetworkConnected()) {
                     final String des = Description.getText().toString().trim();
                     if (!(TextUtils.isEmpty(des))) {
                         final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
@@ -154,19 +159,17 @@ public class NewPostActivity extends AppCompatActivity {
                                         }
                                     });
 
-                                    }
+                                }
                             });
-                            }
-
-                        } else {
-                        Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
                         }
+
+                    } else {
+                        Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
                     }
-                    else
-                    {
-                        Snackbar snackbar1 = Snackbar.make(snakebar, "No Internet Connection", Snackbar.LENGTH_SHORT);
-                        snackbar1.show();
-                    }
+                } else {
+                    Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Internet Connection", Snackbar.LENGTH_SHORT);
+                    snackbar1.show();
+                }
                 break;
             }
 
@@ -180,10 +183,9 @@ public class NewPostActivity extends AppCompatActivity {
                 if (check()) {
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                }
-                else {
+                } else {
                     requestPermission();
-                    Snackbar snackbar1 = Snackbar.make(snakebar, "No Permission to Access", Snackbar.LENGTH_SHORT);
+                    Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Permission to Access", Snackbar.LENGTH_SHORT);
                     snackbar1.show();
                 }
             }
@@ -194,10 +196,9 @@ public class NewPostActivity extends AppCompatActivity {
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-                }
-                else {
+                } else {
                     requestPermission();
-                    Snackbar snackbar1 = Snackbar.make(snakebar, "No Permission to Access", Snackbar.LENGTH_SHORT);
+                    Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Permission to Access", Snackbar.LENGTH_SHORT);
                     snackbar1.show();
                 }
             }
@@ -283,6 +284,7 @@ public class NewPostActivity extends AppCompatActivity {
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
+
     private boolean isNetworkConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE);
         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||

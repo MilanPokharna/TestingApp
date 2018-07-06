@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.DisplayAdaptor;
-import com.collegeapp.collegeapp.models.contacts;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContactLinkFragement extends Fragment {
 
     public String key;
-    public String stwitter, sfacebook, semail, sname,slinkedin,sdes,imgurl;
+    public String stwitter, sfacebook, semail, sname, slinkedin, sdes, imgurl,spos,snum;
     public View v;
     DatabaseReference myref;
     static CardView cardView;
@@ -54,8 +53,11 @@ public class ContactLinkFragement extends Fragment {
     ImageView gmailid;
     @BindView(R.id.linkedinid)
     ImageView linkedinid;
-    @BindView(R.id.cardViewcontectlink)
-    CardView cardViewcontectlink;
+    @BindView(R.id.cardposition)
+    TextView cardposition;
+    @BindView(R.id.cardnumber)
+    TextView cardnumber;
+
 
     public ContactLinkFragement() {
     }
@@ -85,6 +87,7 @@ public class ContactLinkFragement extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
+        key = getArguments().getString("key");
         loadData();
     }
 
@@ -100,9 +103,13 @@ public class ContactLinkFragement extends Fragment {
                 sname = dataSnapshot.child(key).child("name").getValue().toString();
                 slinkedin = dataSnapshot.child(key).child("linkedin").getValue().toString();
                 sdes = dataSnapshot.child(key).child("description").getValue().toString();
+                spos = dataSnapshot.child(key).child("position").getValue().toString();
+                snum = dataSnapshot.child(key).child("number").getValue().toString();
                 imgurl = dataSnapshot.child(key).child("image").getValue().toString();
                 username.setText(sname);
                 description.setText(sdes);
+                cardnumber.setText(snum);
+                cardposition.setText(spos);
                 Glide.with(getContext()).load(imgurl).into(profileimageContactlink);
             }
 
@@ -131,20 +138,17 @@ public class ContactLinkFragement extends Fragment {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(stwitter)));
                 break;
             }
-            case R.id.facebookid:
-            {
+            case R.id.facebookid: {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(sfacebook)));
                 break;
             }
-            case R.id.gmailid:
-            {
+            case R.id.gmailid: {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto", semail, null));
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
                 break;
             }
-            case R.id.linkedinid:
-            {
+            case R.id.linkedinid: {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(slinkedin)));
                 break;
             }
