@@ -6,10 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -47,6 +50,7 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.collegeapp.collegeapp.fragments.fragment_my_post.snakebar;
 
 public class NewPostActivity extends AppCompatActivity {
 
@@ -96,67 +100,76 @@ public class NewPostActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.closeButton:
-                startActivity(new Intent(NewPostActivity.this, mainActivity.class));
+                finish();
                 break;
             case R.id.postButton: {
+                if (isNetworkConnected())
+                {
+                    final String des = Description.getText().toString().trim();
+                    if (!(TextUtils.isEmpty(des))) {
+                        final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+                        progressDialog.setMessage("Uploading Post");
+                        progressDialog.setCancelable(false);
+                        progressDialog.setCanceledOnTouchOutside(false);
+                        progressDialog.show();
+                        myref = myref.push();
+                        string = myref.getKey().toString();
 
-                final String des = Description.getText().toString().trim();
-                if (!(TextUtils.isEmpty(des))) {
-                    final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-                    progressDialog.setMessage("Uploading Post");
-                    progressDialog.setCancelable(false);
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    progressDialog.show();
-                    myref = myref.push();
-                    string = myref.getKey().toString();
+                        if (postImage.getDrawable() == null) {
+                            myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    myref.child("postimage").setValue("0");
+                                    refe = refe.child(user.getUid());
+                                    refe.child("value").setValue("1");
+                                    refe.child("posts").child(string).setValue(string);
+                                    myref.child("email").setValue(user.getEmail());
+                                    myref.child("name").setValue(user.getDisplayName());
+                                    myref.child("postdata").setValue(des);
+                                    myref.child("posttime").setValue(mydate);
+                                    Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
 
-                    if (postImage.getDrawable() == null) {
-                        myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                refe = refe.child(user.getUid());
-                                refe.child("value").setValue("1");
-                                refe.child("posts").child(string).setValue(string);
-                                myref.child("email").setValue(user.getEmail());
-                                myref.child("name").setValue(user.getDisplayName());
-                                myref.child("postdata").setValue(des);
-                                myref.child("posttime").setValue(mydate);
-                                Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
-                                myref.child("postimage").setValue("0");
-                                progressDialog.cancel();
-                                finish();
-                            }
-                        });
-                    } else {
-                        reference.child(string).putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                myref.child("postimage").setValue(string);
-                                myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        refe = refe.child(user.getUid());
-                                        refe.child("value").setValue("1");
-                                        refe.child("posts").child(string).setValue(string);
-                                        myref.child("email").setValue(user.getEmail());
-                                        myref.child("name").setValue(user.getDisplayName());
-                                        myref.child("postdata").setValue(des);
-                                        final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-                                        myref.child("posttime").setValue(mydate);
-                                        progressDialog.cancel();
-                                        finish();
+                                    progressDialog.cancel();
+                                    finish();
+                                }
+                            });
+                        } else {
+                            reference.child(string).putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    myref.child("postimage").setValue(string);
+                                    myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            refe = refe.child(user.getUid());
+                                            refe.child("value").setValue("1");
+                                            refe.child("posts").child(string).setValue(string);
+                                            myref.child("email").setValue(user.getEmail());
+                                            myref.child("name").setValue(user.getDisplayName());
+                                            myref.child("postdata").setValue(des);
+                                            final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+                                            myref.child("posttime").setValue(mydate);
+                                            progressDialog.cancel();
+                                            finish();
+                                        }
+                                    });
+
                                     }
-                                });
-
+                            });
                             }
-                        });
-                    }
 
-                } else {
-                    Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
-                }
+                        } else {
+                        Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        Snackbar snackbar1 = Snackbar.make(snakebar, "No Internet Connection", Snackbar.LENGTH_SHORT);
+                        snackbar1.show();
+                    }
+                break;
             }
-            break;
+
             case R.id.imageRemoveButton:
                 postImage.setImageDrawable(null);
                 postImage.setVisibility(View.GONE);
@@ -167,8 +180,11 @@ public class NewPostActivity extends AppCompatActivity {
                 if (check()) {
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                } else {
+                }
+                else {
                     requestPermission();
+                    Snackbar snackbar1 = Snackbar.make(snakebar, "No Permission to Access", Snackbar.LENGTH_SHORT);
+                    snackbar1.show();
                 }
             }
             break;
@@ -178,8 +194,11 @@ public class NewPostActivity extends AppCompatActivity {
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-                } else {
+                }
+                else {
                     requestPermission();
+                    Snackbar snackbar1 = Snackbar.make(snakebar, "No Permission to Access", Snackbar.LENGTH_SHORT);
+                    snackbar1.show();
                 }
             }
             break;
@@ -187,18 +206,17 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
     private boolean check() {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(), INTERNET);
         int result2 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
         int result3 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-        return (result == PackageManager.PERMISSION_GRANTED
-                && result2 == PackageManager.PERMISSION_GRANTED
-                && result3 == PackageManager.PERMISSION_GRANTED
-        );
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
+        return (result == PackageManager.PERMISSION_GRANTED &&
+                result2 == PackageManager.PERMISSION_GRANTED
+                && result3 == PackageManager.PERMISSION_GRANTED);
     }
 
     public void requestPermission() {
         int requestCode;
-        ActivityCompat.requestPermissions(this, new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET}, requestCode = 1);
+        ActivityCompat.requestPermissions(this, new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE}, requestCode = 1);
     }
 
     @Override
@@ -264,5 +282,14 @@ public class NewPostActivity extends AppCompatActivity {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
+    }
+    private boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            return true;
+        } else
+            return false;
     }
 }

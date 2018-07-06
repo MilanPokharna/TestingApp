@@ -8,113 +8,69 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
-
-    <FrameLayout
+    <RelativeLayout
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
+        android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/lin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="30dp"
+                android:id="@+id/profileimage_contactlink"
+                android:layout_height="30dp"
+                android:src="@drawable/rsvyas"/>
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RsVyas"
+                android:id="@+id/username"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <TextView
+            android:layout_below="@id/lin"
+            android:layout_width="match_parent"
+            android:layout_margin="14dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hide_bottom_view_on_scroll_behavior"
+            android:id="@+id/description_contactlink"/>
+        <LinearLayout
+            android:layout_below="@id/description_contactlink"
+            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:padding="24dp">
-        <LinearLayout
-            android:layout_margin="3dp"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1">
+            android:weightSum="4"
+            >
             <ImageView
-                android:layout_weight="0.8"
+                android:id="@+id/twitterid"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/twitter"/>
-            <TextView
-                android:textAlignment="center"
-                android:layout_weight="0.2"
-                android:id="@+id/twitterid"
+
+            <ImageView
+                android:id="@+id/facebookid"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"/>
+                android:src="@drawable/facebook"/>
+            <ImageView
+                android:id="@+id/gmailid"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/googleplus"/>
 
+            <ImageView
+                android:id="@+id/linkedinid"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/linkedin"/>
         </LinearLayout>
-
-            <LinearLayout
-                android:layout_margin="3dp"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1">
-                <ImageView
-                    android:layout_weight="0.8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/facebook"/>
-                <TextView
-                    android:id="@+id/facebookid"
-                    android:textAlignment="center"
-                    android:layout_weight="0.2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_margin="3dp"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1">
-                <ImageView
-                    android:layout_weight="0.8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/googleplus"/>
-                <TextView
-                    android:id="@+id/emailid"
-                    android:textAlignment="center"
-                    android:layout_weight="0.2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_margin="3dp"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="1">
-                <ImageView
-                    android:layout_weight="0.8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/linkedin"/>
-                <TextView
-                    android:textAlignment="center"
-                    android:layout_weight="0.2"
-                    android:id="@+id/linkedinid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"/>
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="-5dp"
-            android:src="@drawable/ic_bookmark_black_24dp" />
-
-    </FrameLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

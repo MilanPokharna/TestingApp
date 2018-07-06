@@ -66,7 +66,10 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
 
         Glide.with(context.getApplicationContext()).load(user.getProfileimage()).into(holder.profileimg);
         final String postimage = user.getPostimage();
-        if((postimage.equals("0"))){
+        if((postimage == null)){
+            holder.postimg.setVisibility(View.GONE);
+        }
+        else if((postimage.equals("0"))){
            holder.postimg.setVisibility(View.GONE);
         }
         else

@@ -2,6 +2,8 @@ package com.collegeapp.collegeapp.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -44,11 +46,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.support.v4.content.ContextCompat.getSystemService;
 import static com.collegeapp.collegeapp.fragments.fragment_my_post.snakebar;
 import static com.collegeapp.collegeapp.fragments.fragment_my_post.text;
 
-public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHolder>  {
+public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHolder> {
 
+    public View view;
     public Context context;
     public List<User> userList = new ArrayList<>();
     public List<String> post = new ArrayList<>();
@@ -59,7 +63,7 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
     DatabaseReference delete = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
     DatabaseReference delet = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
 
-    public profileAdapter(Context context, List<User> user,List<String> list) {
+    public profileAdapter(Context context, List<User> user, List<String> list) {
         this.context = context;
         this.userList = user;
         this.post = list;
@@ -69,7 +73,7 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardviewprofile, viewGroup, false);
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardviewprofile, viewGroup, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -88,12 +92,10 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
 
         viewHolder.date.setText(key.getPosttime());
         String postimage = key.getPostimage();
-        if((postimage.equals("0"))){
+        if ((postimage.equals("0"))) {
             viewHolder.postimg.setVisibility(View.GONE);
             viewHolder.card.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             reference = ref.child(key.getPostimage());
             viewHolder.postimg.setVisibility(View.VISIBLE);
             viewHolder.card.setVisibility(View.VISIBLE);
@@ -104,53 +106,57 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
         viewHolder.dustbin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View vieww) {
+                if (isNetworkConnected()) {
+                    Snackbar snackbar = Snackbar
+                            .make(snakebar, "Delete this Post", Snackbar.LENGTH_LONG)
+                            .setAction("Delete", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    delete.child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            delet.child(user.getUid()).child("posts").child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    delet.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                            if (!(dataSnapshot.hasChild("posts"))) {
+                                                                delet.child(user.getUid()).child("value").setValue("0").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        text.setVisibility(View.VISIBLE);
+                                                                        Snackbar snackbar1 = Snackbar.make(snakebar, "Post Deleted Successfully", Snackbar.LENGTH_SHORT);
+                                                                        snackbar1.show();
+                                                                    }
+                                                                });
 
-                Snackbar snackbar = Snackbar
-                        .make(snakebar, "Delete this Post", Snackbar.LENGTH_LONG)
-                        .setAction("Delete", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                delete.child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        delet.child(user.getUid()).child("posts").child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                delet.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                        if (!(dataSnapshot.hasChild("posts")))
-                                                        {
-                                                            delet.child(user.getUid()).child("value").setValue("0").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void aVoid) {
-                                                                    text.setVisibility(View.VISIBLE);
-                                                                    Snackbar snackbar1 = Snackbar.make(snakebar, "Post Deleted Successfully", Snackbar.LENGTH_SHORT);
-                                                                    snackbar1.show();
-                                                                }
-                                                            });
+                                                            } else {
+
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                                         }
-                                                        else
-                                                        {
+                                                    });
+                                                }
+                                            });
 
-                                                        }
-                                                    }
+                                        }
+                                    });
+                                }
+                            });
 
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    snackbar.show();
+                }
+                else
+                {
+                    Snackbar snackbar1 = Snackbar.make(snakebar, "No Internet Connection", Snackbar.LENGTH_SHORT);
+                    snackbar1.show();
+                }
 
-                                                    }
-                                                });
-                                            }
-                                        });
-
-                                    }
-                                });
-                            }
-                        });
-
-                snackbar.show();
             }
         });
     }
@@ -182,6 +188,7 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
     public int getItemCount() {
         return userList.size();
     }
+
     public void clear() {
         final int size = userList.size();
         if (size > 0) {
@@ -191,5 +198,15 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
 
             notifyItemRangeRemoved(0, size);
         }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            return true;
+        } else
+            return false;
     }
 }

@@ -76,11 +76,9 @@ public class mainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finishAffinity();
+    protected void onDestroy() {
+        super.onDestroy();
         int pid=android.os.Process.myPid();
         android.os.Process.killProcess(pid);
-
     }
 }
