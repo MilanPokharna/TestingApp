@@ -1,6 +1,5 @@
 package com.collegeapp.collegeapp.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,24 +9,25 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +53,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -60,6 +63,8 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class StartActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1;
+    @BindView(R.id.startActivityLayout)
+    RelativeLayout startActivityLayout;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     private GoogleApiClient mGoogleSignInClient;
@@ -84,8 +89,8 @@ public class StartActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         // Checking for first time launch - before calling setContentView()
-        mAuth= FirebaseAuth.getInstance();
-        user=mAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
 
 
@@ -94,13 +99,13 @@ public class StartActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient=new GoogleApiClient.Builder(this)
+        mGoogleSignInClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
                     }
-                }).addApi( Auth.GOOGLE_SIGN_IN_API,gso).build();
+                }).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
 
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
@@ -113,13 +118,14 @@ public class StartActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_start);
+        ButterKnife.bind(this);
         progressDialog = new ProgressDialog(this);
         open();
 
 
         viewPager = findViewById(R.id.view_pager);
         dotsLayout = findViewById(R.id.layoutDots);
-        fbut=findViewById(R.id.fbat);
+        fbut = findViewById(R.id.fbat);
 
 
         // layouts of all welcome sliders
@@ -140,7 +146,6 @@ public class StartActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
 
-
         fbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,19 +153,32 @@ public class StartActivity extends AppCompatActivity {
 
                 // checking for last page
                 // if last page home screen will be launched
-                 current = getItem(+1);
+                current = getItem(+1);
                 viewPager.setCurrentItem(current);
-                if (current==2) {
+                if (current == 2) {
                     // move to next screen
                     fbut.setImageResource(R.drawable.check_white);
 
-                }
-                else if(current>=layouts.length){
+                } else if (current >= layouts.length) {
                     prefManager.setFirstTimeLaunch(false);
                     clickme();
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        final SharedPreferences prefs = this.getSharedPreferences(
+                "login", Context.MODE_PRIVATE );
+        int flag = prefs.getInt( "loginvar", 0);
+        if (flag == 1)
+        {
+            Intent intent = new Intent(this, mainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void addBottomDots(int currentPage) {
@@ -191,35 +209,17 @@ public class StartActivity extends AppCompatActivity {
         if (isNetworkConnected()) {
 
             updateUI(user);
-        }
-        else
-        {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(StartActivity.this);
             dialog.setTitle("Connectino Error ");
             dialog.setCancelable(false);
-            dialog.setMessage("Unable to connect with the server.\n Check your Internet connection and try again." );
+            dialog.setMessage("Unable to connect with the server.\n Check your Internet connection and try again.");
             dialog.setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     launchHomeScreen();
                 }
             }).show();
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        SharedPreferences prefs = this.getSharedPreferences(
-                "checklogin", Context.MODE_PRIVATE );
-        int flag = prefs.getInt( "login",  0 );
-        if(flag==1)
-        {
-            startActivity(new Intent(this,mainActivity.class));
-        }
-        else
-        {
-            Toast.makeText(this, "flag :"+flag, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -235,10 +235,10 @@ public class StartActivity extends AppCompatActivity {
 
                 fbut.setImageResource(R.drawable.check_white);
                 // last page. make button text to GOT IT
-                } else {
+            } else {
                 fbut.setImageResource(R.drawable.arrow_white);
                 // still pages are left
-              }
+            }
         }
 
         @Override
@@ -300,21 +300,18 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-    public void clickme()
-    {
+    public void clickme() {
         if (isNetworkConnected()) {
             progressDialog.setMessage("Logging you in");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setCancelable(false);
             progressDialog.show();
             signIn();
-        }
-        else
-        {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(StartActivity.this);
             dialog.setTitle("Connectino Error ");
             dialog.setCancelable(false);
-            dialog.setMessage("Unable to connect with the server.\n Check your Internet connection and try again." );
+            dialog.setMessage("Unable to connect with the server.\n Check your Internet connection and try again.");
             dialog.setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -323,14 +320,14 @@ public class StartActivity extends AppCompatActivity {
             }).show();
         }
     }
+
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
     }
 
-    public void signIn()
-    {
+    public void signIn() {
 
         mGoogleSignInClient.clearDefaultAccountAndReconnect();
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleSignInClient);
@@ -351,7 +348,8 @@ public class StartActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 progressDialog.dismiss();
                 // Google Sign In failed, update UI appropriately
-                Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Authentication Failed", Snackbar.LENGTH_SHORT);
+                snackbar1.show();
                 // ...
             }
         }
@@ -359,16 +357,15 @@ public class StartActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            final SharedPreferences prefs = this.getSharedPreferences(
-                    "checklogin", Context.MODE_PRIVATE );
-            prefs.edit().putInt("login",1).apply();
-            Intent intent = new Intent(this,mainActivity.class);
+            SharedPreferences prefs = this.getSharedPreferences(
+                    "login", Context.MODE_PRIVATE );
+            prefs.edit().putInt( "loginvar", 1 ).apply();
+
+            Intent intent = new Intent(this, mainActivity.class);
             startActivity(intent);
             finish();
-        }
-        else
-        {
-            signIn();
+        } else {
+
         }
 
     }
@@ -376,7 +373,7 @@ public class StartActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        if(acct.getEmail().toString().endsWith("@technonjr.org")){
+        if (acct.getEmail().toString().endsWith("@technonjr.org")) {
             mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -388,21 +385,19 @@ public class StartActivity extends AppCompatActivity {
                                 mref.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.hasChild(a))
-                                        {
+                                        if (dataSnapshot.hasChild(a)) {
                                             progressDialog.dismiss();
-                                            Toast.makeText(StartActivity.this, "Welcome Back to CollegeApp", Toast.LENGTH_SHORT).show();
+                                            Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Welcome Back to Techno Tweets", Snackbar.LENGTH_SHORT);
+                                            snackbar1.show();
                                             updateUI(user);
-                                        }
-                                        else
-                                            {
+                                        } else {
                                             mref.child(a).child("email").setValue(user.getEmail().toString());
                                             mref.child(a).child("name").setValue(user.getDisplayName().toString());
                                             mref.child(a).child("uid").setValue(user.getUid().toString());
                                             mref.child(a).child("value").setValue("0");
                                             progressDialog.dismiss();
                                             updateUI(user);
-                                            }
+                                        }
                                     }
 
                                     @Override
@@ -419,10 +414,9 @@ public class StartActivity extends AppCompatActivity {
                         }
                     });
 
-        }
-        else
-        {
-            Toast.makeText(this, "Login with Collage Id", Toast.LENGTH_SHORT).show();
+        } else {
+            Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Login with College ID", Snackbar.LENGTH_SHORT);
+            snackbar1.show();
             progressDialog.dismiss();
 
         }
@@ -430,27 +424,22 @@ public class StartActivity extends AppCompatActivity {
     }
 
 
-    public void open()
-    {
-        if(checkPermission())
-        {
-        }
-        else
-        {
+    public void open() {
+        if (checkPermission()) {
+        } else {
             requestPermission();
         }
     }
-    public Boolean checkPermission()
-    {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(),INTERNET);
 
-        return result == PackageManager.PERMISSION_GRANTED ;
+    public Boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), INTERNET);
+
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
-    public  void requestPermission()
-    {
+    public void requestPermission() {
         int requestCode;
-        ActivityCompat.requestPermissions(this,new String[]{WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,INTERNET},requestCode=1);
+        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET}, requestCode = 1);
     }
 
     @Override
@@ -463,17 +452,17 @@ public class StartActivity extends AppCompatActivity {
                     boolean cameraAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (shouldShowRequestPermissionRationale( WRITE_EXTERNAL_STORAGE )) {
-                            showMessageOKCancel( "You need to allow access to both the permissions",
+                        if (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) {
+                            showMessageOKCancel("You need to allow access to both the permissions",
                                     new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                requestPermissions( new String[]{ WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET},
-                                                        1 );
+                                                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET},
+                                                        1);
                                             }
                                         }
-                                    } );
+                                    });
                             return;
                         }
                     }
@@ -487,9 +476,9 @@ public class StartActivity extends AppCompatActivity {
 
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder( this )
-                .setMessage( message )
-                .setPositiveButton( "OK", okListener )
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
                 .create()
                 .show();
     }
