@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -22,6 +23,7 @@ import com.collegeapp.collegeapp.activities.scrollActivity;
 import com.collegeapp.collegeapp.fragments.BlankFragment;
 import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
 import com.collegeapp.collegeapp.models.contacts;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public Typeface typeface;
     Context context;
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements FastScrollRecyclerView.SectionedAdapter{
 
             @BindView(R.id.profileimage)
     CircleImageView profileimage;
@@ -63,6 +65,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             ButterKnife.bind(this,itemView);
             }
+
+        @NonNull
+        @Override
+        public String getSectionName(int position) {
+            return contactsList.get(position).getName().substring(0,1);
+        }
     }
 
     public RecyclerViewAdapter(Context context, List<contacts> tempList, List<String> keylist) {
@@ -79,6 +87,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
+
         return viewHolder;
     }
 
@@ -131,5 +140,4 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         return contactsList.size();
     }
-
 }

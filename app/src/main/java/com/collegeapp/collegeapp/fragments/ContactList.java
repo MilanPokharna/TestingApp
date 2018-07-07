@@ -1,8 +1,5 @@
 package com.collegeapp.collegeapp.fragments;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.RecyclerViewAdapter;
@@ -23,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +38,9 @@ public class ContactList extends Fragment {
     public View v;
 
     @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    FastScrollRecyclerView recyclerView;
     Unbinder unbinder;
+
     public ContactList() {
     }
 
@@ -81,6 +79,7 @@ public class ContactList extends Fragment {
                 }
                 recyclerViewAdapter = new RecyclerViewAdapter(getContext(), contactslist, keylist);
                 recyclerView.setAdapter(recyclerViewAdapter);
+
             }
 
             @Override
@@ -91,7 +90,12 @@ public class ContactList extends Fragment {
 
     private void init() {
 
-        layoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
+        layoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }
