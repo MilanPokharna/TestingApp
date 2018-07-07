@@ -1,9 +1,7 @@
 package com.collegeapp.collegeapp.fragments;
 
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,20 +11,21 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-import android.app.ProgressDialog;
+
+import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
-import com.collegeapp.collegeapp.activities.LoginActivity;
 import com.collegeapp.collegeapp.activities.NewPostActivity;
 import com.collegeapp.collegeapp.adapters.TwitterAdapter;
 import com.collegeapp.collegeapp.models.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,8 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
-import static android.support.v4.content.ContextCompat.getSystemService;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Twitter extends Fragment {
 
@@ -55,12 +53,13 @@ public class Twitter extends Fragment {
     BottomAppBar bar;
     Unbinder unbinder;
     NavigationView navigationView;
-    int i = R.id.app_bar_fav;
     @BindView(R.id.fab)
     FloatingActionButton fab;
-    @BindView(R.id.twitter_recycler)
+
     RecyclerView twitterRecycler;
     ProgressDialog progressDialog;
+    public FirebaseUser user;
+    public FirebaseAuth mauth = FirebaseAuth.getInstance();
 
     public Twitter() {
         //only constructor
@@ -79,6 +78,7 @@ public class Twitter extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
+        twitterRecycler = (RecyclerView)v.findViewById(R.id.twitter_recycler);
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
@@ -89,21 +89,24 @@ public class Twitter extends Fragment {
 
     private void loadData() {
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        twitterRecycler.setHasFixedSize(true);
-        twitterRecycler.setLayoutManager(layoutManager);
+
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
-        userList.clear();
+        mref.keepSynced(true);
+
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
                     userList.add(user);
                 }
-                Collections.reverse(userList);
                 adapter = new TwitterAdapter(getContext(), userList);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                layoutManager.setStackFromEnd(true);
+                layoutManager.setReverseLayout(true);
+                twitterRecycler.setLayoutManager(layoutManager);
+                twitterRecycler.setHasFixedSize(true);
                 twitterRecycler.setAdapter(adapter);
                 progressDialog.cancel();
             }
@@ -119,7 +122,6 @@ public class Twitter extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        i = R.id.app_bar_fav;
         unbinder.unbind();
     }
 
@@ -129,8 +131,14 @@ public class Twitter extends Fragment {
         final BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
         dialog.setContentView(view);
         dialog.show();
+        user = mauth.getCurrentUser();
+
+        CircleImageView circleImageView;
+        circleImageView = (CircleImageView)view.findViewById(R.id.profilephoto);
+        Glide.with(getContext()).load(user.getPhotoUrl()).into(circleImageView);
+
         navigationView = (NavigationView) view.findViewById(R.id.navigation_view);
-        navigationView.setCheckedItem(i);
+        navigationView.setCheckedItem(R.id.app_bar_fav);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -140,20 +148,19 @@ public class Twitter extends Fragment {
                 switch (menuItem.getItemId()) {
 
                     case R.id.app_bar_fav:
-                        i = menuItem.getItemId();
                         newFragment = new Twitter();
-                        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-                        transaction.replace(R.id.twitter_recycle, newFragment);
-                        transaction.commit();
+                        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .replace(R.id.twitter_recycle, newFragment)
+                        .commit();
                         dialog.dismiss();
                         break;
 
                     case R.id.app_bar_search:
-                        i = menuItem.getItemId();
                         newFragment = new fragment_my_post();
-                        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-                        transaction.replace(R.id.twitter_recycle, newFragment);
-                        transaction.commit();
+                        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                        .addToBackStack(null)
+                        .replace(R.id.newRelative, newFragment)
+                        .commit();
                         dialog.dismiss();
                         break;
                 }

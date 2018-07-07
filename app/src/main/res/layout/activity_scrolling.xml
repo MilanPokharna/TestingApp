@@ -22,17 +22,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImg"
-            android:layout_width="120dp"
+            android:layout_width="80dp"
             app:civ_border_color="#0b0b0b"
             app:civ_border_width="3dp"
-            android:layout_height="120dp"
+            android:layout_height="80dp"
             android:src="@drawable/rsvyas" />
         <TextView
             android:layout_margin="3dp"
@@ -58,11 +57,11 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_gravity="bottom"
+        android:layout_height="300dp"
+        android:layout_gravity="bottom|center_horizontal"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingBottom="60dp"
+        android:paddingBottom="40dp"
         android:paddingEnd="@dimen/card_padding"
         android:paddingLeft="@dimen/card_padding"
         android:paddingRight="@dimen/card_padding"

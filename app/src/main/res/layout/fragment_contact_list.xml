@@ -6,17 +6,12 @@
     tools:context=".fragments.ContactList"
     android:background="@android:color/darker_gray">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
      <android.support.v7.widget.RecyclerView
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:id="@+id/recyclerView"
-         android:paddingTop="0dp">
+         android:paddingTop="0dp"
+         android:layout_marginBottom="8dp">
 
      </android.support.v7.widget.RecyclerView>
-    </ScrollView>
 </FrameLayout>

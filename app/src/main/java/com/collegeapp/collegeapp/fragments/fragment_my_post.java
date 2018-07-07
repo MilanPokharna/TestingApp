@@ -1,17 +1,23 @@
 package com.collegeapp.collegeapp.fragments;
 
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.profileAdapter;
 import com.collegeapp.collegeapp.models.User;
@@ -23,30 +29,36 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class fragment_my_post extends Fragment {
-    DatabaseReference mref, ref,reference;
+public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetChangedListener {
+    DatabaseReference mref, ref, reference;
     RecyclerView recyclerView;
     profileAdapter adapter;
+    Toolbar toolbar;
+    TextView name, email;
     List<String> userList = new ArrayList<>();
     List<User> posts = new ArrayList<>();
     View v;
+
+    private static final int PERCENTAGE_TO_ANIMATE_AVATAR = 20;
+
+    private boolean mIsAvatarShown = true;
+
+    private int mMaxScrollSize;
     String uid;
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user;
     ProgressDialog progressDialog;
-    @BindView(R.id.text)
-    TextView text;
+    ImageView circleImageView;
+    public static TextView text;
     Unbinder unbinder;
+    public static CoordinatorLayout snakebar;
 
     public fragment_my_post() {
     }
@@ -57,7 +69,26 @@ public class fragment_my_post extends Fragment {
         View rootview = inflater.inflate(R.layout.myprofile, container, false);
         progressDialog = new ProgressDialog(getActivity());
         user = auth.getCurrentUser();
+        circleImageView = (ImageView) rootview.findViewById(R.id.profileimage_profile);
+        text = (TextView) rootview.findViewById(R.id.text);
+        name = (TextView) rootview.findViewById(R.id.name_profile);
+        email = (TextView) rootview.findViewById(R.id.email_profile);
+        AppBarLayout appBarLayout = (AppBarLayout)rootview.findViewById(R.id.appbarlayout);
+        appBarLayout.addOnOffsetChangedListener(this);
+        mMaxScrollSize = appBarLayout.getTotalScrollRange();
         recyclerView = (RecyclerView) rootview.findViewById(R.id.profilerecycler);
+        snakebar = (CoordinatorLayout) rootview.findViewById(R.id.snakebar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar = (Toolbar) rootview.findViewById(R.id.toolbar_profile);
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().onBackPressed();
+                }
+            });
+        }
+
         unbinder = ButterKnife.bind(this, rootview);
         return rootview;
 
@@ -67,6 +98,10 @@ public class fragment_my_post extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
+        uid = user.getUid().toString();
+        name.setText(user.getDisplayName());
+        email.setText(user.getEmail());
+        Glide.with(getActivity()).load(user.getPhotoUrl()).into(circleImageView);
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
@@ -76,10 +111,7 @@ public class fragment_my_post extends Fragment {
 
     private void loadData() {
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        uid = user.getUid().toString();
+
         ref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users").child(uid).child("value");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,12 +120,11 @@ public class fragment_my_post extends Fragment {
                 if (a.equals("1")) {
                     text.setVisibility(View.GONE);
                     callme();
-                }
-                else
-                    {
-                        progressDialog.dismiss();
+                } else {
                     text.setVisibility(View.VISIBLE);
-                    }
+                    progressDialog.dismiss();
+
+                }
             }
 
             @Override
@@ -106,11 +137,11 @@ public class fragment_my_post extends Fragment {
 
     private void callme() {
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users").child(uid).child("posts");
-        userList.clear();
+        mref.keepSynced(true);
         mref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String a = snapshot.getValue().toString();
                     userList.add(a);
@@ -127,16 +158,22 @@ public class fragment_my_post extends Fragment {
 
     private void callme2() {
         reference = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
+        reference.keepSynced(true);
+
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (String z : userList)
-                {
+                posts.clear();
+                for (String z : userList) {
                     User user = dataSnapshot.child(z).getValue(User.class);
                     posts.add(user);
                 }
-                Collections.reverse(posts);
-                adapter = new profileAdapter(getContext(), posts);
+                adapter = new profileAdapter(getContext(), posts, userList);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                layoutManager.setStackFromEnd(true);
+                layoutManager.setReverseLayout(true);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
                 progressDialog.cancel();
             }
@@ -147,6 +184,31 @@ public class fragment_my_post extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+        if (mMaxScrollSize == 0)
+            mMaxScrollSize = appBarLayout.getTotalScrollRange();
+
+        int percentage = (Math.abs(i)) * 100 / mMaxScrollSize;
+
+        if (percentage >= PERCENTAGE_TO_ANIMATE_AVATAR && mIsAvatarShown) {
+            mIsAvatarShown = false;
+
+            circleImageView.animate()
+                    .scaleY(0).scaleX(0)
+                    .setDuration(200)
+                    .start();
+        }
+
+        if (percentage <= PERCENTAGE_TO_ANIMATE_AVATAR && !mIsAvatarShown) {
+            mIsAvatarShown = true;
+
+            circleImageView.animate()
+                    .scaleY(1).scaleX(1)
+                    .start();
+        }
     }
 
     @Override

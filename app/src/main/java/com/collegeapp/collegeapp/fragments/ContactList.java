@@ -63,6 +63,7 @@ public class ContactList extends Fragment {
 
     private void loaddata() {
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
+        myref.keepSynced(true);
         contactslist.clear();
 
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
