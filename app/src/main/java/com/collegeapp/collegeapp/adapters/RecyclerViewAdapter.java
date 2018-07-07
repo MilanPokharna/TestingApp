@@ -94,8 +94,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.posit.setText(contacts.getPos());
         holder.name.setText(contacts.getName());
-        holder.email.setText(contacts.getEmail());
-        holder.phone.setText(contacts.getNumber());
         Glide.with(context.getApplicationContext()).load(contacts.getImage()).into(holder.profileimage);
         holder.callingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
