@@ -30,14 +30,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.scrollActivity"
-            android:label="@string/a"
-            android:screenOrientation="userPortrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.mainActivity" />
-        </activity>
         <activity android:name=".activities.NewPostActivity"/>
         <activity
             android:name=".activities.MapsActivity"

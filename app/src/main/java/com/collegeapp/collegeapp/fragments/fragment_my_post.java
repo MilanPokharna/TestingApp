@@ -92,6 +92,8 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
         unbinder = ButterKnife.bind(this, rootview);
         return rootview;
 
+
+
     }
 
     @Override

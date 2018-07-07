@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
-import com.collegeapp.collegeapp.adapters.DisplayAdaptor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,13 +71,6 @@ public class ContactLinkFragement extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_contact_link_fragement, container, false);
-        cardView = (CardView) rootView.findViewById(R.id.cardViewcontectlink);
-        cardView.setMaxCardElevation(cardView.getCardElevation()
-                * DisplayAdaptor.MAX_ELEVATION_FACTOR);
-
-//        cardView.setCardElevation(20);
-//        cardView.animate().scaleX(1.1f);
-//        cardView.animate().scaleY(1.1f);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }

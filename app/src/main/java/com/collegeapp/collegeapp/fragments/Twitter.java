@@ -82,7 +82,7 @@ public class Twitter extends Fragment {
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
+  //      progressDialog.show();
         loadData();
 
     }
@@ -108,7 +108,7 @@ public class Twitter extends Fragment {
                 twitterRecycler.setLayoutManager(layoutManager);
                 twitterRecycler.setHasFixedSize(true);
                 twitterRecycler.setAdapter(adapter);
-                progressDialog.cancel();
+//                progressDialog.cancel();
             }
 
             @Override

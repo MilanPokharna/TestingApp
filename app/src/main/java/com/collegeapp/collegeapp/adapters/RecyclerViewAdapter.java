@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
-import com.collegeapp.collegeapp.activities.scrollActivity;
 import com.collegeapp.collegeapp.fragments.BlankFragment;
 import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
 import com.collegeapp.collegeapp.models.contacts;
