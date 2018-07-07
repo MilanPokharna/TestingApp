@@ -4,20 +4,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#A6000000"
-    android:padding="48dp"
+    android:paddingLeft="48dp"
+    android:paddingRight="48dp"
     android:clickable="true"
     android:focusable="true">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
         <android.support.v7.widget.CardView
             android:id="@+id/cardViewcontectlink"
             app:cardUseCompatPadding="true"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardMaxElevation="0dp"
-            android:layout_marginTop="24dp"
             app:cardCornerRadius="8dp">
 
             <RelativeLayout
@@ -75,15 +78,15 @@
                         android:layout_width="match_parent"
                         android:fontFamily="@font/googlesans"
                         android:layout_height="wrap_content"
-                        android:text="He's the director of techno njr college of technoology usne apni btech har kahis e ki har kahis se ki hai isne btech fargi college of the world to get admitted in this collge dont come to this college reny moe asjjas dada sa as as as as as as as as as assdfdrf f fr we wewe ewqw er re tr tr rtrt rt rt  tr rt rt we dfdffd df fdf jdsd sd ds ds sd dffgh h  hjhj j hiu u iu i yu ty tr rt  er er dsd d  df fg fh g j uy t rrt r t re e ef  fg  h"
+                        android:text="hello my name is rs vays i have done my btech from recghno nje clg of engineering and btrch mba and new techgnologies"
                         android:id="@+id/description_contactlink"/>
                 </ScrollView>
                 <LinearLayout
-                    android:layout_below="@id/cardscroll"
                     android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_below="@id/cardscroll"
                     android:weightSum="4">
                     <ImageView
                         android:id="@+id/twitterid"
@@ -120,7 +123,7 @@
             android:id="@+id/profileimage_contactlink"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_horizontal|top"
             android:elevation="3dp"
             app:civ_border_color="#1A000000"
             app:civ_border_width="2dp"
