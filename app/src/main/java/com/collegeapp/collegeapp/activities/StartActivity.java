@@ -29,10 +29,13 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.models.PrefManager;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.SpriteFactory;
+import com.github.ybq.android.spinkit.Style;
+import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -65,6 +68,8 @@ public class StartActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 1;
     @BindView(R.id.startActivityLayout)
     RelativeLayout startActivityLayout;
+    @BindView(R.id.spin_kit)
+    SpinKitView spinKit;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     private GoogleApiClient mGoogleSignInClient;
@@ -171,10 +176,9 @@ public class StartActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         final SharedPreferences prefs = this.getSharedPreferences(
-                "login", Context.MODE_PRIVATE );
-        int flag = prefs.getInt( "loginvar", 0);
-        if (flag == 1)
-        {
+                "login", Context.MODE_PRIVATE);
+        int flag = prefs.getInt("loginvar", 0);
+        if (flag == 1) {
             Intent intent = new Intent(this, mainActivity.class);
             startActivity(intent);
             finish();
@@ -302,10 +306,14 @@ public class StartActivity extends AppCompatActivity {
 
     public void clickme() {
         if (isNetworkConnected()) {
-            progressDialog.setMessage("Logging you in");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.setCancelable(false);
-            progressDialog.show();
+//            progressDialog.setMessage("Logging you in");
+//            progressDialog.setCanceledOnTouchOutside(false);
+//            progressDialog.setCancelable(false);
+//            progressDialog.show();
+            Style style = Style.values()[9];
+            Sprite drawable = SpriteFactory.create(style);
+            spinKit.setIndeterminateDrawable(drawable);
+            spinKit.setVisibility(View.VISIBLE);
             signIn();
         } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(StartActivity.this);
@@ -346,7 +354,7 @@ public class StartActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                progressDialog.dismiss();
+                spinKit.setVisibility(View.GONE);
                 // Google Sign In failed, update UI appropriately
                 Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Authentication Failed", Snackbar.LENGTH_SHORT);
                 snackbar1.show();
@@ -358,8 +366,8 @@ public class StartActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             SharedPreferences prefs = this.getSharedPreferences(
-                    "login", Context.MODE_PRIVATE );
-            prefs.edit().putInt( "loginvar", 1 ).apply();
+                    "login", Context.MODE_PRIVATE);
+            prefs.edit().putInt("loginvar", 1).apply();
 
             Intent intent = new Intent(this, mainActivity.class);
             startActivity(intent);
@@ -386,7 +394,7 @@ public class StartActivity extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         if (dataSnapshot.hasChild(a)) {
-                                            progressDialog.dismiss();
+                                            spinKit.setVisibility(View.GONE);
                                             Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Welcome Back to Techno Tweets", Snackbar.LENGTH_SHORT);
                                             snackbar1.show();
                                             updateUI(user);
@@ -395,7 +403,7 @@ public class StartActivity extends AppCompatActivity {
                                             mref.child(a).child("name").setValue(user.getDisplayName().toString());
                                             mref.child(a).child("uid").setValue(user.getUid().toString());
                                             mref.child(a).child("value").setValue("0");
-                                            progressDialog.dismiss();
+                                            spinKit.setVisibility(View.GONE);
                                             updateUI(user);
                                         }
                                     }
@@ -417,7 +425,7 @@ public class StartActivity extends AppCompatActivity {
         } else {
             Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Login with College ID", Snackbar.LENGTH_SHORT);
             snackbar1.show();
-            progressDialog.dismiss();
+            spinKit.setVisibility(View.GONE);
 
         }
 //
