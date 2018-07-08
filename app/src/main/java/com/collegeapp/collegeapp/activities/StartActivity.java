@@ -306,10 +306,6 @@ public class StartActivity extends AppCompatActivity {
 
     public void clickme() {
         if (isNetworkConnected()) {
-//            progressDialog.setMessage("Logging you in");
-//            progressDialog.setCanceledOnTouchOutside(false);
-//            progressDialog.setCancelable(false);
-//            progressDialog.show();
             Style style = Style.values()[9];
             Sprite drawable = SpriteFactory.create(style);
             spinKit.setIndeterminateDrawable(drawable);
