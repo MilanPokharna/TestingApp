@@ -76,5 +76,4 @@
                 android:src="@drawable/ic_email_black_40" />
         </LinearLayout>
     </FrameLayout>
-
 </android.support.v7.widget.CardView>
