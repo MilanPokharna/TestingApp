@@ -97,15 +97,15 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
             public void onClick(View view) {
 //                if (checkPermission())
 //                {
-//                    final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-//                    if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        Intent i = new Intent(context, MapsActivity.class);
-                        context.startActivity(i);
-//                    } else {
-//
-//                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                        context.startActivity(intent);
-//                    }
+                    final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                           if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                                Intent i = new Intent(context, MapsActivity.class);
+                                context.startActivity(i);
+                            }
+                            else {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                context.startActivity(intent);
+                            }
 //                } else {
 //                    Snackbar snackbar = Snackbar.make(bus,"No Permission to Access Location", LENGTH_SHORT);
 //                    snackbar.show();
