@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -98,19 +100,20 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
 //                if (checkPermission())
 //                {
                     final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                           if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        if (isNetworkConnected()) {
+                            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                                 Intent i = new Intent(context, MapsActivity.class);
                                 context.startActivity(i);
-                            }
-                            else {
+                            } else {
                                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 context.startActivity(intent);
                             }
-//                } else {
-//                    Snackbar snackbar = Snackbar.make(bus,"No Permission to Access Location", LENGTH_SHORT);
-//                    snackbar.show();
-//                    requestPermission();
-//                }
+                        }
+                        else {
+                    Snackbar snackbar = Snackbar.make(bus,"No Internet Connection", LENGTH_SHORT);
+                    snackbar.show();
+
+                }
             }
         });
         holder.callingbtn.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +125,16 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
             }
         });
 
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            return true;
+        } else
+            return false;
     }
 
     @Override
