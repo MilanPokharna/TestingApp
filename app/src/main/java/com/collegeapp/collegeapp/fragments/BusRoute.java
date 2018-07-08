@@ -1,15 +1,22 @@
 package com.collegeapp.collegeapp.fragments;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.collegeapp.collegeapp.R;
@@ -43,6 +50,8 @@ public class BusRoute extends Fragment {
     TextView date;
     @BindView(R.id.time)
     TextView time;
+    Boolean perm = false;
+    public static FrameLayout bus;
 
     public BusRoute() {
     }
@@ -53,6 +62,7 @@ public class BusRoute extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_bus_route, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        bus = (FrameLayout)rootView.findViewById(R.id.busroute);
         return rootView;
     }
 
@@ -62,6 +72,7 @@ public class BusRoute extends Fragment {
         this.view = view;
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
 //        init();
         loadData();
 
@@ -95,7 +106,7 @@ public class BusRoute extends Fragment {
                             snapshot.child("route").getValue().toString());
                     contactsList.add(contactvar);
                 }
-                recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
+                recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList );
                 recyclerView.setAdapter(recyclerViewAdapterTwo);
             }
 
@@ -105,6 +116,7 @@ public class BusRoute extends Fragment {
             }
         });
     }
+
 
 
     @Override

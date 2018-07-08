@@ -14,108 +14,81 @@
     >
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:baselineAligned="false"
-        android:weightSum="4">
+        >
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="160dp"
             android:layout_marginTop="1dp"
             android:background="#ffffff"
-            android:layout_weight="2.5">
+            >
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profileimage"
-                android:layout_width="72dp"
-                android:layout_margin="3dp"
-                android:layout_height="72dp"
-                android:layout_centerHorizontal="true"
-                app:civ_border_width="2dp"
-                app:civ_border_color="@color/materiablue"
-                app:civ_border_overlay="true"
+                android:id="@+id/contactprofileimage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_launcher_background" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="26dp"
-                android:layout_marginTop="4dp"
-                android:layout_below="@id/profileimage"
-                android:weightSum="2">
+            <!--<view-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="#16000000" />-->
 
-                <ImageButton
-                    android:id="@+id/callingbtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#64b5f6"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_call_black_40dp" />
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#e0e0e0"/>
-                <ImageButton
-                    android:id="@+id/emailbtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:background="#64b5f6"
-                    android:src="@drawable/ic_email_black_40" />
-            </LinearLayout>
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="#e0e0e0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="10dp">
-
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/contactname"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:fontFamily="@font/googlesans"
                 tools:text="RS VYAS" />
 
             <TextView
-                android:id="@+id/position"
+                android:id="@+id/contactposition"
                 android:fontFamily="@font/googlesans"
-                android:layout_marginTop="2dp"
                 android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/name"
                 tools:text="Position"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
+            </RelativeLayout>
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/contactcallingbtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#64b5f6"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_call_black_40dp" />
+            <ImageButton
+                android:id="@+id/contactemailbtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:background="#64b5f6"
+                android:src="@drawable/ic_email_black_40" />
+        </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/position"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/googlesans"
-                tools:text=" 9099909999"
-                 />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/phone"
-                android:fontFamily="@font/googlesans"
-                android:id="@+id/email"
-                tools:text="rsvyas@gmail.com"
-                 />
-
-        </RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

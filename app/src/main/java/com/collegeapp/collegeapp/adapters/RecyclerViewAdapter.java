@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -43,20 +44,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder implements FastScrollRecyclerView.SectionedAdapter{
 
-            @BindView(R.id.profileimage)
-    CircleImageView profileimage;
-    @BindView(R.id.callingbtn)
+            @BindView(R.id.contactprofileimage)
+            ImageView profileimage;
+    @BindView(R.id.contactcallingbtn)
     ImageButton callingbtn;
-    @BindView(R.id.emailbtn)
+    @BindView(R.id.contactemailbtn)
     ImageButton emailbtn;
-    @BindView(R.id.name)
+    @BindView(R.id.contactname)
     TextView name;
-    @BindView(R.id.position)
+    @BindView(R.id.contactposition)
     TextView posit;
-    @BindView(R.id.phone)
-    TextView phone;
-    @BindView(R.id.email)
-    TextView email;
     @BindView(R.id.cardview)
     CardView cardview;
         public ViewHolder(View itemView) {

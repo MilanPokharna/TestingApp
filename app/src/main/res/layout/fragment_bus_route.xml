@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.BusRoute"
+    android:id="@+id/busroute"
     android:background="@android:color/darker_gray">
     <ScrollView
         android:layout_width="match_parent"
