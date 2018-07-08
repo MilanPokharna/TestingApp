@@ -53,21 +53,6 @@ public class mainActivity extends AppCompatActivity {
             layoutParams.weight = 0.5f;
 
             layout.setLayoutParams(layoutParams);
-
-//        else
-//        {
-//            AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
-//            dialog.setTitle("Connection Error ");
-//            dialog.setCancelable(false);
-//            dialog.setMessage("Unable to connect with the server.\n Check your Internet connection and try again." );
-//            dialog.setPositiveButton("TRY AGAIN", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    Intent intent = new Intent(getApplicationContext(),mainActivity.class);
-//                    startActivity(intent);
-//                }
-//            }).show();
-//        }
     }
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
