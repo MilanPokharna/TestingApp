@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.fragments.BlankFragment;
 import com.collegeapp.collegeapp.fragments.Canteen;
 import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
+import com.collegeapp.collegeapp.models.TimeAgo;
 import com.collegeapp.collegeapp.models.User;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
@@ -62,7 +64,8 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
 
         final User user=userList.get(i);
         holder.name.setText(user.getName());
-        holder.date.setText(user.getPosttime());
+        //holder.date.setText(user.getPosttime());
+        holder.date.setText(TimeAgo.getTimeAgo(Long.parseLong(user.getPosttime())));
 
         Glide.with(context.getApplicationContext()).load(user.getProfileimage()).into(holder.profileimg);
         final String postimage = user.getPostimage();
