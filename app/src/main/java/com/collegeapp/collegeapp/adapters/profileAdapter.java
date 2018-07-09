@@ -58,8 +58,6 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
     public List<String> post = new ArrayList<>();
     public FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user;
-    StorageReference ref = FirebaseStorage.getInstance().getReference().child("images");
-    StorageReference reference = FirebaseStorage.getInstance().getReference();
     DatabaseReference delete = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
     DatabaseReference delet = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
 
@@ -83,7 +81,9 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         delet.keepSynced(true);
         delete.keepSynced(true);
-        User key;
+        final User key;
+        final StorageReference ref = FirebaseStorage.getInstance().getReference().child("images");
+        StorageReference reference;
         final String value;
         user = auth.getCurrentUser();
         key = userList.get(i);
@@ -112,6 +112,7 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
                             .setAction("Delete", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
+                                    ref.child(key.getPostimage()).delete();
                                     delete.child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -121,6 +122,7 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
                                                     delet.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                                                             if (!(dataSnapshot.hasChild("posts"))) {
                                                                 delet.child(user.getUid()).child("value").setValue("0").addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                     @Override

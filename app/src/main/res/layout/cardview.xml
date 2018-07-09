@@ -9,11 +9,11 @@
     app:cardCornerRadius="8dp">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/contactprofileimage"
             android:src="@drawable/rsvyas"
             android:scaleType="fitXY"/>
@@ -29,6 +29,7 @@
             android:layout_gravity="center">
 
             <TextView
+                android:layout_margin="10dp"
                 android:id="@+id/contactname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,13 +40,15 @@
                 android:textSize="28sp" />
 
             <TextView
+
                 android:id="@+id/contactposition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/googlesans"
                 android:text="rs_50"
-                android:layout_below="@id/name"
+                android:layout_margin="10dp"
+                android:layout_below="@id/contactname"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
                 android:textSize="24sp" />
