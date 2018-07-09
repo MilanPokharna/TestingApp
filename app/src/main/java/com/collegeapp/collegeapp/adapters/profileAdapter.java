@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
+import com.collegeapp.collegeapp.fragments.BlankFragment;
 import com.collegeapp.collegeapp.fragments.fragment_my_post;
 import com.collegeapp.collegeapp.models.TimeAgo;
 import com.collegeapp.collegeapp.models.User;
@@ -102,6 +104,21 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
             Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(viewHolder.postimg);
         }
         viewHolder.description.setText(key.getPostdata());
+
+        viewHolder.postimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new BlankFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("imageurl",key.getPostimage());
+                myFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.newRelative, myFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         viewHolder.dustbin.setOnClickListener(new View.OnClickListener() {
             @Override
