@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -30,7 +31,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -131,11 +134,16 @@ public class NewPostActivity extends AppCompatActivity {
                                     myref.child("email").setValue(user.getEmail());
                                     myref.child("name").setValue(user.getDisplayName());
                                     myref.child("postdata").setValue(des);
-                                    myref.child("posttime").setValue(mydate);
-                                    Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+                                    myref.child("posttime").setValue(mydate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
 
-                                    progressDialog.cancel();
-                                    finish();
+                                            progressDialog.cancel();
+                                            finish();
+                                        }
+                                    });
+
                                 }
                             });
                         } else {
@@ -152,10 +160,15 @@ public class NewPostActivity extends AppCompatActivity {
                                             myref.child("email").setValue(user.getEmail());
                                             myref.child("name").setValue(user.getDisplayName());
                                             myref.child("postdata").setValue(des);
-                                            final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-                                            myref.child("posttime").setValue(mydate);
-                                            progressDialog.cancel();
-                                            finish();
+                                            myref.child("posttime").setValue(mydate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+
+                                                    progressDialog.cancel();
+                                                    finish();
+                                                }
+                                            });
                                         }
                                     });
 

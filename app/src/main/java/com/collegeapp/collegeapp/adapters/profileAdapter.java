@@ -90,9 +90,10 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
         final String value;
         user = auth.getCurrentUser();
         key = userList.get(i);
+        String time = TimeAgo.getTimeAgo(Long.parseLong(key.getPosttime()));
         viewHolder.name.setText(user.getDisplayName());
         Glide.with(context.getApplicationContext()).load(user.getPhotoUrl()).into(viewHolder.profileimg);
-        viewHolder.date.setText(TimeAgo.getTimeAgo(Long.parseLong(key.getPosttime())));
+        viewHolder.date.setText(time);
         String postimage = key.getPostimage();
         if ((postimage.equals("0"))) {
             viewHolder.postimg.setVisibility(View.GONE);
