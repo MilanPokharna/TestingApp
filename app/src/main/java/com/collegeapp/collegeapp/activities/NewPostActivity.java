@@ -112,7 +112,7 @@ public class NewPostActivity extends AppCompatActivity {
                 if (isNetworkConnected()) {
                     final String des = Description.getText().toString().trim();
                     if (!(TextUtils.isEmpty(des))) {
-                        final String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+                        final String mydate = String.valueOf(System.currentTimeMillis());
                         progressDialog.setMessage("Uploading Post");
                         progressDialog.setCancelable(false);
                         progressDialog.setCanceledOnTouchOutside(false);

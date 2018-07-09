@@ -21,37 +21,34 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#44000000" />
+            android:background="#66000000" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="35dp">
 
             <TextView
-                android:layout_margin="10dp"
+                android:textAlignment="center"
                 android:id="@+id/contactname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/googlesans"
-                android:text="dosa"
-                android:textAlignment="center"
+                android:text="name"
                 android:textColor="#ffffff"
-                android:textSize="28sp" />
+                android:textSize="18sp" />
 
             <TextView
-
                 android:id="@+id/contactposition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:fontFamily="@font/googlesans"
                 android:text="rs_50"
-                android:layout_margin="10dp"
-                android:layout_below="@id/contactname"
                 android:textAlignment="center"
+                android:layout_below="@id/contactname"
                 android:textColor="#ffffff"
-                android:textSize="24sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#64b5f6"
+                android:background="@color/materiablue"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_call_black_40dp" />
             <View
@@ -76,7 +73,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="fitCenter"
-                android:background="#64b5f6"
+                android:background="@color/materiablue"
                 android:src="@drawable/ic_email_black_40" />
         </LinearLayout>
     </FrameLayout>

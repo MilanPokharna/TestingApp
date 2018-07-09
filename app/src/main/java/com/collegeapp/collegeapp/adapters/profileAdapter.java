@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.fragments.fragment_my_post;
+import com.collegeapp.collegeapp.models.TimeAgo;
 import com.collegeapp.collegeapp.models.User;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -89,8 +90,7 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
         key = userList.get(i);
         viewHolder.name.setText(user.getDisplayName());
         Glide.with(context.getApplicationContext()).load(user.getPhotoUrl()).into(viewHolder.profileimg);
-
-        viewHolder.date.setText(key.getPosttime());
+        viewHolder.date.setText(TimeAgo.getTimeAgo(Long.parseLong(key.getPosttime())));
         String postimage = key.getPostimage();
         if ((postimage.equals("0"))) {
             viewHolder.postimg.setVisibility(View.GONE);
