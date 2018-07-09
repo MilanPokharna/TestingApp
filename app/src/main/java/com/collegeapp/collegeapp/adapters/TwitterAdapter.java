@@ -93,16 +93,9 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
                         .replace(R.id.newRelative, myFragment)
                         .addToBackStack(null)
                         .commit();
-
-
-
             }
         });
     }
-
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.profileimg)
