@@ -59,6 +59,7 @@ public class staggeredgridviewadapter extends RecyclerView.Adapter<staggeredgrid
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         canteen var = canteenlist.get(i);
+        String b = var.getDish();
         viewHolder.dish.setText(var.getDish().toString());
         viewHolder.dishprice.setText(var.getDishprice().toString());
         String a = var.getImg();
