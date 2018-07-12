@@ -39,7 +39,6 @@ public class mainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-      //  if (isNetworkConnected())
 
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
