@@ -93,12 +93,10 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
         holder.route.setText(contacts.getRoute());
         holder.name.setText(contacts.getDriver());
         holder.phone.setText(contacts.getContact());
-        //Glide.with(context.getApplicationContext()).load(contacts.getImage()).into(holder.profileimage);
+
         holder.getdirections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (checkPermission())
-//                {
                     final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                         if (isNetworkConnected()) {
                             if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
