@@ -73,7 +73,6 @@ public class BusRoute extends Fragment {
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-//        init();
         loadData();
 
     }
