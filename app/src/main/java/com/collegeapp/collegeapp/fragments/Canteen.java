@@ -1,17 +1,20 @@
 package com.collegeapp.collegeapp.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.staggeredgridviewadapter;
 import com.collegeapp.collegeapp.models.canteen;
@@ -20,8 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import android.app.ProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +40,12 @@ public class Canteen extends Fragment {
 
     public List<canteen> dishlist = new ArrayList<>();
     public String bld;
-    public DatabaseReference myref,ref;
+    public DatabaseReference myref, ref;
     public ProgressDialog progressDialog;
     public staggeredgridviewadapter staggeredgridviewadapter;
     public GridLayoutManager staggeredGridLayoutManager;
+    @BindView(R.id.thaliitem)
+    TextView thaliitem;
 
     public Canteen() {
     }
@@ -59,7 +62,44 @@ public class Canteen extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
-        staggeredGridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date d = new Date();
+        String dayOfTheWeek = sdf.format(d);
+        if (dayOfTheWeek .equals("Monday"))
+        {
+            thaliitem.setText("Masala Bhindi , Daal , Chawal , Salaad , Chhachh ");
+        }
+        else if (dayOfTheWeek .equals("Tuesday"))
+        {
+            thaliitem.setText("Zeera Aloo , Kadi , Daal , Chawal , Salaad , Chhachh ");
+        }
+        else if (dayOfTheWeek .equals("Wednesday"))
+        {
+            thaliitem.setText("Baingan(Brinjal) , Daal , Chawal , Salaad , Chhachh ");
+        }
+        else if (dayOfTheWeek .equals("Thursday"))
+        {
+            thaliitem.setText("Kabuli Chana (Chickpeas-white) , Daal , Chawal , Salaad , Chhachh ");
+        }
+        else if (dayOfTheWeek .equals("Friday"))
+        {
+            thaliitem.setText("Sev Tamatar , Daal , Chawal , Salaad , Chhachh ");
+        }
+        else if (dayOfTheWeek .equals("Saturday"))
+        {
+            thaliitem.setText("Besan Gatta , Daal , Chawal , Salaad , Chhachh ");
+        }
+        else if (dayOfTheWeek .equals("Sunday"))
+        {
+            thaliitem.setText("Matar Paneer , Daal , Chawal , Salaad , Chhachh ");
+        }
+        else
+            Toast.makeText(getContext(), dayOfTheWeek, Toast.LENGTH_SHORT).show();
+
+
+
+        staggeredGridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView3.setHasFixedSize(true);
         recyclerView3.setLayoutManager(staggeredGridLayoutManager);
         ref = FirebaseDatabase.getInstance().getReference().child("root").child("canteen").child("theme");
@@ -87,15 +127,14 @@ public class Canteen extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dishlist.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     canteen canteen = snapshot.getValue(com.collegeapp.collegeapp.models.canteen.class);
                     dishlist.add(canteen);
                 }
-                staggeredGridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
+                staggeredGridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
                 recyclerView3.setHasFixedSize(true);
                 recyclerView3.setLayoutManager(staggeredGridLayoutManager);
-                staggeredgridviewadapter = new staggeredgridviewadapter(getContext(),dishlist);
+                staggeredgridviewadapter = new staggeredgridviewadapter(getContext(), dishlist);
                 recyclerView3.setAdapter(staggeredgridviewadapter);
             }
 
