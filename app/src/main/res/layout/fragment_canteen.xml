@@ -5,15 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragments.Canteen">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbarThumbVertical="@color/scrollcolor">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -32,9 +27,6 @@
                     android:fontFamily="@font/googlesans"
                     android:textSize="20sp"
                     android:id="@+id/date" />
-                <view
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -57,6 +49,5 @@
             </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
-    </ScrollView>
 
 </FrameLayout>
