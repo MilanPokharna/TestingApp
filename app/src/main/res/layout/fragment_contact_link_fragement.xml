@@ -7,6 +7,7 @@
     android:paddingLeft="48dp"
     android:paddingRight="48dp"
     android:clickable="true"
+    android:id="@+id/linklayout"
     android:focusable="true">
     <FrameLayout
         android:layout_width="match_parent"
@@ -17,10 +18,11 @@
             app:cardUseCompatPadding="true"
             android:layout_gravity="center"
             android:layout_width="match_parent"
+            app:cardElevation="0dp"
             android:layout_height="wrap_content"
-            app:cardMaxElevation="0dp"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="8dp">
+            android:layout_marginTop="18dp"
+            app:cardCornerRadius="8dp"
+            android:layout_marginBottom="8dp">
 
             <RelativeLayout
                 android:layout_margin="8dp"
@@ -123,9 +125,8 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_gravity="center_horizontal|top"
-            android:elevation="3dp"
-            app:civ_border_color="#1A000000"
-            app:civ_border_width="2dp"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="3dp"
             android:src="@drawable/facebook" />
 
     </FrameLayout>

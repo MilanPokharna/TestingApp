@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -31,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContactLinkFragement extends Fragment {
 
     public String key;
-    public String stwitter, sfacebook, semail, sname, slinkedin, sdes, imgurl,spos,snum;
+    public String stwitter, sfacebook, semail, sname, slinkedin, sdes, imgurl, spos, snum;
     public View v;
     DatabaseReference myref;
     static CardView cardView;
@@ -56,6 +59,11 @@ public class ContactLinkFragement extends Fragment {
     TextView cardposition;
     @BindView(R.id.cardnumber)
     TextView cardnumber;
+    @BindView(R.id.cardscroll)
+    ScrollView cardscroll;
+    @BindView(R.id.linklayout)
+    RelativeLayout linklayout;
+
 
 
     public ContactLinkFragement() {
@@ -79,6 +87,7 @@ public class ContactLinkFragement extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
+
         key = getArguments().getString("key");
         loadData();
     }
@@ -121,6 +130,7 @@ public class ContactLinkFragement extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
     }
 
     @OnClick({R.id.twitterid, R.id.facebookid, R.id.gmailid, R.id.linkedinid})
@@ -145,5 +155,10 @@ public class ContactLinkFragement extends Fragment {
                 break;
             }
         }
+    }
+
+    @OnClick(R.id.linklayout)
+    public void onViewClicked() {
+        getActivity().onBackPressed();
     }
 }
