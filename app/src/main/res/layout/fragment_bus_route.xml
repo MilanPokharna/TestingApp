@@ -59,7 +59,7 @@
                 android:text="Date"
                 android:fontFamily="@font/googlesans"
                 android:textSize="20sp"
-                android:id="@+id/date" />
+                android:id="@+id/datebus" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 android:text="Time"
                 android:fontFamily="@font/googlesans"
                 android:textSize="20sp"
-                android:id="@+id/time" />
+                android:id="@+id/timebus" />
         </LinearLayout>
 
 <android.support.v7.widget.RecyclerView

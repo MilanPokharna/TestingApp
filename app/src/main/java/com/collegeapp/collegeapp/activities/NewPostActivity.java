@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.CameraProfile;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +22,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -195,7 +198,7 @@ public class NewPostActivity extends AppCompatActivity {
             case R.id.CameraIntent: {
                 if (check()) {
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    startActivityForResult(cameraIntent,1);
                 } else {
                     requestPermission();
                     Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Permission to Access", Snackbar.LENGTH_SHORT);
@@ -272,14 +275,20 @@ public class NewPostActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resultCode != RESULT_CANCELED) {
-            if ((requestCode == CAMERA_REQUEST) && (data != null)) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if (resultCode != RESULT_CANCELED)
+        {
+            if (requestCode == 1 && data != null)
+            {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
                 cardv.setVisibility(View.VISIBLE);
                 postImage.setVisibility(View.VISIBLE);
                 imageRemoveButton.setVisibility(View.VISIBLE);
                 image = getImageUri(getApplicationContext(), photo);
                 postImage.setImageBitmap(photo);
+                //image = data.getData();
+//                Log.i("imageuri",data.getData().toString());
+                postImage.setImageURI(image);
             } else if ((requestCode == PICK_IMAGE) && (data != null)) {
                 cardv.setVisibility(View.VISIBLE);
                 image = data.getData();

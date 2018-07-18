@@ -46,9 +46,9 @@ public class BusRoute extends Fragment {
     public List<contacts> contactsList = new ArrayList<>();
     DatabaseReference myref, dt;
     ProgressDialog progressDialog;
-    @BindView(R.id.date)
+    @BindView(R.id.datebus)
     TextView date;
-    @BindView(R.id.time)
+    @BindView(R.id.timebus)
     TextView time;
     Boolean perm = false;
     public static FrameLayout bus;
