@@ -1,5 +1,6 @@
 package com.collegeapp.collegeapp.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -90,6 +91,7 @@ public class NewPostActivity extends AppCompatActivity {
     Uri image;
     ProgressDialog progressDialog;
     int CAMERA_REQUEST = 1;
+    private static final int REQUEST_CAPTURE_IMAGE = 100;
     public static final int PICK_IMAGE = 2;
     String string;
     StorageReference reference = FirebaseStorage.getInstance().getReference().child("images");
@@ -213,10 +215,11 @@ public class NewPostActivity extends AppCompatActivity {
             break;
             case R.id.ImageChooser: {
                 if (check()) {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+                    openCameraIntent();
+//                    Intent intent = new Intent();
+//                    intent.setType("image/*");
+//                    intent.setAction(Intent.ACTION_GET_CONTENT);
+//                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
                 } else {
                     requestPermission();
                     Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Permission to Access", Snackbar.LENGTH_SHORT);
@@ -283,17 +286,23 @@ public class NewPostActivity extends AppCompatActivity {
         super.onActivityResult(requestCode,resultCode,data);
         if (resultCode != RESULT_CANCELED)
         {
-            if (requestCode == 1 && data != null)
-            {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
+            if (resultCode == Activity.RESULT_OK) {
                 cardv.setVisibility(View.VISIBLE);
-                postImage.setVisibility(View.VISIBLE);
-                imageRemoveButton.setVisibility(View.VISIBLE);
-                image = getImageUri(getApplicationContext(), photo);
-                postImage.setImageBitmap(photo);
-                //image = data.getData();
-//                Log.i("imageuri",data.getData().toString());
                 postImage.setImageURI(image);
+                imageRemoveButton.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "path : "+imageFilePath, Toast.LENGTH_SHORT).show();
+                postImage.setImageURI(photoURI);
+//                Glide.with(this).load(imageFilePath).into(postImage);
+                // User Cancelled the action
+//                Bitmap photo = (Bitmap) data.getExtras().get("data");
+//                cardv.setVisibility(View.VISIBLE);
+//                postImage.setVisibility(View.VISIBLE);
+//                imageRemoveButton.setVisibility(View.VISIBLE);
+//                image = getImageUri(getApplicationContext(), photo);
+//                postImage.setImageBitmap(photo);
+//                //image = data.getData();
+////                Log.i("imageuri",data.getData().toString());
+//                postImage.setImageURI(image);
             } else if ((requestCode == PICK_IMAGE) && (data != null)) {
                 cardv.setVisibility(View.VISIBLE);
                 image = data.getData();
@@ -304,8 +313,7 @@ public class NewPostActivity extends AppCompatActivity {
             Toast.makeText(this, "no image selected", Toast.LENGTH_SHORT).show();
         }
     }
-
-    private static final int REQUEST_CAPTURE_IMAGE = 100;
+    public Uri photoURI;
 
     private void openCameraIntent() {
         Intent pictureIntent = new Intent(
@@ -319,9 +327,10 @@ public class NewPostActivity extends AppCompatActivity {
                 // Error occurred while creating the File
             }
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,                                                                                                    "com.example.android.provider", photoFile);
-                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        photoURI);
+                photoURI = FileProvider.getUriForFile(this,
+                        "com.collegeapp.collegeapp.FileProvider",
+                        photoFile);
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(pictureIntent,
                         REQUEST_CAPTURE_IMAGE);
             }
@@ -344,6 +353,7 @@ public class NewPostActivity extends AppCompatActivity {
         imageFilePath = image.getAbsolutePath();
         return image;
     }
+
 
     private Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
