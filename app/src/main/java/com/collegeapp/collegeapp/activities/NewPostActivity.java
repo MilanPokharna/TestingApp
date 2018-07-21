@@ -288,7 +288,6 @@ public class NewPostActivity extends AppCompatActivity {
         {
             if (resultCode == Activity.RESULT_OK) {
                 cardv.setVisibility(View.VISIBLE);
-                postImage.setImageURI(image);
                 imageRemoveButton.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "path : "+imageFilePath, Toast.LENGTH_SHORT).show();
                 postImage.setImageURI(photoURI);
