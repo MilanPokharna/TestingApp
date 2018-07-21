@@ -204,8 +204,9 @@ public class NewPostActivity extends AppCompatActivity {
                 break;
             case R.id.CameraIntent: {
                 if (check()) {
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent,1);
+                    openCameraIntent();
+//                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    startActivityForResult(cameraIntent,1);
                 } else {
                     requestPermission();
                     Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Permission to Access", Snackbar.LENGTH_SHORT);
@@ -215,11 +216,10 @@ public class NewPostActivity extends AppCompatActivity {
             break;
             case R.id.ImageChooser: {
                 if (check()) {
-                    openCameraIntent();
-//                    Intent intent = new Intent();
-//                    intent.setType("image/*");
-//                    intent.setAction(Intent.ACTION_GET_CONTENT);
-//                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
                 } else {
                     requestPermission();
                     Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Permission to Access", Snackbar.LENGTH_SHORT);
@@ -292,6 +292,7 @@ public class NewPostActivity extends AppCompatActivity {
                 imageRemoveButton.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "path : "+imageFilePath, Toast.LENGTH_SHORT).show();
                 postImage.setImageURI(photoURI);
+                image=photoURI;
 //                Glide.with(this).load(imageFilePath).into(postImage);
                 // User Cancelled the action
 //                Bitmap photo = (Bitmap) data.getExtras().get("data");
