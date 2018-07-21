@@ -292,17 +292,7 @@ public class NewPostActivity extends AppCompatActivity {
                 Toast.makeText(this, "path : "+imageFilePath, Toast.LENGTH_SHORT).show();
                 postImage.setImageURI(photoURI);
                 image=photoURI;
-//                Glide.with(this).load(imageFilePath).into(postImage);
-                // User Cancelled the action
-//                Bitmap photo = (Bitmap) data.getExtras().get("data");
-//                cardv.setVisibility(View.VISIBLE);
-//                postImage.setVisibility(View.VISIBLE);
-//                imageRemoveButton.setVisibility(View.VISIBLE);
-//                image = getImageUri(getApplicationContext(), photo);
-//                postImage.setImageBitmap(photo);
-//                //image = data.getData();
-////                Log.i("imageuri",data.getData().toString());
-//                postImage.setImageURI(image);
+
             } else if ((requestCode == PICK_IMAGE) && (data != null)) {
                 cardv.setVisibility(View.VISIBLE);
                 image = data.getData();
@@ -355,12 +345,12 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
 
-    private Uri getImageUri(Context context, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
+//    private Uri getImageUri(Context context, Bitmap inImage) {
+//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+//        return Uri.parse(path);
+//    }
 
     private boolean isNetworkConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE);
