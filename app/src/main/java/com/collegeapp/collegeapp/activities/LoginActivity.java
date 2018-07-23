@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                // ...
+
             }
         }
     }
