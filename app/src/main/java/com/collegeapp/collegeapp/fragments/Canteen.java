@@ -86,38 +86,7 @@ public class Canteen extends Fragment {
                 sat = dataSnapshot.child("6").getValue().toString();
                 sun = dataSnapshot.child("7").getValue().toString();
 
-                if (dayOfTheWeek .equals("Monday"))
-                {
-                    thaliitem.setText(mon);
-                }
-                else if (dayOfTheWeek .equals("Tuesday"))
-                {
-                    thaliitem.setText(tue);
-                }
-                else if (dayOfTheWeek .equals("Wednesday"))
-                {
-                    thaliitem.setText(wed);
-                }
-                else if (dayOfTheWeek .equals("Thursday"))
-                {
-                    thaliitem.setText(thur);
-                }
-                else if (dayOfTheWeek .equals("Friday"))
-                {
-                    thaliitem.setText(fri);
-                }
-                else if (dayOfTheWeek .equals("Saturday"))
-                {
-                    thaliitem.setText(sat);
-                }
-                else if (dayOfTheWeek .equals("Sunday"))
-                {
-                    thaliitem.setText(sun);
-                }
-                else
-                    Toast.makeText(getContext(), dayOfTheWeek, Toast.LENGTH_SHORT).show();
-
-                loadData();
+                callme();
             }
 
             @Override
@@ -126,6 +95,42 @@ public class Canteen extends Fragment {
             }
         });
 
+    }
+
+    private void callme() {
+
+        if (dayOfTheWeek .equals("Monday"))
+        {
+            thaliitem.setText(mon);
+        }
+        else if (dayOfTheWeek .equals("Tuesday"))
+        {
+            thaliitem.setText(tue);
+        }
+        else if (dayOfTheWeek .equals("Wednesday"))
+        {
+            thaliitem.setText(wed);
+        }
+        else if (dayOfTheWeek .equals("Thursday"))
+        {
+            thaliitem.setText(thur);
+        }
+        else if (dayOfTheWeek .equals("Friday"))
+        {
+            thaliitem.setText(fri);
+        }
+        else if (dayOfTheWeek .equals("Saturday"))
+        {
+            thaliitem.setText(sat);
+        }
+        else if (dayOfTheWeek .equals("Sunday"))
+        {
+            thaliitem.setText(sun);
+        }
+        else
+            Toast.makeText(getContext(), dayOfTheWeek, Toast.LENGTH_SHORT).show();
+
+        loadData();
     }
 
     private void loadData() {
