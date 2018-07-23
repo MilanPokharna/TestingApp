@@ -37,7 +37,7 @@ public class Canteen extends Fragment {
     @BindView(R.id.recyclerView3)
     RecyclerView recyclerView3;
     Unbinder unbinder;
-
+    String dayOfTheWeek;
     public List<canteen> dishlist = new ArrayList<>();
     public String mon,tue,wed,thur,fri,sat,sun;
     public DatabaseReference myref, ref;
@@ -65,37 +65,8 @@ public class Canteen extends Fragment {
 
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date d = new Date();
-        String dayOfTheWeek = sdf.format(d);
-        if (dayOfTheWeek .equals("Monday"))
-        {
-            thaliitem.setText("Masala Bhindi , Daal , Chawal , Salaad , Chhachh ");
-        }
-        else if (dayOfTheWeek .equals("Tuesday"))
-        {
-            thaliitem.setText("Zeera Aloo , Kadi , Daal , Chawal , Salaad , Chhachh ");
-        }
-        else if (dayOfTheWeek .equals("Wednesday"))
-        {
-            thaliitem.setText("Baingan(Brinjal) , Daal , Chawal , Salaad , Chhachh ");
-        }
-        else if (dayOfTheWeek .equals("Thursday"))
-        {
-            thaliitem.setText("Kabuli Chana (Chickpeas-white) , Daal , Chawal , Salaad , Chhachh ");
-        }
-        else if (dayOfTheWeek .equals("Friday"))
-        {
-            thaliitem.setText("Sev Tamatar , Daal , Chawal , Salaad , Chhachh ");
-        }
-        else if (dayOfTheWeek .equals("Saturday"))
-        {
-            thaliitem.setText("Besan Gatta , Daal , Chawal , Salaad , Chhachh ");
-        }
-        else if (dayOfTheWeek .equals("Sunday"))
-        {
-            thaliitem.setText("Matar Paneer , Daal , Chawal , Salaad , Chhachh ");
-        }
-        else
-            Toast.makeText(getContext(), dayOfTheWeek, Toast.LENGTH_SHORT).show();
+        dayOfTheWeek = sdf.format(d);
+
 
 
 
@@ -107,7 +78,45 @@ public class Canteen extends Fragment {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mon = dataSnapshot.getValue().toString();
+                mon = dataSnapshot.child("1").getValue().toString();
+                tue = dataSnapshot.child("2").getValue().toString();
+                wed = dataSnapshot.child("3").getValue().toString();
+                thur = dataSnapshot.child("4").getValue().toString();
+                fri = dataSnapshot.child("5").getValue().toString();
+                sat = dataSnapshot.child("6").getValue().toString();
+                sun = dataSnapshot.child("7").getValue().toString();
+
+                if (dayOfTheWeek .equals("Monday"))
+                {
+                    thaliitem.setText(mon);
+                }
+                else if (dayOfTheWeek .equals("Tuesday"))
+                {
+                    thaliitem.setText(tue);
+                }
+                else if (dayOfTheWeek .equals("Wednesday"))
+                {
+                    thaliitem.setText(wed);
+                }
+                else if (dayOfTheWeek .equals("Thursday"))
+                {
+                    thaliitem.setText(thur);
+                }
+                else if (dayOfTheWeek .equals("Friday"))
+                {
+                    thaliitem.setText(fri);
+                }
+                else if (dayOfTheWeek .equals("Saturday"))
+                {
+                    thaliitem.setText(sat);
+                }
+                else if (dayOfTheWeek .equals("Sunday"))
+                {
+                    thaliitem.setText(sun);
+                }
+                else
+                    Toast.makeText(getContext(), dayOfTheWeek, Toast.LENGTH_SHORT).show();
+
                 loadData();
             }
 
@@ -121,7 +130,7 @@ public class Canteen extends Fragment {
 
     private void loadData() {
 
-        myref = FirebaseDatabase.getInstance().getReference().child("root").child("canteen").child(bld);
+        myref = FirebaseDatabase.getInstance().getReference().child("root").child("canteen").child("breakfast");
         myref.keepSynced(true);
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
