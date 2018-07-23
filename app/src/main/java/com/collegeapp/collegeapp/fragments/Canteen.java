@@ -39,7 +39,7 @@ public class Canteen extends Fragment {
     Unbinder unbinder;
 
     public List<canteen> dishlist = new ArrayList<>();
-    public String bld;
+    public String mon,tue,wed,thur,fri,sat,sun;
     public DatabaseReference myref, ref;
     public ProgressDialog progressDialog;
     public staggeredgridviewadapter staggeredgridviewadapter;
@@ -102,12 +102,12 @@ public class Canteen extends Fragment {
         staggeredGridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView3.setHasFixedSize(true);
         recyclerView3.setLayoutManager(staggeredGridLayoutManager);
-        ref = FirebaseDatabase.getInstance().getReference().child("root").child("canteen").child("theme");
+        ref = FirebaseDatabase.getInstance().getReference().child("root").child("canteen").child("days");
         ref.keepSynced(true);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                bld = dataSnapshot.getValue().toString();
+                mon = dataSnapshot.getValue().toString();
                 loadData();
             }
 

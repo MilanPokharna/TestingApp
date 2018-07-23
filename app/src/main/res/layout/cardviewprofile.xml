@@ -17,15 +17,7 @@
             android:id="@+id/profileimg"
             android:layout_height="50dp"
             android:src="@drawable/rsvyas"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_delete_black_24dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/dustbin"
-            android:layout_margin="8dp"
-            />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -75,6 +67,17 @@
                     android:id="@+id/postimg"
                     android:scaleType="centerCrop"/>
             </android.support.v7.widget.CardView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card"
+                android:src="@drawable/ic_delete_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/dustbin"
+                android:layout_margin="8dp"
+                />
 
         </RelativeLayout>
     </RelativeLayout>
