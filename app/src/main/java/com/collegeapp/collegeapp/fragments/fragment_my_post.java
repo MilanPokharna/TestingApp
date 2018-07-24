@@ -122,7 +122,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                         }
                     }
                     // name.setText(.getDisplayName());
-                    //email.setText(user.getEmail());
+
                 }
 
                 @Override
