@@ -157,6 +157,9 @@ public class Twitter extends Fragment {
 
                     case R.id.app_bar_search:
                         newFragment = new fragment_my_post();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("userid",null);
+                        newFragment.setArguments(bundle);
                         transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .addToBackStack(null)
                         .replace(R.id.newRelative, newFragment)

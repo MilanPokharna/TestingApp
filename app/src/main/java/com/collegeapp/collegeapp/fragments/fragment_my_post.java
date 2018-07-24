@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
@@ -58,6 +59,8 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
     ImageView circleImageView;
     public static TextView text;
     Unbinder unbinder;
+    String data;
+    Integer check=0;
     public static CoordinatorLayout snakebar;
 
     public fragment_my_post() {
@@ -99,16 +102,47 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        data=getArguments().getString("userid");
+        check=0;
         this.v = view;
-        uid = user.getUid().toString();
-        name.setText(user.getDisplayName());
-        email.setText(user.getEmail());
-        Glide.with(getActivity()).load(user.getPhotoUrl()).into(circleImageView);
+        if(data!=null){
+            DatabaseReference database=FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
+            database.keepSynced(true);
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        if(data.equals(snapshot.getKey().toString())){
+                            uid=snapshot.child("uid").getValue().toString();
+                            name.setText(snapshot.child("name").getValue().toString());
+                            Glide.with(getActivity()).load(snapshot.child("profileimage").getValue().toString()).into(circleImageView);
+                            check=1;
+                            loadData();
+                            break;
+                        }
+                    }
+                    // name.setText(.getDisplayName());
+                    //email.setText(user.getEmail());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else {
+            uid = user.getUid().toString();
+            name.setText(user.getDisplayName());
+            email.setText(user.getEmail());
+            Glide.with(getActivity()).load(user.getPhotoUrl()).into(circleImageView);
+            loadData();
+        }
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        loadData();
+
     }
 
     private void loadData() {
@@ -171,7 +205,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                     User user = dataSnapshot.child(z).getValue(User.class);
                     posts.add(user);
                 }
-                adapter = new profileAdapter(getContext(), posts, userList);
+                adapter = new profileAdapter(getContext(), posts, userList,check);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 layoutManager.setStackFromEnd(true);
                 layoutManager.setReverseLayout(true);

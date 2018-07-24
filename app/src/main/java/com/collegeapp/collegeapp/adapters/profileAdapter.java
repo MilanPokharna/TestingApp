@@ -61,14 +61,15 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
     public List<String> post = new ArrayList<>();
     public FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user;
+    public  int check;
     DatabaseReference delete = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
     DatabaseReference delet = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
 
-    public profileAdapter(Context context, List<User> user, List<String> list) {
+    public profileAdapter(Context context, List<User> user, List<String> list , int check) {
         this.context = context;
         this.userList = user;
         this.post = list;
-
+        this.check = check;
     }
 
     @NonNull
@@ -90,9 +91,12 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
         final String value;
         user = auth.getCurrentUser();
         key = userList.get(i);
+        if (check == 1) {
+            viewHolder.dustbin.setVisibility(View.GONE);
+        }
         String time = TimeAgo.getTimeAgo(Long.parseLong(key.getPosttime()));
-        viewHolder.name.setText(user.getDisplayName());
-        Glide.with(context.getApplicationContext()).load(user.getPhotoUrl()).into(viewHolder.profileimg);
+        viewHolder.name.setText(key.getName());
+        Glide.with(context.getApplicationContext()).load(key.getProfileimage()).into(viewHolder.profileimg);
         viewHolder.date.setText(time);
         String postimage = key.getPostimage();
         if ((postimage.equals("0"))) {

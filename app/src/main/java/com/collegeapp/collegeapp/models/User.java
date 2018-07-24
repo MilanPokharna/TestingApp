@@ -3,6 +3,16 @@ package com.collegeapp.collegeapp.models;
 public class User {
     String profileimage;
     String email;
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    String userid;
     public User(){
 
     }
@@ -17,13 +27,14 @@ public class User {
 
     String posttime;
 
-    public User(String profileimage, String email, String name, String postimage, String postdata,String posttime) {
+    public User(String profileimage, String email, String name, String postimage, String postdata,String posttime,String userid) {
         this.profileimage = profileimage;
         this.email = email;
         this.name = name;
         this.postimage = postimage;
         this.postdata = postdata;
         this.posttime=posttime;
+        this.userid = userid;
     }
 
     String name;

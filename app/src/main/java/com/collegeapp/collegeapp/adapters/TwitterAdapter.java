@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,7 @@ import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.fragments.BlankFragment;
 import com.collegeapp.collegeapp.fragments.Canteen;
 import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
+import com.collegeapp.collegeapp.fragments.fragment_my_post;
 import com.collegeapp.collegeapp.models.TimeAgo;
 import com.collegeapp.collegeapp.models.User;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -95,6 +97,20 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
                         .commit();
             }
         });
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new fragment_my_post();
+                Bundle bundle = new Bundle();
+                bundle.putString("userid",user.getUserid());
+                myFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.newRelative, myFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -108,6 +124,8 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
         TextView description;
         @BindView(R.id.postimg)
         ImageView postimg;
+        @BindView(R.id.image_relative)
+        RelativeLayout layout;
 
 
         public ViewHolder(View itemView) {
