@@ -105,7 +105,15 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
         data=getArguments().getString("userid");
         check=0;
         this.v = view;
-        if(data!=null){
+        if (data.equals(user.getUid()))
+        {
+            uid = user.getUid().toString();
+            name.setText(user.getDisplayName());
+            email.setText(user.getEmail());
+            Glide.with(getActivity()).load(user.getPhotoUrl()).into(circleImageView);
+            loadData();
+        }
+        else{
             DatabaseReference database=FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
             database.keepSynced(true);
             database.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -131,13 +139,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                 }
             });
         }
-        else {
-            uid = user.getUid().toString();
-            name.setText(user.getDisplayName());
-            email.setText(user.getEmail());
-            Glide.with(getActivity()).load(user.getPhotoUrl()).into(circleImageView);
-            loadData();
-        }
+
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
