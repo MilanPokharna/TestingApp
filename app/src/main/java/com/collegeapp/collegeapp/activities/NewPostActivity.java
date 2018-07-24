@@ -144,6 +144,7 @@ public class NewPostActivity extends AppCompatActivity {
                                     myref.child("email").setValue(user.getEmail());
                                     myref.child("name").setValue(user.getDisplayName());
                                     myref.child("postdata").setValue(des);
+                                    myref.child("userid").setValue(user.getUid());
                                     myref.child("posttime").setValue(mydate).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -168,6 +169,7 @@ public class NewPostActivity extends AppCompatActivity {
                                             refe.child("value").setValue("1");
                                             refe.child("posts").child(string).setValue(string);
                                             myref.child("email").setValue(user.getEmail());
+                                            myref.child("userid").setValue(user.getUid());
                                             myref.child("name").setValue(user.getDisplayName());
                                             myref.child("postdata").setValue(des);
                                             myref.child("posttime").setValue(mydate).addOnCompleteListener(new OnCompleteListener<Void>() {
