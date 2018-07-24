@@ -175,7 +175,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
     }
 
     private void callme() {
-        mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users").child(uid).child("posts");
+        mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users").child(uid);
         mref.keepSynced(true);
         mref.addValueEventListener(new ValueEventListener() {
             @Override
