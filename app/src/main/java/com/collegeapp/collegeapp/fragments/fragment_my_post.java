@@ -104,17 +104,11 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
         super.onViewCreated(view, savedInstanceState);
         data=getArguments().getString("userid");
         check=0;
+        Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
         this.v = view;
-        if (data.equals(user.getUid()))
-        {
-            uid = user.getUid().toString();
-            name.setText(user.getDisplayName());
-            email.setText(user.getEmail());
-            Glide.with(getActivity()).load(user.getPhotoUrl()).into(circleImageView);
-            loadData();
-        }
-        else{
-            DatabaseReference database=FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
+        if(data!=null){
+            DatabaseReference database=FirebaseDatabase.getInstance().getReference().child("root").child("twitter")
+                    .child("users");
             database.keepSynced(true);
             database.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -125,11 +119,15 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                             name.setText(snapshot.child("name").getValue().toString());
                             Glide.with(getActivity()).load(snapshot.child("profileimage").getValue().toString()).into(circleImageView);
                             check=1;
+                            if (uid.equals(user.getUid()))
+                                check=0;
                             loadData();
                             break;
                         }
                     }
                     // name.setText(.getDisplayName());
+                    //email.setText(user.getEmail());
+
 
                 }
 
@@ -139,7 +137,13 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                 }
             });
         }
-
+        else {
+            uid = user.getUid().toString();
+            name.setText(user.getDisplayName());
+            email.setText(user.getEmail());
+            Glide.with(getActivity()).load(user.getPhotoUrl()).into(circleImageView);
+            loadData();
+        }
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
@@ -175,7 +179,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
     }
 
     private void callme() {
-        mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users").child(uid);
+        mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users").child(uid).child("posts");
         mref.keepSynced(true);
         mref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -183,6 +187,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String a = snapshot.getValue().toString();
+                    Toast.makeText(getActivity(), a, Toast.LENGTH_SHORT).show();
                     userList.add(a);
                 }
                 callme2();

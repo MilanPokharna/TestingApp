@@ -5,14 +5,14 @@ public class User {
     String email;
 
     public String getUserid() {
-        return userid;
+        return uid;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserid(String uid) {
+        this.uid = uid;
     }
 
-    String userid;
+    String uid;
     public User(){
 
     }
@@ -27,14 +27,14 @@ public class User {
 
     String posttime;
 
-    public User(String profileimage, String email, String name, String postimage, String postdata,String posttime,String userid) {
+    public User(String profileimage, String email, String name, String postimage, String postdata,String posttime,String uid) {
         this.profileimage = profileimage;
         this.email = email;
         this.name = name;
         this.postimage = postimage;
         this.postdata = postdata;
         this.posttime=posttime;
-        this.userid = userid;
+        this.uid = uid;
     }
 
     String name;

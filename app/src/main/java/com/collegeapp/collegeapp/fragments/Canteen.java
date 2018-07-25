@@ -146,7 +146,6 @@ public class Canteen extends Fragment {
                     dishlist.add(canteen);
                 }
                 staggeredGridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
-                recyclerView3.setHasFixedSize(true);
                 recyclerView3.setLayoutManager(staggeredGridLayoutManager);
                 staggeredgridviewadapter = new staggeredgridviewadapter(getContext(), dishlist);
                 recyclerView3.setAdapter(staggeredgridviewadapter);
