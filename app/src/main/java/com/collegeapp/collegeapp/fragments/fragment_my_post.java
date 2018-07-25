@@ -104,7 +104,6 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
         super.onViewCreated(view, savedInstanceState);
         data=getArguments().getString("userid");
         check=0;
-        Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
         this.v = view;
         if(data!=null){
             DatabaseReference database=FirebaseDatabase.getInstance().getReference().child("root").child("twitter")
@@ -187,7 +186,6 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String a = snapshot.getValue().toString();
-                    Toast.makeText(getActivity(), a, Toast.LENGTH_SHORT).show();
                     userList.add(a);
                 }
                 callme2();
