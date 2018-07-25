@@ -219,10 +219,8 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                 recyclerView.setAdapter(adapter);
                 progressDialog.cancel();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
