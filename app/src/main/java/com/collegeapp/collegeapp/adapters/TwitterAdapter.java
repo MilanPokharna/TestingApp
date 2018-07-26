@@ -63,7 +63,7 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, int i) {
         holder.postimg.setVisibility(View.GONE);
         final User user=userList.get(i);
-        String time = TimeAgo.getTimeAgo(Long.parseLong(user.getPosttime()));
+
         holder.name.setText(user.getName());
 
         Glide.with(context.getApplicationContext()).load(user.getProfileimage()).into(holder.profileimg);
@@ -82,6 +82,7 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
             Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(holder.postimg);
         }
         holder.description.setText(user.getPostdata());
+        String time = TimeAgo.getTimeAgo(Long.parseLong(user.getPosttime()));
         holder.date.setText(time);
         holder.postimg.setOnClickListener(new View.OnClickListener() {
             @Override
