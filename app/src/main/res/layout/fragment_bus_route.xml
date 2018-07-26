@@ -19,6 +19,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:weightSum="2"
+            android:divider="?attr/dividerHorizontal"
+            android:showDividers="middle"
             android:background="@color/materiallightblue"
             android:layout_height="wrap_content">
             <TextView
@@ -48,6 +50,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:weightSum="2"
+            android:divider="?attr/dividerHorizontal"
+            android:showDividers="middle"
             android:background="@color/materiallightblue"
             android:layout_height="wrap_content">
 

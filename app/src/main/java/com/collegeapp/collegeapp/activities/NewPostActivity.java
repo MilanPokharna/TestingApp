@@ -94,6 +94,7 @@ public class NewPostActivity extends AppCompatActivity {
     private static final int REQUEST_CAPTURE_IMAGE = 100;
     public static final int PICK_IMAGE = 2;
     String string;
+    String mydate;
     StorageReference reference = FirebaseStorage.getInstance().getReference().child("images");
     @BindView(R.id.cardv)
     CardView cardv;
@@ -109,6 +110,7 @@ public class NewPostActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         myref = myref.child("root").child("twitter").child("posts");
         user = mauth.getCurrentUser();
+        mydate = String.valueOf(System.currentTimeMillis());
         Glide.with(getApplicationContext()).load(user.getPhotoUrl()).into(profileImage);
         imageRemoveButton.setVisibility(View.INVISIBLE);
         cardv.setVisibility(View.GONE);
@@ -125,7 +127,6 @@ public class NewPostActivity extends AppCompatActivity {
                 if (isNetworkConnected()) {
                     final String des = Description.getText().toString().trim();
                     if (!(TextUtils.isEmpty(des))) {
-                        final String mydate = String.valueOf(System.currentTimeMillis());
                         progressDialog.setMessage("Uploading Post");
                         progressDialog.setCancelable(false);
                         progressDialog.setCanceledOnTouchOutside(false);
@@ -140,7 +141,6 @@ public class NewPostActivity extends AppCompatActivity {
                                     myref.child("posttime").setValue(mydate).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
                                             myref.child("postimage").setValue("0");
                                             refe = refe.child(user.getUid());
                                             refe.child("value").setValue("1");
@@ -149,11 +149,11 @@ public class NewPostActivity extends AppCompatActivity {
                                             myref.child("name").setValue(user.getDisplayName());
                                             myref.child("postdata").setValue(des);
                                             myref.child("userid").setValue(user.getUid());
+                                            Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
                                             progressDialog.cancel();
                                             finish();
                                         }
                                     });
-
                                 }
                             });
                         } else {
@@ -164,17 +164,18 @@ public class NewPostActivity extends AppCompatActivity {
                                     myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            refe = refe.child(user.getUid());
+                                            refe.child("value").setValue("1");
+                                            refe.child("posts").child(string).setValue(string);
+                                            myref.child("email").setValue(user.getEmail());
+                                            myref.child("userid").setValue(user.getUid());
+                                            myref.child("name").setValue(user.getDisplayName());
+                                            myref.child("postdata").setValue(des);
                                             myref.child("posttime").setValue(mydate).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    refe = refe.child(user.getUid());
-                                                    refe.child("value").setValue("1");
-                                                    refe.child("posts").child(string).setValue(string);
-                                                    myref.child("email").setValue(user.getEmail());
-                                                    myref.child("userid").setValue(user.getUid());
-                                                    myref.child("name").setValue(user.getDisplayName());
-                                                    myref.child("postdata").setValue(des);
                                                     Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+
                                                     progressDialog.cancel();
                                                     finish();
                                                 }
@@ -284,7 +285,7 @@ public class NewPostActivity extends AppCompatActivity {
         super.onActivityResult(requestCode,resultCode,data);
         if (resultCode != RESULT_CANCELED)
         {
-            if (resultCode == Activity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CAPTURE_IMAGE) {
                 cardv.setVisibility(View.VISIBLE);
                 imageRemoveButton.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "path : "+imageFilePath, Toast.LENGTH_SHORT).show();
