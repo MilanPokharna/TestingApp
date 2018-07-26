@@ -207,8 +207,6 @@ public class NewPostActivity extends AppCompatActivity {
             case R.id.CameraIntent: {
                 if (check()) {
                     openCameraIntent();
-//                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                    startActivityForResult(cameraIntent,1);
                 } else {
                     requestPermission();
                     Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Permission to Access", Snackbar.LENGTH_SHORT);

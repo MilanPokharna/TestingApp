@@ -66,10 +66,6 @@ public class Canteen extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date d = new Date();
         dayOfTheWeek = sdf.format(d);
-
-
-
-
         staggeredGridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         recyclerView3.setHasFixedSize(true);
         recyclerView3.setLayoutManager(staggeredGridLayoutManager);
