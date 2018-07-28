@@ -62,7 +62,7 @@ public class Twitter extends Fragment {
     public FirebaseAuth mauth = FirebaseAuth.getInstance();
 
     public Twitter() {
-        //only constructor
+        //empty constructor
     }
 
     @Override
