@@ -59,6 +59,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.INTERNET;
@@ -291,8 +292,8 @@ public class NewPostActivity extends AppCompatActivity {
                 Toast.makeText(this, "path : "+imageFilePath, Toast.LENGTH_SHORT).show();
                 postImage.setImageURI(photoURI);
                 image=photoURI;
-
-            } else if ((requestCode == PICK_IMAGE) && (data != null)) {
+            }
+            else if ((requestCode == PICK_IMAGE) && (data != null)) {
                 cardv.setVisibility(View.VISIBLE);
                 image = data.getData();
                 postImage.setImageURI(image);
@@ -338,8 +339,8 @@ public class NewPostActivity extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-
         imageFilePath = image.getAbsolutePath();
+        image = new Compressor(this).compressToFile(image);
         return image;
     }
 
