@@ -42,9 +42,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     implementation 'com.android.support:palette-v7:28.+'
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
-    compile 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
+    implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.+'
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'id.zelory:compressor:2.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
