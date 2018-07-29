@@ -150,7 +150,7 @@ public class NewPostActivity extends AppCompatActivity {
                                             myref.child("name").setValue(user.getDisplayName());
                                             myref.child("postdata").setValue(des);
                                             myref.child("userid").setValue(user.getUid());
-                                            Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
                                             progressDialog.cancel();
                                             finish();
                                         }
@@ -175,7 +175,7 @@ public class NewPostActivity extends AppCompatActivity {
                                             myref.child("posttime").setValue(mydate).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+                                                    //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
 
                                                     progressDialog.cancel();
                                                     finish();
@@ -189,7 +189,9 @@ public class NewPostActivity extends AppCompatActivity {
                         }
 
                     } else {
-                        Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar1 = Snackbar.make(newpostlayout, "Can't Upload Empty Post", Snackbar.LENGTH_SHORT);
+                        snackbar1.show();
+                        //Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Internet Connection", Snackbar.LENGTH_SHORT);
@@ -289,7 +291,7 @@ public class NewPostActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CAPTURE_IMAGE) {
                 cardv.setVisibility(View.VISIBLE);
                 imageRemoveButton.setVisibility(View.VISIBLE);
-                Toast.makeText(this, "path : "+imageFilePath, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "path : "+imageFilePath, Toast.LENGTH_SHORT).show();
                 postImage.setImageURI(photoURI);
                 image=photoURI;
             }
@@ -300,7 +302,9 @@ public class NewPostActivity extends AppCompatActivity {
                 imageRemoveButton.setVisibility(View.VISIBLE);
             }
         } else {
-            Toast.makeText(this, "no image selected", Toast.LENGTH_SHORT).show();
+            Snackbar snackbar1 = Snackbar.make(newpostlayout, "no image selected", Snackbar.LENGTH_SHORT);
+            snackbar1.show();
+            //Toast.makeText(this, "no image selected", Toast.LENGTH_SHORT).show();
         }
     }
     public Uri photoURI;
