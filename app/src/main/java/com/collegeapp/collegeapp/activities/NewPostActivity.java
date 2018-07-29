@@ -340,7 +340,7 @@ public class NewPostActivity extends AppCompatActivity {
                 storageDir      /* directory */
         );
         imageFilePath = image.getAbsolutePath();
-        image = new Compressor(this).compressToFile(image);
+
         return image;
     }
 
