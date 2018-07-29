@@ -319,7 +319,7 @@ public class NewPostActivity extends AppCompatActivity {
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                // Error occurred while creating the File
+
             }
             if (photoFile != null) {
                 photoURI = FileProvider.getUriForFile(this,
