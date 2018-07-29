@@ -111,7 +111,7 @@ public class NewPostActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         myref = myref.child("root").child("twitter").child("posts");
         user = mauth.getCurrentUser();
-        mydate = String.valueOf(System.currentTimeMillis());
+
         Glide.with(getApplicationContext()).load(user.getPhotoUrl()).into(profileImage);
         imageRemoveButton.setVisibility(View.INVISIBLE);
         cardv.setVisibility(View.GONE);
@@ -132,6 +132,7 @@ public class NewPostActivity extends AppCompatActivity {
                         progressDialog.setCancelable(false);
                         progressDialog.setCanceledOnTouchOutside(false);
                         progressDialog.show();
+                        mydate = String.valueOf(System.currentTimeMillis());
                         myref = myref.push();
                         string = myref.getKey().toString();
 
