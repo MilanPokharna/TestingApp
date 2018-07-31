@@ -59,10 +59,23 @@ public class staggeredgridviewadapter extends RecyclerView.Adapter<staggeredgrid
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         canteen var = canteenlist.get(i);
-        String b = var.getDish();
-        viewHolder.dish.setText(var.getDish().toString());
-        viewHolder.dishprice.setText("₹"+var.getDishprice().toString());
         String a = var.getImg();
+        String b = var.getDish();
+        String c = var.getDishprice();
+        if (b == null)
+        {
+            Toast.makeText(context.getApplicationContext(), "dish ", Toast.LENGTH_SHORT).show();
+            viewHolder.dish.setText("milan");
+        }
+        else
+            viewHolder.dish.setText(b);
+        if (c == null)
+        {
+            Toast.makeText(context.getApplicationContext(), "dishprice ", Toast.LENGTH_SHORT).show();
+            viewHolder.dishprice.setText("milan");
+        }
+        else
+            viewHolder.dishprice.setText("₹"+c);
         Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference.child(a)).into(viewHolder.img);
     }
 
