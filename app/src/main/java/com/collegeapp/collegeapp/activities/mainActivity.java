@@ -66,5 +66,8 @@ public class mainActivity extends AppCompatActivity {
         android.os.Process.killProcess(pid);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
