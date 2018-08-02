@@ -167,6 +167,7 @@ public class StartActivity extends AppCompatActivity {
                 } else if (current >= layouts.length) {
                     prefManager.setFirstTimeLaunch(false);
                     clickme();
+                    fbut.setClickable(false);
                 }
             }
         });
@@ -353,6 +354,7 @@ public class StartActivity extends AppCompatActivity {
                 spinKit.setVisibility(View.GONE);
                 // Google Sign In failed, update UI appropriately
                 Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Authentication Failed", Snackbar.LENGTH_SHORT);
+                fbut.setClickable(true);
                 snackbar1.show();
                 // ...
             }
@@ -422,6 +424,7 @@ public class StartActivity extends AppCompatActivity {
         } else {
             Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Login with College ID", Snackbar.LENGTH_SHORT);
             snackbar1.show();
+            fbut.setClickable(true);
             spinKit.setVisibility(View.GONE);
 
         }
