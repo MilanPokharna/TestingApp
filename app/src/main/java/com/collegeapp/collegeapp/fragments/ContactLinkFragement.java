@@ -19,11 +19,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,6 +97,7 @@ public class ContactLinkFragement extends Fragment {
 
     private void loadData() {
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
+        final StorageReference ref = FirebaseStorage.getInstance().getReference();
         myref.keepSynced(true);
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -111,7 +115,8 @@ public class ContactLinkFragement extends Fragment {
                 description.setText(sdes);
                 cardnumber.setText(snum);
                 cardposition.setText(spos);
-                Glide.with(getContext()).load(imgurl).into(profileimageContactlink);
+                Glide.with(getContext()).using(new FirebaseImageLoader()).load(ref.child(imgurl)).into(profileimageContactlink);
+                //Glide.with(getContext()).load(imgurl).into(profileimageContactlink);
             }
 
             @Override

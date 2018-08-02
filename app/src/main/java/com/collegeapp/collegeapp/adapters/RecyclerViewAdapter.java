@@ -23,6 +23,11 @@ import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.fragments.BlankFragment;
 import com.collegeapp.collegeapp.fragments.ContactLinkFragement;
 import com.collegeapp.collegeapp.models.contacts;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -92,12 +97,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // - replace the contents of the view with that element
         final contacts contacts = contactsList.get(position);
         final String s = keyList.get(position).toString();
+        String  image = contacts.getImage();
         AssetManager am = context.getApplicationContext().getAssets();
-
-
+        String name =  contacts.getName();
+        StorageReference ref = FirebaseStorage.getInstance().getReference();
         holder.posit.setText(contacts.getPos());
         holder.name.setText(contacts.getName());
-        Glide.with(context.getApplicationContext()).load(contacts.getImage()).into(holder.profileimage);
+        Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(ref.child(image)).into(holder.profileimage);
         holder.callingbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
