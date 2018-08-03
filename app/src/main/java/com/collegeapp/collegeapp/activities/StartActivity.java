@@ -307,7 +307,7 @@ public class StartActivity extends AppCompatActivity {
 
     public void clickme() {
         if (isNetworkConnected()) {
-            Style style = Style.values()[9];
+            Style style = Style.values()[4];
             Sprite drawable = SpriteFactory.create(style);
             spinKit.setIndeterminateDrawable(drawable);
             spinKit.setVisibility(View.VISIBLE);
