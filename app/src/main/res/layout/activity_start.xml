@@ -42,7 +42,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
-        style="@style/SpinKitView.Large"
+        style="@style/SpinKitView.Large.DoubleBounce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
