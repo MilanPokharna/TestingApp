@@ -93,8 +93,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         final contacts contacts = contactsList.get(position);
         final String s = keyList.get(position).toString();
         String  image = contacts.getImage();
