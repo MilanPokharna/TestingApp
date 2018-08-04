@@ -377,7 +377,6 @@ public class StartActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        if (acct.getEmail().toString().endsWith("@technonjr.org")) {
             mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -413,19 +412,15 @@ public class StartActivity extends AppCompatActivity {
 
                             } else {
                                 updateUI(null);
+                                Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Login with College ID", Snackbar.LENGTH_SHORT);
+                                snackbar1.show();
+                                fbut.setClickable(true);
+                                spinKit.setVisibility(View.GONE);
                             }
 
                             // ...
                         }
                     });
-
-        } else {
-            Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Login with College ID", Snackbar.LENGTH_SHORT);
-            snackbar1.show();
-            fbut.setClickable(true);
-            spinKit.setVisibility(View.GONE);
-
-        }
 //
     }
 

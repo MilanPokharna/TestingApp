@@ -71,6 +71,7 @@ public class Twitter extends Fragment {
         View view = inflater.inflate(R.layout.fragment_twitter, container, false);
         unbinder = ButterKnife.bind(this, view);
         progressDialog = new ProgressDialog(getActivity());
+        user = mauth.getCurrentUser();
         return view;
     }
 
@@ -131,7 +132,6 @@ public class Twitter extends Fragment {
         final BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
         dialog.setContentView(view);
         dialog.show();
-        user = mauth.getCurrentUser();
 
         CircleImageView circleImageView;
         circleImageView = (CircleImageView)view.findViewById(R.id.profilephoto);
@@ -177,8 +177,14 @@ public class Twitter extends Fragment {
     @OnClick(R.id.fab)
     public void onFabClicked() {
 
-        Intent intent = new Intent(getActivity(), NewPostActivity.class);
-        getActivity().startActivity(intent);
+        if (user.getEmail().toString().endsWith("@technonjr.org")) {
+            Intent intent = new Intent(getActivity(), NewPostActivity.class);
+            getActivity().startActivity(intent);
+        }
+        else
+        {
+
+        }
     }
 
 }
