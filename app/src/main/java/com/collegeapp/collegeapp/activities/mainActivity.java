@@ -61,12 +61,12 @@ public class mainActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        int pid=android.os.Process.myPid();
-        android.os.Process.killProcess(pid);
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        int pid=android.os.Process.myPid();
+//        android.os.Process.killProcess(pid);
+//    }
 
 //    @Override
 //    public void onBackPressed() {
