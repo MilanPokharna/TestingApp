@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.app.ProgressDialog;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.sectionAdapter;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +38,7 @@ public class mainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseMessaging.getInstance().subscribeToTopic("notify");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
