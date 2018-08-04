@@ -7,11 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.bottomappbar.BottomAppBar;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -60,6 +60,8 @@ public class Twitter extends Fragment {
     ProgressDialog progressDialog;
     public FirebaseUser user;
     public FirebaseAuth mauth = FirebaseAuth.getInstance();
+    @BindView(R.id.fragment_twitter)
+    CoordinatorLayout fragmentTwitter;
 
     public Twitter() {
         //empty constructor
@@ -79,11 +81,11 @@ public class Twitter extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
-        twitterRecycler = (RecyclerView)v.findViewById(R.id.twitter_recycler);
+        twitterRecycler = (RecyclerView) v.findViewById(R.id.twitter_recycler);
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
-  //      progressDialog.show();
+        //      progressDialog.show();
         loadData();
 
     }
@@ -134,7 +136,7 @@ public class Twitter extends Fragment {
         dialog.show();
 
         CircleImageView circleImageView;
-        circleImageView = (CircleImageView)view.findViewById(R.id.profilephoto);
+        circleImageView = (CircleImageView) view.findViewById(R.id.profilephoto);
         Glide.with(getContext()).load(user.getPhotoUrl()).into(circleImageView);
 
         navigationView = (NavigationView) view.findViewById(R.id.navigation_view);
@@ -150,20 +152,20 @@ public class Twitter extends Fragment {
                     case R.id.app_bar_fav:
                         newFragment = new Twitter();
                         transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .replace(R.id.twitter_recycle, newFragment)
-                        .commit();
+                                .replace(R.id.twitter_recycle, newFragment)
+                                .commit();
                         dialog.dismiss();
                         break;
 
                     case R.id.app_bar_search:
                         newFragment = new fragment_my_post();
                         Bundle bundle = new Bundle();
-                        bundle.putString("userid",null);
+                        bundle.putString("userid", null);
                         newFragment.setArguments(bundle);
                         transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                        .addToBackStack(null)
-                        .replace(R.id.newRelative, newFragment)
-                        .commit();
+                                .addToBackStack(null)
+                                .replace(R.id.newRelative, newFragment)
+                                .commit();
                         dialog.dismiss();
                         break;
                 }
@@ -180,10 +182,9 @@ public class Twitter extends Fragment {
         if (user.getEmail().toString().endsWith("@technonjr.org")) {
             Intent intent = new Intent(getActivity(), NewPostActivity.class);
             getActivity().startActivity(intent);
-        }
-        else
-        {
-
+        } else {
+            Snackbar snackbar = Snackbar.make(fragmentTwitter,"Please Login with College ID to upload a Post",Snackbar.LENGTH_SHORT);
+            snackbar.show();
         }
     }
 
