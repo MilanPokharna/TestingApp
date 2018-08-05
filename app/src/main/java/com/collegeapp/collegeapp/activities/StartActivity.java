@@ -29,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.models.PrefManager;
@@ -44,6 +45,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -95,7 +98,6 @@ public class StartActivity extends AppCompatActivity {
 
         // Checking for first time launch - before calling setContentView()
         mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("users");
 
 
@@ -385,32 +387,47 @@ public class StartActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 final FirebaseUser user = mAuth.getCurrentUser();
                                 final String a = user.getUid().toString();
-                                mref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.hasChild(a)) {
-                                            spinKit.setVisibility(View.GONE);
-                                            Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Welcome Back to Techno Tweets", Snackbar.LENGTH_SHORT);
-                                            snackbar1.show();
-                                            updateUI(user);
-                                        } else {
-                                            mref.child(a).child("email").setValue(user.getEmail().toString());
-                                            mref.child(a).child("name").setValue(user.getDisplayName().toString());
-                                            mref.child(a).child("uid").setValue(user.getUid().toString());
-                                            mref.child(a).child("profileimage").setValue(user.getPhotoUrl());
-                                            mref.child(a).child("value").setValue("0");
-                                            spinKit.setVisibility(View.GONE);
-                                            updateUI(user);
+                                final String url = user.getPhotoUrl().toString();
+                                if (url != null) {
+                                    mref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.hasChild(a)) {
+                                                if (dataSnapshot.child(a).hasChild("profileimage")) {
+                                                    spinKit.setVisibility(View.GONE);
+                                                    Toast.makeText(StartActivity.this, "Welcome Back "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
+                                                    updateUI(user);
+                                                }
+                                            } else {
+
+                                                mref.child(a).child("profileimage").setValue(url).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        mref.child(a).child("email").setValue(user.getEmail().toString());
+                                                        mref.child(a).child("name").setValue(user.getDisplayName().toString());
+                                                        mref.child(a).child("uid").setValue(user.getUid().toString());
+                                                        mref.child(a).child("value").setValue("0");
+                                                        spinKit.setVisibility(View.GONE);
+                                                        updateUI(user);
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(StartActivity.this, "Photo not uploaded", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+
+                                            }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                    }
-                                });
+                                        }
+                                    });
 
-                            } else {
+                                }
+                            }else {
                                 updateUI(null);
                                 Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Login with College ID", Snackbar.LENGTH_SHORT);
                                 snackbar1.show();

@@ -35,7 +35,7 @@
 
         <activity android:name=".activities.mainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="userPortrait">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -44,8 +44,7 @@
         <activity android:name=".activities.NewPostActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
-            android:name=".activities.MapsActivity"
-            android:screenOrientation="userPortrait" />
+            android:name=".activities.MapsActivity" />
         <activity android:name=".activities.StartActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/MyTheme">
