@@ -34,17 +34,20 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".activities.mainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="userPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.NewPostActivity"/>
+        <activity android:name=".activities.NewPostActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".activities.MapsActivity"
             android:screenOrientation="userPortrait" />
         <activity android:name=".activities.StartActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/MyTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
