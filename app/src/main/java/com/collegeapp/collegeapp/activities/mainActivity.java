@@ -13,10 +13,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.app.ProgressDialog;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.sectionAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
@@ -65,6 +68,44 @@ public class mainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.threebutton,menu);
+        return  true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.action_set:
+            {
+                Intent intent = new Intent(mainActivity.this,aboutUs.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.action_logout:
+            {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
+                dialog.setTitle("Logout");
+                dialog.setCancelable(false);
+                dialog.setMessage("Logout from Techno Tweets \nAre You Sure ?" );
+                dialog.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                        FirebaseAuth mauth = FirebaseAuth.getInstance();
+//                        FirebaseUser user = mauth.getCurrentUser();
+                        Intent intent = new Intent(getApplicationContext(),StartActivity.class);
+                        startActivity(intent);
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).show();
+
+                break;
+            }
+
+        }
         return  true;
     }
 
