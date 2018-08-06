@@ -88,15 +88,23 @@ public class StartActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    int current;
+    int current,f;
     private FloatingActionButton fbut;
     private PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (FirebaseApp.getApps(this).isEmpty())
+
+        SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
+        f = prefs.getInt("persistent",0);
+        if(f == 0) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }
+        else
+        {
+            prefs.edit().putInt("persistent",0).apply();
+        }
 
         // Checking for first time launch - before calling setContentView()
         mAuth = FirebaseAuth.getInstance();
@@ -502,11 +510,21 @@ public class StartActivity extends AppCompatActivity {
                 .create()
                 .show();
     }
-//    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+        int pid=android.os.Process.myPid();
+        android.os.Process.killProcess(pid);
+
+    }
+
 //    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        finishAffinity();
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        int pid=android.os.Process.myPid();
+//        android.os.Process.killProcess(pid);
 //    }
 
 

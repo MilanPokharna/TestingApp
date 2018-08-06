@@ -22,6 +22,7 @@ import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.sectionAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
@@ -97,6 +98,7 @@ public class mainActivity extends AppCompatActivity {
 //                        FirebaseUser user = mauth.getCurrentUser();
                         SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
                         prefs.edit().putInt("loginvar", 0).apply();
+                        prefs.edit().putInt("persistent",1).apply();
                         Intent intent = new Intent(mainActivity.this,StartActivity.class);
                         startActivity(intent);
                     }
