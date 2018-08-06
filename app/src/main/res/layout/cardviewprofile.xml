@@ -38,10 +38,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
+                android:textColor="@android:color/darker_gray"
                 android:fontFamily="@font/googlesans"
                 android:text="@string/_17_jun"
-                android:layout_below="@id/card"
-                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@id/name"
                 />
 
             <TextView
@@ -73,10 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/card"
+
                 android:src="@drawable/ic_close_black_24dp"
                 android:id="@+id/dustbin"
-                android:layout_margin="8dp"
+
                 />
 
         </RelativeLayout>
