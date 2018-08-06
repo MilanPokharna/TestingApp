@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -29,6 +30,8 @@ public class mainActivity extends AppCompatActivity {
 
     public sectionAdapter msectionAdapter;
 
+    SharedPreferences prefs = this.getSharedPreferences(
+            "login", Context.MODE_PRIVATE);
     @BindView(R.id.tablayout)
     TabLayout tablayout;
     @BindView(R.id.appbar)
@@ -92,7 +95,9 @@ public class mainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 //                        FirebaseAuth mauth = FirebaseAuth.getInstance();
 //                        FirebaseUser user = mauth.getCurrentUser();
-                        Intent intent = new Intent(getApplicationContext(),StartActivity.class);
+
+                        prefs.edit().putInt("loginvar", 0).apply();
+                        Intent intent = new Intent(mainActivity.this,StartActivity.class);
                         startActivity(intent);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
