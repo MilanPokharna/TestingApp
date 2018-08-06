@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -30,8 +31,7 @@ public class mainActivity extends AppCompatActivity {
 
     public sectionAdapter msectionAdapter;
 
-    SharedPreferences prefs = this.getSharedPreferences(
-            "login", Context.MODE_PRIVATE);
+
     @BindView(R.id.tablayout)
     TabLayout tablayout;
     @BindView(R.id.appbar)
@@ -89,13 +89,13 @@ public class mainActivity extends AppCompatActivity {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
                 dialog.setTitle("Logout");
                 dialog.setCancelable(false);
-                dialog.setMessage("Logout from Techno Tweets \nAre You Sure ?" );
+                dialog.setMessage("Logout from Techno Tweets Are You Sure ?" );
                 dialog.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 //                        FirebaseAuth mauth = FirebaseAuth.getInstance();
 //                        FirebaseUser user = mauth.getCurrentUser();
-
+                        SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
                         prefs.edit().putInt("loginvar", 0).apply();
                         Intent intent = new Intent(mainActivity.this,StartActivity.class);
                         startActivity(intent);

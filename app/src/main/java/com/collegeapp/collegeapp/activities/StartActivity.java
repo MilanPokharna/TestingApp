@@ -48,6 +48,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -94,7 +95,8 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        if (FirebaseApp.getApps(this).isEmpty())
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         // Checking for first time launch - before calling setContentView()
         mAuth = FirebaseAuth.getInstance();
@@ -176,8 +178,8 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        final SharedPreferences prefs = this.getSharedPreferences(
-                "login", Context.MODE_PRIVATE);
+        final SharedPreferences prefs = getSharedPreferences(
+                "login", MODE_PRIVATE);
         int flag = prefs.getInt("loginvar", 0);
         if (flag == 1) {
             Intent intent = new Intent(this, mainActivity.class);
@@ -363,8 +365,8 @@ public class StartActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            SharedPreferences prefs = this.getSharedPreferences(
-                    "login", Context.MODE_PRIVATE);
+            SharedPreferences prefs = getSharedPreferences(
+                    "login", MODE_PRIVATE);
             prefs.edit().putInt("loginvar", 1).apply();
 
             Intent intent = new Intent(this, mainActivity.class);
@@ -500,13 +502,12 @@ public class StartActivity extends AppCompatActivity {
                 .create()
                 .show();
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finishAffinity();
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        finishAffinity();
+//    }
 
 
 }

@@ -39,7 +39,7 @@ public class Canteen extends Fragment {
     Unbinder unbinder;
     String dayOfTheWeek;
     public List<canteen> dishlist = new ArrayList<>();
-    public String mon,tue,wed,thur,fri,sat,sun;
+    public String mon = null,tue= null,wed= null,thur= null,fri= null,sat= null,sun = null;
     public DatabaseReference myref, ref;
     public ProgressDialog progressDialog;
     public staggeredgridviewadapter staggeredgridviewadapter;
@@ -97,31 +97,38 @@ public class Canteen extends Fragment {
 
         if (dayOfTheWeek .equals("Monday"))
         {
-            thaliitem.setText(mon);
+            if(mon != null)
+                thaliitem.setText(mon);
         }
         else if (dayOfTheWeek .equals("Tuesday"))
         {
-            thaliitem.setText(tue);
+            if(tue != null)
+                thaliitem.setText(tue);
         }
         else if (dayOfTheWeek .equals("Wednesday"))
         {
-            thaliitem.setText(wed);
+            if(wed != null)
+                thaliitem.setText(wed);
         }
         else if (dayOfTheWeek .equals("Thursday"))
         {
-            thaliitem.setText(thur);
+            if(thur != null)
+                thaliitem.setText(thur);
         }
         else if (dayOfTheWeek .equals("Friday"))
         {
-            thaliitem.setText(fri);
+            if(fri != null)
+                thaliitem.setText(fri);
         }
         else if (dayOfTheWeek .equals("Saturday"))
         {
-            thaliitem.setText(sat);
+            if(sat != null)
+                thaliitem.setText(sat);
         }
         else if (dayOfTheWeek .equals("Sunday"))
         {
-            thaliitem.setText(sun);
+            if(sun != null)
+                thaliitem.setText(sun);
         }
         else
             Toast.makeText(getContext(), dayOfTheWeek, Toast.LENGTH_SHORT).show();
