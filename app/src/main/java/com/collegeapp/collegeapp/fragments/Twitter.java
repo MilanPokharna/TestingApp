@@ -1,8 +1,11 @@
 package com.collegeapp.collegeapp.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.bottomappbar.BottomAppBar;
@@ -25,8 +28,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.activities.NewPostActivity;
+import com.collegeapp.collegeapp.activities.mainActivity;
 import com.collegeapp.collegeapp.adapters.TwitterAdapter;
 import com.collegeapp.collegeapp.models.User;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -95,6 +103,26 @@ public class Twitter extends Fragment {
 
     private void loadData() {
 
+        SuperActivityToast.OnButtonClickListener onButtonClickListener =
+                new SuperActivityToast.OnButtonClickListener() {
+
+                    @Override
+                    public void onClick(View view, Parcelable token) {
+                        SuperToast.create(view.getContext(), "OnClick!", Style.DURATION_SHORT)
+                                .setPriorityLevel(Style.PRIORITY_HIGH).show();
+                    }
+                };
+        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+                .setButtonText("Refresh")
+                .setButtonIconResource(R.drawable.ic_refresh_black_24dp)
+                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+                .setGravity(Gravity.CENTER|Gravity.TOP,0,350)
+                .setText("New Posts Available")
+                .setDuration(Style.DURATION_LONG).show();
+
+
+
+
 
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
         mref.keepSynced(true);
@@ -133,7 +161,10 @@ public class Twitter extends Fragment {
                 int i = (newList.size() - userList.size());
                 if (true)
                 {
-                    Toast.makeText(getContext(), i+" new posts", Toast.LENGTH_SHORT).setGravity(Gravity.TOP|Gravity.CENTER,0,0);
+                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), " new posts", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER|Gravity.TOP|Gravity.AXIS_X_SHIFT,0,350);
+                    toast.show();
+
                 }
 
             }
