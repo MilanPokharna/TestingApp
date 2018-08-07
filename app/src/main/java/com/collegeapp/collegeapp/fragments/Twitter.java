@@ -15,10 +15,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
@@ -48,6 +50,7 @@ public class Twitter extends Fragment {
     DatabaseReference mref;
     TwitterAdapter adapter;
     List<User> userList = new ArrayList<>();
+    List<User> newList = new ArrayList<>();
     View v;
     @BindView(R.id.bar)
     BottomAppBar bar;
@@ -96,7 +99,7 @@ public class Twitter extends Fragment {
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
         mref.keepSynced(true);
 
-        mref.addValueEventListener(new ValueEventListener() {
+        mref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
@@ -111,7 +114,28 @@ public class Twitter extends Fragment {
                 twitterRecycler.setLayoutManager(layoutManager);
                 twitterRecycler.setHasFixedSize(true);
                 twitterRecycler.setAdapter(adapter);
-//                progressDialog.cancel();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                newList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    newList.add(user);
+                }
+                int i = (newList.size() - userList.size());
+                if (true)
+                {
+                    Toast.makeText(getContext(), i+" new posts", Toast.LENGTH_SHORT).setGravity(Gravity.TOP|Gravity.CENTER,0,0);
+                }
+
             }
 
             @Override
