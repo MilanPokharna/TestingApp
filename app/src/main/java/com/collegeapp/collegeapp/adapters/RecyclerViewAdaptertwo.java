@@ -77,18 +77,19 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
          view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_two, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     public RecyclerViewAdaptertwo(Context context, List<contacts> contactsList ) {
         this.context = context;
         this.templist = contactsList;
+        //Toast.makeText(context, "size of templist :"+templist.size(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final contacts contacts = templist.get(position);
+        //Toast.makeText(context, "bus "+position, Toast.LENGTH_SHORT).show();
         holder.profileimage.setText(contacts.getBus());
         holder.route.setText(contacts.getRoute());
         holder.name.setText(contacts.getDriver());
@@ -137,6 +138,8 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
 
     @Override
     public int getItemCount() {
+
+        //Toast.makeText(context, "templist ki size hai : "+templist.size(), Toast.LENGTH_SHORT).show();
         return templist.size();
     }
 

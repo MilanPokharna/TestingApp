@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.adapters.RecyclerViewAdaptertwo;
@@ -107,6 +108,7 @@ public class BusRoute extends Fragment {
                 }
                 recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList );
                 recyclerView.setAdapter(recyclerViewAdapterTwo);
+                //Toast.makeText(getContext(), "buslist :"+contactsList.size(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
