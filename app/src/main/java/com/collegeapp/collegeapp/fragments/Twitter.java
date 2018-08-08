@@ -1,10 +1,12 @@
 package com.collegeapp.collegeapp.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +25,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -107,24 +114,68 @@ public class Twitter extends Fragment {
 
     }
 
+    @SuppressLint("NewApi")
     private void loadData() {
 
-        SuperActivityToast.OnButtonClickListener onButtonClickListener =
-                new SuperActivityToast.OnButtonClickListener() {
+//        LayoutInflater inflater = getLayoutInflater();
+//        View layout = inflater.inflate(R.layout.custom_toast_layout,
+//                (ViewGroup)getActivity().findViewById(R.id.toast_layout_root));
+//        // get the reference of TextView and ImageVIew from inflated layout
+//        TextView toastTextView = (TextView) layout.findViewById(R.id.toastTextView);
+//        ImageView toastImageView = (ImageView) layout.findViewById(R.id.toastImageView);
+//        // set the text in the TextView
+//        toastTextView.setText("Custom Toast In Android");
+////
+////        // set the Image in the ImageView
+//        toastImageView.setImageResource(R.drawable.ic_refresh_black_24dp);
+////        // create a new Toast using context
+////        Toast toast = new Toast(getActivity().getApplicationContext());
+////        toast.setDuration(Toast.LENGTH_LONG); // set the duration for the Toast
+////        toast.setView(layout); // set the inflated layout
+////        toast.show(); // display the custom Toast
+////        layout.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                Toast.makeText(getActivity().getApplicationContext(), "helloo toast clicked", Toast.LENGTH_SHORT).show();
+////            }
+////        });
+//
+//
+//        final PopupWindow pw = new PopupWindow(layout,
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT, true);
+//        pw.setWindowLayoutType(WindowManager.LayoutParams.TYPE_TOAST);
+//        pw.showAtLocation(layout, Gravity.CENTER | Gravity.TOP, 0, 500);
+//
+//        layout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // do anything when popupWindow was clicked
+//                pw.dismiss(); // dismiss the window
+//            }
+//        });
+//        new Handler().postDelayed(new Runnable() {
+//            public void run() {
+//                pw.dismiss();
+//            }
+//        }, 10000);
 
-                    @Override
-                    public void onClick(View view, Parcelable token) {
-                        SuperToast.create(view.getContext(), "OnClick!", Style.DURATION_SHORT)
-                                .setPriorityLevel(Style.PRIORITY_HIGH).show();
-                    }
-                };
-        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-                .setButtonText("Refresh")
-                .setButtonIconResource(R.drawable.ic_refresh_black_24dp)
-                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-                .setGravity(Gravity.CENTER|Gravity.TOP,0,350)
-                .setText("New Posts Available")
-                .setDuration(Style.DURATION_LONG).show();
+//        SuperActivityToast.OnButtonClickListener onButtonClickListener =
+//                new SuperActivityToast.OnButtonClickListener() {
+//
+//                    @Override
+//                    public void onClick(View view, Parcelable token) {
+//                        SuperToast.create(view.getContext(), "OnClick!", Style.DURATION_SHORT)
+//                                .setPriorityLevel(Style.PRIORITY_HIGH).show();
+//                    }
+//                };
+//        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
+//                .setButtonText("Refresh")
+//                .setButtonIconResource(R.drawable.ic_refresh_black_24dp)
+//                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
+//                .setGravity(Gravity.CENTER|Gravity.TOP,0,350)
+//                .setText("New Posts Available")
+//                .setDuration(Style.DURATION_LONG).show();
 
 
 
@@ -165,11 +216,40 @@ public class Twitter extends Fragment {
                     newList.add(user);
                 }
                 int i = (newList.size() - userList.size());
-                if (true)
+                if (i >= 1)
                 {
-                    Toast toast = Toast.makeText(getActivity().getApplicationContext(), " new posts", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER|Gravity.TOP|Gravity.AXIS_X_SHIFT,0,350);
-                    toast.show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast_layout,
+                            (ViewGroup)getActivity().findViewById(R.id.toast_layout_root));
+                    TextView toastTextView = (TextView) layout.findViewById(R.id.toastTextView);
+                    ImageView toastImageView = (ImageView) layout.findViewById(R.id.toastImageView);
+                    // set the text in the TextView
+                    toastTextView.setText("New Posts Available");
+                    toastImageView.setImageResource(R.drawable.ic_refresh_black_24dp);
+                    final PopupWindow pw = new PopupWindow(layout,
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                    pw.setWindowLayoutType(WindowManager.LayoutParams.TYPE_TOAST);
+                    pw.showAtLocation(layout, Gravity.CENTER | Gravity.TOP, 0, 350);
+
+                    layout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            adapter = new TwitterAdapter(getContext(), newList);
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                            layoutManager.setStackFromEnd(true);
+                            layoutManager.setReverseLayout(true);
+                            twitterRecycler.setLayoutManager(layoutManager);
+                            twitterRecycler.setHasFixedSize(true);
+                            twitterRecycler.setAdapter(adapter);
+                            pw.dismiss();
+                        }
+                    });
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            pw.dismiss();
+                        }
+                    }, 10000);
 
                 }
 
