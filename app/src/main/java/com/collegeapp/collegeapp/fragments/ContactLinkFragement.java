@@ -7,12 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -37,36 +36,35 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContactLinkFragement extends Fragment {
 
     public String key;
-    public String stwitter, sfacebook, semail, sname, slinkedin, sdes, imgurl, spos, snum;
+    public String squal, sarea, semail, sname, sexp, imgurl, spos ,snum;
     public View v;
     DatabaseReference myref;
     static CardView cardView;
 
 
     Unbinder unbinder;
-    @BindView(R.id.profileimage_contactlink)
-    CircleImageView profileimageContactlink;
     @BindView(R.id.username)
     TextView username;
-    @BindView(R.id.description_contactlink)
-    TextView description;
-    @BindView(R.id.twitterid)
-    ImageView twitterid;
-    @BindView(R.id.facebookid)
-    ImageView facebookid;
-    @BindView(R.id.gmailid)
-    ImageView gmailid;
-    @BindView(R.id.linkedinid)
-    ImageView linkedinid;
     @BindView(R.id.cardposition)
     TextView cardposition;
-    @BindView(R.id.cardnumber)
-    TextView cardnumber;
+    @BindView(R.id.linearcard)
+    LinearLayout linearcard;
+    @BindView(R.id.qual)
+    TextView qual;
+    @BindView(R.id.area)
+    TextView area;
+    @BindView(R.id.exp)
+    TextView exp;
     @BindView(R.id.cardscroll)
     ScrollView cardscroll;
+    @BindView(R.id.cardViewcontectlink)
+    CardView cardViewcontectlink;
+    @BindView(R.id.profileimage_contactlink)
+    CircleImageView profileimageContactlink;
     @BindView(R.id.linklayout)
     RelativeLayout linklayout;
-
+    @BindView(R.id.explayout)
+    LinearLayout explayout;
 
 
     public ContactLinkFragement() {
@@ -102,19 +100,24 @@ public class ContactLinkFragement extends Fragment {
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                stwitter = dataSnapshot.child(key).child("twitter").getValue().toString();
-                sfacebook = dataSnapshot.child(key).child("facebook").getValue().toString();
                 semail = dataSnapshot.child(key).child("emailid").getValue().toString();
                 sname = dataSnapshot.child(key).child("name").getValue().toString();
-                slinkedin = dataSnapshot.child(key).child("linkedin").getValue().toString();
-                sdes = dataSnapshot.child(key).child("description").getValue().toString();
                 spos = dataSnapshot.child(key).child("pos").getValue().toString();
-                snum = dataSnapshot.child(key).child("number").getValue().toString();
+//                snum = dataSnapshot.child(key).child("number").getValue().toString();
                 imgurl = dataSnapshot.child(key).child("image").getValue().toString();
+                squal = dataSnapshot.child(key).child("qualification").getValue().toString();
+                sarea = dataSnapshot.child(key).child("area").getValue().toString();
+                sexp = dataSnapshot.child(key).child("experience").getValue().toString();
                 username.setText(sname);
-                description.setText(sdes);
-                cardnumber.setText(snum);
                 cardposition.setText(spos);
+                qual.setText(squal);
+                area.setText(sarea);
+                if (!sexp.equals("00"))
+                    exp.setText(sexp);
+                else
+                {
+                    explayout.setVisibility(View.GONE);
+                }
                 Glide.with(getContext()).using(new FirebaseImageLoader()).load(ref.child(imgurl)).into(profileimageContactlink);
                 //Glide.with(getContext()).load(imgurl).into(profileimageContactlink);
             }
@@ -136,30 +139,7 @@ public class ContactLinkFragement extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-    }
 
-    @OnClick({R.id.twitterid, R.id.facebookid, R.id.gmailid, R.id.linkedinid})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.twitterid: {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(stwitter)));
-                break;
-            }
-            case R.id.facebookid: {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(sfacebook)));
-                break;
-            }
-            case R.id.gmailid: {
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", semail, null));
-                startActivity(Intent.createChooser(emailIntent, "Send email..."));
-                break;
-            }
-            case R.id.linkedinid: {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(slinkedin)));
-                break;
-            }
-        }
     }
 
     @OnClick(R.id.linklayout)
