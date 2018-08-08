@@ -100,6 +100,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String name =  contacts.getName();
         StorageReference ref = FirebaseStorage.getInstance().getReference();
         holder.posit.setText(contacts.getPos());
+        holder.posit.setVisibility(View.GONE);
         holder.name.setText(contacts.getName());
         Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(ref.child(image)).into(holder.profileimage);
         holder.callingbtn.setOnClickListener(new View.OnClickListener() {
