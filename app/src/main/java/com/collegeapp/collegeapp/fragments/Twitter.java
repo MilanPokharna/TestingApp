@@ -98,6 +98,12 @@ public class Twitter extends Fragment {
         progressDialog.setCanceledOnTouchOutside(false);
         //      progressDialog.show();
         loadData();
+        bar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setup();
+            }
+        });
 
     }
 
@@ -183,8 +189,7 @@ public class Twitter extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.bar)
-    public void onViewClicked() {
+    public void setup() {
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_nav, null);
         final BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
         dialog.setContentView(view);
