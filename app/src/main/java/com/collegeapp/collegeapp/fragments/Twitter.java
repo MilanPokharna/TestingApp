@@ -235,6 +235,7 @@ public class Twitter extends Fragment {
                     layout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            pw.dismiss();
                             adapter = new TwitterAdapter(getContext(), newList);
                             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                             layoutManager.setStackFromEnd(true);
@@ -242,15 +243,25 @@ public class Twitter extends Fragment {
                             twitterRecycler.setLayoutManager(layoutManager);
                             twitterRecycler.setHasFixedSize(true);
                             twitterRecycler.setAdapter(adapter);
-                            pw.dismiss();
+
                         }
                     });
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
                             pw.dismiss();
                         }
-                    }, 10000);
+                    }, 5000);
 
+                }
+                else if (i<0)
+                {
+                    adapter = new TwitterAdapter(getContext(), newList);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    layoutManager.setStackFromEnd(true);
+                    layoutManager.setReverseLayout(true);
+                    twitterRecycler.setLayoutManager(layoutManager);
+                    twitterRecycler.setHasFixedSize(true);
+                    twitterRecycler.setAdapter(adapter);
                 }
 
             }
