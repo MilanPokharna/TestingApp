@@ -17,18 +17,19 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:background="@drawable/aabck"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
             app:layout_scrollFlags="scroll|snap"
             >
 
-            <ImageView
-                android:id="@+id/materialup.profile_backdrop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/backprofile"
-                app:layout_collapseMode="parallax"
-                />
+            <!--<ImageView-->
+                <!--android:id="@+id/materialup.profile_backdrop"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/background"-->
+                <!--app:layout_collapseMode="parallax"-->
+                <!--/>-->
         </android.support.design.widget.CollapsingToolbarLayout>
 
         <android.support.v7.widget.Toolbar

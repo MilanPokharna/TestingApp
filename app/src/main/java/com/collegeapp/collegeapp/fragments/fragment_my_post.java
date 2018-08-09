@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
@@ -60,7 +59,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
     public static TextView text;
     Unbinder unbinder;
     String data;
-    Integer check=0;
+    Integer check = 0;
     public static CoordinatorLayout snakebar;
 
     public fragment_my_post() {
@@ -70,13 +69,13 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootview = inflater.inflate(R.layout.myprofile, container, false);
-        progressDialog = new ProgressDialog(getActivity());
+//        progressDialog = new ProgressDialog(getActivity());
         user = auth.getCurrentUser();
         circleImageView = (ImageView) rootview.findViewById(R.id.profileimage_profile);
         text = (TextView) rootview.findViewById(R.id.text);
         name = (TextView) rootview.findViewById(R.id.name_profile);
         email = (TextView) rootview.findViewById(R.id.email_profile);
-        AppBarLayout appBarLayout = (AppBarLayout)rootview.findViewById(R.id.appbarlayout);
+        AppBarLayout appBarLayout = (AppBarLayout) rootview.findViewById(R.id.appbarlayout);
         appBarLayout.addOnOffsetChangedListener(this);
         mMaxScrollSize = appBarLayout.getTotalScrollRange();
         recyclerView = (RecyclerView) rootview.findViewById(R.id.profilerecycler);
@@ -96,30 +95,29 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
         return rootview;
 
 
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        data=getArguments().getString("userid");
-        check=0;
+        data = getArguments().getString("userid");
+        check = 0;
         this.v = view;
-        if(data!=null){
-            DatabaseReference database=FirebaseDatabase.getInstance().getReference().child("root").child("twitter")
+        if (data != null) {
+            DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("root").child("twitter")
                     .child("users");
             database.keepSynced(true);
             database.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                        if(data.equals(snapshot.getKey().toString())){
-                            uid=snapshot.child("uid").getValue().toString();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (data.equals(snapshot.getKey().toString())) {
+                            uid = snapshot.child("uid").getValue().toString();
                             name.setText(snapshot.child("name").getValue().toString());
                             Glide.with(getActivity()).load(snapshot.child("profileimage").getValue().toString()).into(circleImageView);
-                            check=1;
+                            check = 1;
                             if (uid.equals(user.getUid()))
-                                check=0;
+                                check = 0;
                             loadData();
                             break;
                         }
@@ -135,18 +133,17 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
 
                 }
             });
-        }
-        else {
+        } else {
             uid = user.getUid().toString();
             name.setText(user.getDisplayName());
             email.setText(user.getEmail());
             Glide.with(getActivity()).load(user.getPhotoUrl()).into(circleImageView);
             loadData();
         }
-        progressDialog.setMessage("Loading");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
+//        progressDialog.setMessage("Loading");
+//        progressDialog.setCancelable(false);
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.show();
 
     }
 
@@ -164,7 +161,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                     callme();
                 } else {
                     text.setVisibility(View.VISIBLE);
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
 
                 }
             }
@@ -210,15 +207,16 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                     User user = dataSnapshot.child(z).getValue(User.class);
                     posts.add(user);
                 }
-                adapter = new profileAdapter(getContext(), posts, userList,check);
+                adapter = new profileAdapter(getContext(), posts, userList, check);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                 layoutManager.setStackFromEnd(true);
                 layoutManager.setReverseLayout(true);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
-                progressDialog.cancel();
+//                progressDialog.cancel();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }

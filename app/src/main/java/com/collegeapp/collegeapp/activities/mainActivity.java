@@ -49,7 +49,6 @@ public class mainActivity extends AppCompatActivity {
         FirebaseMessaging.getInstance().subscribeToTopic("notify");
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -117,13 +116,27 @@ public class mainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
+        prefs.edit().putInt("flag",1).apply();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         int pid=android.os.Process.myPid();
         android.os.Process.killProcess(pid);
     }
 
-//    @Override
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
+        prefs.edit().putInt("flag",0).apply();
+    }
+
+    //    @Override
 //    public void onBackPressed() {
 //        super.onBackPressed();
 //    }

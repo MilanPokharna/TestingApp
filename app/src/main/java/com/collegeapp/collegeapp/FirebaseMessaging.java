@@ -17,7 +17,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         int f = prefs.getInt("persistent",0);
         if (f == 0) {
             prefs.edit().putInt("persistent", 1).apply();
-            Toast.makeText(this, "value of pesistent is changed to 1", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "value of pesistent is changed to 1", Toast.LENGTH_SHORT).show();
         }
     }
 }

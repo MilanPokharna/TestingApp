@@ -3,7 +3,9 @@ package com.collegeapp.collegeapp.fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +22,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -216,42 +219,46 @@ public class Twitter extends Fragment {
                     newList.add(user);
                 }
                 int i = (newList.size() - userList.size());
-                if (i >= 1)
+                if (i >=2)
                 {
-                    LayoutInflater inflater = getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.custom_toast_layout,
-                            (ViewGroup)getActivity().findViewById(R.id.toast_layout_root));
-                    TextView toastTextView = (TextView) layout.findViewById(R.id.toastTextView);
-                    ImageView toastImageView = (ImageView) layout.findViewById(R.id.toastImageView);
-                    // set the text in the TextView
-                    toastTextView.setText("New Posts Available");
-                    toastImageView.setImageResource(R.drawable.ic_refresh_black_24dp);
-                    final PopupWindow pw = new PopupWindow(layout,
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT, true);
-                    pw.setWindowLayoutType(WindowManager.LayoutParams.TYPE_TOAST);
-                    pw.showAtLocation(layout, Gravity.CENTER | Gravity.TOP, 0, 350);
+                    SharedPreferences prefs = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+                    int flag = prefs.getInt("flag",1);
+                    if (flag == 1) {
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.custom_toast_layout,
+                                (ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
+                        TextView toastTextView = (TextView) layout.findViewById(R.id.toastTextView);
+                        ImageView toastImageView = (ImageView) layout.findViewById(R.id.toastImageView);
+                        // set the text in the TextView
+                        toastTextView.setText("New Posts Available");
+                        toastImageView.setImageResource(R.drawable.ic_refresh_black_24dp);
+                        final PopupWindow pw = new PopupWindow(layout,
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                        pw.setWindowLayoutType(WindowManager.LayoutParams.TYPE_TOAST);
+                        pw.showAtLocation(layout, Gravity.CENTER | Gravity.TOP, 0, 350);
+                        pw.setTouchable(true);
 
-                    layout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            pw.dismiss();
-                            adapter = new TwitterAdapter(getContext(), newList);
-                            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                            layoutManager.setStackFromEnd(true);
-                            layoutManager.setReverseLayout(true);
-                            twitterRecycler.setLayoutManager(layoutManager);
-                            twitterRecycler.setHasFixedSize(true);
-                            twitterRecycler.setAdapter(adapter);
+                        layout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                pw.dismiss();
+                                adapter = new TwitterAdapter(getContext(), newList);
+                                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                                layoutManager.setStackFromEnd(true);
+                                layoutManager.setReverseLayout(true);
+                                twitterRecycler.setLayoutManager(layoutManager);
+                                twitterRecycler.setHasFixedSize(true);
+                                twitterRecycler.setAdapter(adapter);
 
-                        }
-                    });
-                    new Handler().postDelayed(new Runnable() {
-                        public void run() {
-                            pw.dismiss();
-                        }
-                    }, 5000);
-
+                            }
+                        });
+                        new Handler().postDelayed(new Runnable() {
+                            public void run() {
+                                pw.dismiss();
+                            }
+                        }, 3000);
+                    }
                 }
                 else if (i<0)
                 {
@@ -335,6 +342,7 @@ public class Twitter extends Fragment {
             getActivity().startActivity(intent);
         } else {
             Snackbar snackbar = Snackbar.make(fragmentTwitter,"Please Login with College ID to upload a Post",Snackbar.LENGTH_SHORT);
+
             snackbar.show();
         }
     }
