@@ -114,6 +114,7 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                         if (data.equals(snapshot.getKey().toString())) {
                             uid = snapshot.child("uid").getValue().toString();
                             name.setText(snapshot.child("name").getValue().toString());
+                            email.setText(snapshot.child("email").getValue().toString());
                             Glide.with(getActivity()).load(snapshot.child("profileimage").getValue().toString()).into(circleImageView);
                             check = 1;
                             if (uid.equals(user.getUid()))
