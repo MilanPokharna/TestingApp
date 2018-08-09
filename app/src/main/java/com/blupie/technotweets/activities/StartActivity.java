@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -33,11 +34,6 @@ import android.widget.Toast;
 
 import com.blupie.technotweets.R;
 import com.blupie.technotweets.models.PrefManager;
-import com.blupie.technotweets.R;
-import com.github.ybq.android.spinkit.SpinKitView;
-import com.github.ybq.android.spinkit.SpriteFactory;
-import com.github.ybq.android.spinkit.Style;
-import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -59,6 +55,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,8 +69,12 @@ public class StartActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 1;
     @BindView(R.id.startActivityLayout)
     RelativeLayout startActivityLayout;
-    @BindView(R.id.spin_kit)
-    SpinKitView spinKit;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
+    @BindView(R.id.layoutDots)
+    LinearLayout layoutDots;
+    //    @BindView(R.id.spin_kit)
+//    SpinKitView spinKit;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     private GoogleApiClient mGoogleSignInClient;
@@ -88,7 +89,7 @@ public class StartActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    int current,f;
+    int current, f;
     private FloatingActionButton fbut;
     private PrefManager prefManager;
 
@@ -96,14 +97,12 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
-        f = prefs.getInt("persistent",0);
-        if(f == 0) {
+        SharedPreferences prefs = getSharedPreferences("login", MODE_PRIVATE);
+        f = prefs.getInt("persistent", 0);
+        if (f == 0) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        }
-        else
-        {
-            prefs.edit().putInt("persistent",0).apply();
+        } else {
+            prefs.edit().putInt("persistent", 0).apply();
         }
 
         // Checking for first time launch - before calling setContentView()
@@ -317,10 +316,12 @@ public class StartActivity extends AppCompatActivity {
 
     public void clickme() {
         if (isNetworkConnected()) {
-            Style style = Style.values()[4];
-            Sprite drawable = SpriteFactory.create(style);
-            spinKit.setIndeterminateDrawable(drawable);
-            spinKit.setVisibility(View.VISIBLE);
+//            Style style = Style.values()[4];
+//            Sprite drawable = SpriteFactory.create(style);
+//            spinKit.setIndeterminateDrawable(drawable);
+//            spinKit.setVisibility(View.VISIBLE);
+            avi.show();
+            layoutDots.setVisibility(View.INVISIBLE);
             signIn();
         } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(StartActivity.this);
@@ -361,7 +362,9 @@ public class StartActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                spinKit.setVisibility(View.GONE);
+//                spinKit.setVisibility(View.GONE);
+                avi.hide();
+                layoutDots.setVisibility(View.VISIBLE);
                 // Google Sign In failed, update UI appropriately
                 Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Authentication Failed", Snackbar.LENGTH_SHORT);
                 fbut.setClickable(true);
@@ -389,65 +392,71 @@ public class StartActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-            mAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                final FirebaseUser user = mAuth.getCurrentUser();
-                                final String a = user.getUid().toString();
-                                final String url = user.getPhotoUrl().toString();
-                                if (url != null) {
-                                    mref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            if (dataSnapshot.hasChild(a)) {
-                                                if (dataSnapshot.child(a).hasChild("profileimage")) {
-                                                    spinKit.setVisibility(View.GONE);
-                                                    Toast.makeText(StartActivity.this, "Welcome Back "+user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            final FirebaseUser user = mAuth.getCurrentUser();
+                            final String a = user.getUid().toString();
+                            final String url = user.getPhotoUrl().toString();
+                            if (url != null) {
+                                mref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.hasChild(a)) {
+                                            if (dataSnapshot.child(a).hasChild("profileimage")) {
+//                                                    spinKit.setVisibility(View.GONE);
+                                                avi.hide();
+                                                layoutDots.setVisibility(View.VISIBLE);
+                                                Toast.makeText(StartActivity.this, "Welcome Back " + user.getDisplayName().toString(), Toast.LENGTH_SHORT).show();
+                                                updateUI(user);
+                                            }
+                                        } else {
+
+                                            mref.child(a).child("profileimage").setValue(url).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    mref.child(a).child("email").setValue(user.getEmail().toString());
+                                                    mref.child(a).child("name").setValue(user.getDisplayName().toString());
+                                                    mref.child(a).child("uid").setValue(user.getUid().toString());
+                                                    mref.child(a).child("value").setValue("0");
+//                                                        spinKit.setVisibility(View.GONE);
+                                                    avi.hide();
+                                                    layoutDots.setVisibility(View.VISIBLE);
                                                     updateUI(user);
                                                 }
-                                            } else {
-
-                                                mref.child(a).child("profileimage").setValue(url).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        mref.child(a).child("email").setValue(user.getEmail().toString());
-                                                        mref.child(a).child("name").setValue(user.getDisplayName().toString());
-                                                        mref.child(a).child("uid").setValue(user.getUid().toString());
-                                                        mref.child(a).child("value").setValue("0");
-                                                        spinKit.setVisibility(View.GONE);
-                                                        updateUI(user);
-                                                    }
-                                                }).addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(StartActivity.this, "Photo not uploaded", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(StartActivity.this, "Photo not uploaded", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
 
                                         }
-                                    });
+                                    }
 
-                                }
-                            }else {
-                                updateUI(null);
-                                Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Login with College ID", Snackbar.LENGTH_SHORT);
-                                snackbar1.show();
-                                fbut.setClickable(true);
-                                spinKit.setVisibility(View.GONE);
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
                             }
-
-                            // ...
+                        } else {
+                            updateUI(null);
+                            Snackbar snackbar1 = Snackbar.make(startActivityLayout, "Login with College ID", Snackbar.LENGTH_SHORT);
+                            snackbar1.show();
+                            fbut.setClickable(true);
+//                                spinKit.setVisibility(View.GONE);
+                            avi.hide();
+                            layoutDots.setVisibility(View.VISIBLE);
                         }
-                    });
+
+                        // ...
+                    }
+                });
 //
     }
 
@@ -510,13 +519,14 @@ public class StartActivity extends AppCompatActivity {
                 .create()
                 .show();
     }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finishAffinity();
-        int pid=android.os.Process.myPid();
-        android.os.Process.killProcess(pid);
+        int pid = Process.myPid();
+        Process.killProcess(pid);
 
     }
 
