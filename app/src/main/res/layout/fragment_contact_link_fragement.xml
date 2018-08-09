@@ -34,6 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rs Vyas"
+                    android:textAlignment="center"
                     android:textColor="@color/desccolor"
                     android:textStyle="bold"
                     android:textSize="20sp"

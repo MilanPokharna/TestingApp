@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
@@ -61,64 +62,65 @@ public class TwitterAdapter extends RecyclerView.Adapter<TwitterAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int i) {
-        holder.postimg.setVisibility(View.GONE);
-        final User user=userList.get(i);
-        String t = user.getPosttime();
-        holder.name.setText(user.getName());
-
-        Glide.with(context.getApplicationContext()).load(user.getProfileimage()).into(holder.profileimg);
-        final String postimage = user.getPostimage();
-        if((postimage == null)){
+        try {
             holder.postimg.setVisibility(View.GONE);
-        }
-        else if((postimage.equals("0"))){
-           holder.postimg.setVisibility(View.GONE);
-        }
-        else
-        {
-            reference = ref.child(user.getPostimage());
-            holder.postimg.setVisibility(View.VISIBLE);
-            //Glide.with(context.getApplicationContext()).load(user.getPostimage()).into(holder.postimg);
-            Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(holder.postimg);
-        }
-        holder.description.setText(user.getPostdata());
+            final User user = userList.get(i);
+            String t = user.getPosttime();
+            holder.name.setText(user.getName());
 
-        if (t != null){
-            String time = TimeAgo.getTimeAgo(Long.parseLong(t));
-            holder.date.setText(time);
+            Glide.with(context.getApplicationContext()).load(user.getProfileimage()).into(holder.profileimg);
+            final String postimage = user.getPostimage();
+            if ((postimage == null)) {
+                holder.postimg.setVisibility(View.GONE);
+            } else if ((postimage.equals("0"))) {
+                holder.postimg.setVisibility(View.GONE);
+            } else {
+                reference = ref.child(user.getPostimage());
+                holder.postimg.setVisibility(View.VISIBLE);
+                //Glide.with(context.getApplicationContext()).load(user.getPostimage()).into(holder.postimg);
+                Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(reference).into(holder.postimg);
+            }
+            holder.description.setText(user.getPostdata());
+
+            if (t != null) {
+                String time = TimeAgo.getTimeAgo(Long.parseLong(t));
+                holder.date.setText(time);
+            } else {
+                holder.date.setText("");
+            }
+            holder.postimg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    Fragment myFragment = new BlankFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("imageurl", user.getPostimage());
+                    myFragment.setArguments(bundle);
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.newRelative, myFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+            holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    Fragment myFragment = new fragment_my_post();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("userid", user.getUserid());
+                    myFragment.setArguments(bundle);
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.newRelative, myFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
         }
-        else
+        catch (Exception e)
         {
-            holder.date.setText("");
+            Toast.makeText(context, "Exception Raised "+e.toString(), Toast.LENGTH_SHORT).show();
         }
-        holder.postimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment myFragment = new BlankFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("imageurl",user.getPostimage());
-                myFragment.setArguments(bundle);
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.newRelative, myFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                Fragment myFragment = new fragment_my_post();
-                Bundle bundle = new Bundle();
-                bundle.putString("userid",user.getUserid());
-                myFragment.setArguments(bundle);
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.newRelative, myFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 

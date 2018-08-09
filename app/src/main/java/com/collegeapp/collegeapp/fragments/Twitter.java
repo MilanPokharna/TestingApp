@@ -214,12 +214,13 @@ public class Twitter extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 newList.clear();
+                adapter.notifyDataSetChanged();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
                     newList.add(user);
                 }
                 int i = (newList.size() - userList.size());
-                if (i >=2)
+                if (i >= 3)
                 {
                     SharedPreferences prefs = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
                     int flag = prefs.getInt("flag",1);
@@ -258,20 +259,20 @@ public class Twitter extends Fragment {
                             public void run() {
                                 pw.dismiss();
                             }
-                        }, 3000);
+                        }, 2000);
                     }
                 }
-                else if (i<0)
-                {
-                    adapter = new TwitterAdapter(getContext(), newList);
-                    userList = newList;
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    layoutManager.setStackFromEnd(true);
-                    layoutManager.setReverseLayout(true);
-                    twitterRecycler.setLayoutManager(layoutManager);
-                    twitterRecycler.setHasFixedSize(true);
-                    twitterRecycler.setAdapter(adapter);
-                }
+//                else if (i<0)
+//                {
+//                    adapter = new TwitterAdapter(getContext(), newList);
+//                    userList = newList;
+//                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//                    layoutManager.setStackFromEnd(true);
+//                    layoutManager.setReverseLayout(true);
+//                    twitterRecycler.setLayoutManager(layoutManager);
+//                    twitterRecycler.setHasFixedSize(true);
+//                    twitterRecycler.setAdapter(adapter);
+//                }
 
             }
 
@@ -355,6 +356,7 @@ public class Twitter extends Fragment {
         if(resultCode==Activity.RESULT_OK)
         {
             adapter = new TwitterAdapter(getContext(), newList);
+            userList = newList;
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             layoutManager.setStackFromEnd(true);
             layoutManager.setReverseLayout(true);
