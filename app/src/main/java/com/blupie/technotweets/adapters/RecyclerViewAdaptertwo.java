@@ -24,9 +24,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blupie.technotweets.R;
 import com.blupie.technotweets.activities.MapsActivity;
 import com.blupie.technotweets.models.contacts;
-import com.blupie.technotweets.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +61,10 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
         CardView cardview2;
         @BindView(R.id.getdirections)
         TextView getdirections;
+        @BindView(R.id.emptyview)
+        View emptyview;
+        @BindView(R.id.arrow)
+        TextView arrow;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -71,11 +75,11 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_two, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_two, parent, false);
         return new ViewHolder(view);
     }
 
-    public RecyclerViewAdaptertwo(Context context, List<contacts> contactsList ) {
+    public RecyclerViewAdaptertwo(Context context, List<contacts> contactsList) {
         this.context = context;
         this.templist = contactsList;
         //Toast.makeText(context, "size of templist :"+templist.size(), Toast.LENGTH_SHORT).show();
@@ -83,6 +87,10 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.emptyview.setVisibility(View.GONE);
+        holder.getdirections.setVisibility(View.GONE);
+        holder.arrow.setVisibility(View.GONE);
+
         final contacts contacts = templist.get(position);
         //Toast.makeText(context, "bus "+position, Toast.LENGTH_SHORT).show();
         holder.profileimage.setText(contacts.getBus());
@@ -93,18 +101,17 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
         holder.getdirections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                        if (isNetworkConnected()) {
-                            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                                Intent i = new Intent(context, MapsActivity.class);
-                                context.startActivity(i);
-                            } else {
-                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                context.startActivity(intent);
-                            }
-                        }
-                        else {
-                    Snackbar snackbar = Snackbar.make(bus,"No Internet Connection", LENGTH_SHORT);
+                final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                if (isNetworkConnected()) {
+                    if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        Intent i = new Intent(context, MapsActivity.class);
+                        context.startActivity(i);
+                    } else {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        context.startActivity(intent);
+                    }
+                } else {
+                    Snackbar snackbar = Snackbar.make(bus, "No Internet Connection", LENGTH_SHORT);
                     snackbar.show();
 
                 }
@@ -152,8 +159,8 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
 
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            Toast.makeText(activity, "request kr rha h", Toast.LENGTH_SHORT).show();
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        Toast.makeText(activity, "request kr rha h", Toast.LENGTH_SHORT).show();
     }
 
 }
