@@ -153,8 +153,10 @@ public class NewPostActivity extends AppCompatActivity {
                                             myref.child("userid").setValue(user.getUid());
                                             //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
                                             progressDialog.cancel();
+
+                                            Intent returnIntent = new Intent();
+                                            setResult(Activity.RESULT_OK, returnIntent);
                                             finish();
-//                                            startActivity(new Intent(NewPostActivity.this,mainActivity.class));
                                         }
                                     });
                                 }
@@ -180,6 +182,9 @@ public class NewPostActivity extends AppCompatActivity {
                                                     //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
 
                                                     progressDialog.cancel();
+
+                                                    Intent returnIntent =getIntent();
+                                                    setResult(Activity.RESULT_OK, returnIntent);
                                                     finish();
                                                 }
                                             });
@@ -366,12 +371,5 @@ public class NewPostActivity extends AppCompatActivity {
             return true;
         } else
             return false;
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        startActivity(new Intent(NewPostActivity.this,mainActivity.class));
-        finish();
     }
 }

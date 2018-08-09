@@ -244,6 +244,7 @@ public class Twitter extends Fragment {
                             public void onClick(View view) {
                                 pw.dismiss();
                                 adapter = new TwitterAdapter(getContext(), newList);
+                                userList = newList;
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                                 layoutManager.setStackFromEnd(true);
                                 layoutManager.setReverseLayout(true);
@@ -263,6 +264,7 @@ public class Twitter extends Fragment {
                 else if (i<0)
                 {
                     adapter = new TwitterAdapter(getContext(), newList);
+                    userList = newList;
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     layoutManager.setStackFromEnd(true);
                     layoutManager.setReverseLayout(true);
@@ -339,7 +341,7 @@ public class Twitter extends Fragment {
 
         if (user.getEmail().toString().endsWith("@technonjr.org")) {
             Intent intent = new Intent(getActivity(), NewPostActivity.class);
-            getActivity().startActivity(intent);
+            startActivityForResult(intent,123);
         } else {
             Snackbar snackbar = Snackbar.make(fragmentTwitter,"Please Login with College ID to upload a Post",Snackbar.LENGTH_SHORT);
 
@@ -347,4 +349,18 @@ public class Twitter extends Fragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==Activity.RESULT_OK)
+        {
+            adapter = new TwitterAdapter(getContext(), newList);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            layoutManager.setStackFromEnd(true);
+            layoutManager.setReverseLayout(true);
+            twitterRecycler.setLayoutManager(layoutManager);
+            twitterRecycler.setHasFixedSize(true);
+            twitterRecycler.setAdapter(adapter);
+        }
+    }
 }
