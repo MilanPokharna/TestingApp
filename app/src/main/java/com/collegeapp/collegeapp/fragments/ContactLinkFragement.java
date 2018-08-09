@@ -47,8 +47,7 @@ public class ContactLinkFragement extends Fragment {
     TextView username;
     @BindView(R.id.cardposition)
     TextView cardposition;
-    @BindView(R.id.linearcard)
-    LinearLayout linearcard;
+
     @BindView(R.id.qual)
     TextView qual;
     @BindView(R.id.area)

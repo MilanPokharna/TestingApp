@@ -154,6 +154,7 @@ public class NewPostActivity extends AppCompatActivity {
                                             //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
                                             progressDialog.cancel();
                                             finish();
+//                                            startActivity(new Intent(NewPostActivity.this,mainActivity.class));
                                         }
                                     });
                                 }
@@ -365,5 +366,12 @@ public class NewPostActivity extends AppCompatActivity {
             return true;
         } else
             return false;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        startActivity(new Intent(NewPostActivity.this,mainActivity.class));
+        finish();
     }
 }
