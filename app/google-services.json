@@ -60,6 +60,50 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:416842227130:android:2c99248d359a35cb",
+        "android_client_info": {
+          "package_name": "com.blupie.technotweets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416842227130-svtg7pkuhvg4t45acool4fiulqp4pc1e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blupie.technotweets",
+            "certificate_hash": "9f5974c655253b08fec9bdac4bf52fa646acaf5e"
+          }
+        },
+        {
+          "client_id": "416842227130-qsn3ljjar2qk6nk93k4t1llcdq5e4n6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwMRK1e4WKB-JqDg9wji1SmTKlMlajaKI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416842227130-qsn3ljjar2qk6nk93k4t1llcdq5e4n6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:416842227130:android:0e86c6366925b3c2",
         "android_client_info": {
           "package_name": "com.collegeapp.collegeapp"
@@ -88,6 +132,22 @@
           "android_info": {
             "package_name": "com.collegeapp.collegeapp",
             "certificate_hash": "e806972993ebac8ed1464c0df87005a5fef596c7"
+          }
+        },
+        {
+          "client_id": "416842227130-jser0giqi80geia21mnka200hdk60vhk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.collegeapp.collegeapp",
+            "certificate_hash": "17f0195246b2d2ea7e459dba6c1fba6fcb0017c4"
+          }
+        },
+        {
+          "client_id": "416842227130-bn1m3gisjogktqkkkg4jqhnjrk5sk2j5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.collegeapp.collegeapp",
+            "certificate_hash": "3a4965fa62ce963260b2f58e098548d81f317c17"
           }
         },
         {

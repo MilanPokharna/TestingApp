@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.collegeapp.collegeapp"
+        applicationId "com.blupie.technotweets"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'id.zelory:compressor:2.1.0'
     implementation 'com.github.johnpersano:supertoasts:2.0'
+    implementation 'com.wang.avi:library:2.1.3'
 }
 
 apply plugin: 'com.google.gms.google-services'

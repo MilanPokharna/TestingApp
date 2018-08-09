@@ -14,11 +14,11 @@
 
     <LinearLayout
         android:id="@+id/layoutDots"
-        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/dots_height"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dots_margin_bottom"
-        android:gravity="center"
         android:orientation="horizontal"/>
 
     <android.support.design.widget.FloatingActionButton
@@ -34,17 +34,31 @@
         android:id="@+id/fbat"
         android:src="@drawable/arrow_white"
         />
-    <com.github.ybq.android.spinkit.SpinKitView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/spin_kit"
-        android:visibility="gone"
-        android:layout_above="@+id/fbat"
+    <!--<com.github.ybq.android.spinkit.SpinKitView-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/spin_kit"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_above="@+id/fbat"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--style="@style/SpinKitView.Large.ThreeBounce"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--app:SpinKit_Color="#ffffff" />-->
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"
-        style="@style/SpinKitView.Large.ThreeBounce"
+        android:layout_marginBottom="44dp"
+        android:layout_alignStart="@+id/layoutDots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:SpinKit_Color="#ffffff" />
+        style="@style/AVLoadingIndicatorView"
+        android:visibility="invisible"
+        app:indicatorName="PacmanIndicator"
+        app:indicatorColor="@color/desccolor"
+    />
+
 </RelativeLayout>
