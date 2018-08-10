@@ -61,7 +61,7 @@ public class about_us extends AppCompatActivity {
         setContentView(R.layout.activity_about_us);
          ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        mViewpager =(ViewPager)findViewById( R.id.viewPager);
+        mViewpager =(ViewPager)findViewById( R.id.viewPager1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         Intent i = getIntent();
@@ -92,7 +92,7 @@ public class about_us extends AppCompatActivity {
         ShadowTransformer shadowTransformer=new ShadowTransformer(mViewpager,displayAdaptor);
         mViewpager.setAdapter(displayAdaptor);
         mViewpager.setPageTransformer(false,shadowTransformer);
-        mViewpager.setOffscreenPageLimit(1);
+        mViewpager.setOffscreenPageLimit(5);
 
 
     }

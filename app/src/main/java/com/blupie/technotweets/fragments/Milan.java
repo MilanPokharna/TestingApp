@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class About_usFragement extends Fragment {
+public class Milan extends Fragment {
 
     public String sname;
     public String spos;
@@ -48,7 +48,7 @@ public class About_usFragement extends Fragment {
     TextView mobnoPro;
     Unbinder unbinder;
 
-    public About_usFragement() {
+    public Milan() {
     }
 
     @Override
@@ -60,8 +60,8 @@ public class About_usFragement extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         //  progressDialog.show();
-        View rootView = inflater.inflate(R.layout.fragment_about_us_fragement, container, false);
-        cardView = (CardView) rootView.findViewById(R.id.cardViewdetails);
+        View rootView = inflater.inflate(R.layout.fragment_milan, container, false);
+        cardView = (CardView) rootView.findViewById(R.id.milan);
         cardView.setMaxCardElevation(cardView.getCardElevation()
                 * DisplayAdaptor.MAX_ELEVATION_FACTOR);
 
@@ -79,25 +79,6 @@ public class About_usFragement extends Fragment {
 
         // loadData();
     }
-//
-//    private void loadData() {
-//        myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons").child(key);
-//        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                spos = (String) dataSnapshot.child("pos").getValue();
-//                sname = (String) dataSnapshot.child("name").getValue();
-//                sdesc = (String) dataSnapshot.child("description").getValue();
-//                name.setText(sname);
-//                description.setText(sdesc);
-//                progressDialog.dismiss();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
-//    }
 
     public static void removeUnderlines(Spannable p_Text) {
         URLSpan[] spans = p_Text.getSpans(0, p_Text.length(), URLSpan.class);

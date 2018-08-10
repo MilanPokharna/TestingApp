@@ -7,6 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.CardView;
 
 import com.blupie.technotweets.fragments.About_usFragement;
+import com.blupie.technotweets.fragments.ContactLinkFragement;
+import com.blupie.technotweets.fragments.Gaurav;
+import com.blupie.technotweets.fragments.Milan;
+import com.blupie.technotweets.fragments.Shubham;
+import com.blupie.technotweets.fragments.Tushar;
 
 public class DisplayAdaptor extends FragmentPagerAdapter
 {
@@ -28,9 +33,18 @@ public class DisplayAdaptor extends FragmentPagerAdapter
             case 0:
                 About_usFragement about_usFragement = new About_usFragement();
                 return about_usFragement;
-//            case 1:
-//                ContactLinkFragement contactLinkFragement = new ContactLinkFragement(key);
-//                return contactLinkFragement;
+            case 1:
+                Gaurav gaurav=new Gaurav();
+                return  gaurav;
+            case 2:
+                Milan milan=new Milan();
+                return  milan;
+            case 3:
+                Shubham shubham=new Shubham();
+                return  shubham;
+            case 4:
+                Tushar tushar=new Tushar();
+                return  tushar;
 
             default:
                 return null;
@@ -46,9 +60,16 @@ public class DisplayAdaptor extends FragmentPagerAdapter
         switch (position)
         {
             case 0:
-                return "About Us";
-//            case 1:
-//                return "Contact Link";
+                return "About_Us";
+            case 1:
+                return "Gaurav";
+            case 2:
+                return "Milan";
+            case 3:
+                return "Shubham";
+            case 4:
+                return "Tushar";
+
             default:
                 return null ;
         }
@@ -59,8 +80,16 @@ public class DisplayAdaptor extends FragmentPagerAdapter
         switch (position) {
             case 0:
                 return About_usFragement.getCardView();
-//            case 1:
-//                return ContactLinkFragement.getCardView();
+            case 1:
+                return Gaurav.getCardView();
+            case 2:
+                return Milan.getCardView();
+            case 3:
+                return Shubham.getCardView();
+            case 4:
+                return Tushar.getCardView();
+
+
             default:
                 return null;
         }
@@ -68,7 +97,7 @@ public class DisplayAdaptor extends FragmentPagerAdapter
 
     @Override
     public int getCount() {
-        return 1;
+        return 5;
     }
 
     public float getBaseElevation() {
