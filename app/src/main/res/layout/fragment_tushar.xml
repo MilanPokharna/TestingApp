@@ -78,7 +78,6 @@
             android:text="tusharjn16@gmail.com"
             android:drawableLeft="@drawable/ic_mail_black"
             android:drawablePadding="20dp"
-
             android:layout_marginLeft="30dp"
 
             />
@@ -108,8 +107,7 @@
             android:layout_below="@+id/linkdin_pro"
             android:layout_marginTop="20dp"
             android:textAlignment="center"
-            android:text="+91-9680346841"
-
+            android:text="9680346841"
             android:drawableLeft="@drawable/ic_contact_black"
             android:drawablePadding="20dp"
             />

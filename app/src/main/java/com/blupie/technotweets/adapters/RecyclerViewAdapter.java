@@ -94,23 +94,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         AssetManager am = context.getApplicationContext().getAssets();
         String name =  contacts.getName();
         StorageReference ref = FirebaseStorage.getInstance().getReference();
-        holder.posit.setText(contacts.getPos());
-        if(s.startsWith("AAA"))
-            holder.posit.setVisibility(View.GONE);
-        else if (s.startsWith("AAB"))
+        //holder.posit.setText(contacts.getPos());
+
+        if (s.startsWith("AAB")) {
+            holder.posit.setVisibility(View.VISIBLE);
             holder.posit.setText("MENTOR");
-        else if (s.startsWith("AAC"))
+        }
+        else if (s.startsWith("AAC")){
+            holder.posit.setVisibility(View.VISIBLE);
             holder.posit.setText("CSE");
-        else if (s.startsWith("AAD"))
+        }
+
+        else if (s.startsWith("AAD")){
+            holder.posit.setVisibility(View.VISIBLE);
             holder.posit.setText("ECE");
-        else if (s.startsWith("AAE"))
-            holder.posit.setText("EE");
-        else if (s.startsWith("AAF"))
+        }
+        else if (s.startsWith("AAE")){
+            holder.posit.setVisibility(View.VISIBLE);
+            holder.posit.setText("EEE");
+        }
+        else if (s.startsWith("AAF")){
+            holder.posit.setVisibility(View.VISIBLE);
             holder.posit.setText("CE");
-        else if (s.startsWith("AAG"))
+        }
+        else if (s.startsWith("AAG")){
+            holder.posit.setVisibility(View.VISIBLE);
             holder.posit.setText("ME");
-        else
-            holder.posit.setText("NO");
+        }
 
 
         holder.name.setText(contacts.getName());
