@@ -320,7 +320,7 @@ public class NewPostActivity extends AppCompatActivity {
             }
             if (photoFile != null) {
                 photoURI = FileProvider.getUriForFile(this,
-                        "com.collegeapp.collegeapp.FileProvider",
+                        "com.blupie.technotweets.FileProvider",
                         photoFile);
                 pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(pictureIntent,

@@ -95,7 +95,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String name =  contacts.getName();
         StorageReference ref = FirebaseStorage.getInstance().getReference();
         holder.posit.setText(contacts.getPos());
-        if (s.startsWith("AAB"))
+        if(s.startsWith("AAA"))
+            holder.posit.setVisibility(View.GONE);
+        else if (s.startsWith("AAB"))
             holder.posit.setText("MENTOR");
         else if (s.startsWith("AAC"))
             holder.posit.setText("CSE");
@@ -108,7 +110,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         else if (s.startsWith("AAG"))
             holder.posit.setText("ME");
         else
-            holder.posit.setVisibility(View.GONE);
+            holder.posit.setText("NO");
+
+
         holder.name.setText(contacts.getName());
         Glide.with(context.getApplicationContext()).using(new FirebaseImageLoader()).load(ref.child(image)).into(holder.profileimage);
         holder.callingbtn.setOnClickListener(new View.OnClickListener() {

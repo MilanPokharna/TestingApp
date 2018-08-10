@@ -31,20 +31,17 @@ public class DisplayAdaptor extends FragmentPagerAdapter
         switch (position)
         {
             case 0:
-                About_usFragement about_usFragement = new About_usFragement();
-                return about_usFragement;
+                Milan milan=new Milan();
+                return  milan;
             case 1:
                 Gaurav gaurav=new Gaurav();
                 return  gaurav;
             case 2:
-                Milan milan=new Milan();
-                return  milan;
+                Tushar tushar=new Tushar();
+                return  tushar;
             case 3:
                 Shubham shubham=new Shubham();
                 return  shubham;
-            case 4:
-                Tushar tushar=new Tushar();
-                return  tushar;
 
             default:
                 return null;
@@ -60,15 +57,13 @@ public class DisplayAdaptor extends FragmentPagerAdapter
         switch (position)
         {
             case 0:
-                return "About_Us";
+                return "Milan";
             case 1:
                 return "Gaurav";
             case 2:
-                return "Milan";
+                return "Tushar";
             case 3:
                 return "Shubham";
-            case 4:
-                return "Tushar";
 
             default:
                 return null ;
@@ -79,15 +74,13 @@ public class DisplayAdaptor extends FragmentPagerAdapter
     public CardView getCardViewAt(int position) {
         switch (position) {
             case 0:
-                return About_usFragement.getCardView();
+                return Milan.getCardView();
             case 1:
                 return Gaurav.getCardView();
             case 2:
-                return Milan.getCardView();
+                return Tushar.getCardView();
             case 3:
                 return Shubham.getCardView();
-            case 4:
-                return Tushar.getCardView();
 
 
             default:
@@ -97,7 +90,7 @@ public class DisplayAdaptor extends FragmentPagerAdapter
 
     @Override
     public int getCount() {
-        return 5;
+        return 4;
     }
 
     public float getBaseElevation() {

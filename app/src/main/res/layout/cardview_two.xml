@@ -69,6 +69,7 @@
                 tools:text="Routes"
                 android:layout_below="@id/view"
                 android:id="@+id/position"
+                android:layout_marginBottom="4dp"
                 android:textAlignment="center"
                 android:fontFamily="@font/googlesans"
                 android:textSize="16sp" />
