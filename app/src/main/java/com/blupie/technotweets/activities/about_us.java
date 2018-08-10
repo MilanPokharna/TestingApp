@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,8 +60,17 @@ public class about_us extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_about_us);
-         ButterKnife.bind(this);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("About Us");
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         mViewpager =(ViewPager)findViewById( R.id.viewPager1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

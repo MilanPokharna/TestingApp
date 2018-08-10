@@ -74,7 +74,7 @@ public class Tushar extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
         removeUnderlines((Spannable) emailPro.getText());
-        removeUnderlines((Spannable) linkdinPro.getText());
+        //removeUnderlines((Spannable) linkdinPro.getText());
         removeUnderlines((Spannable) mobnoPro.getText());
 
         // loadData();

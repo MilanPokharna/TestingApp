@@ -74,8 +74,7 @@ public class Shubham extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
         removeUnderlines((Spannable) emailPro.getText());
-        removeUnderlines((Spannable) linkdinPro.getText());
-        removeUnderlines((Spannable) mobnoPro.getText());
+         removeUnderlines((Spannable) mobnoPro.getText());
 
         // loadData();
     }

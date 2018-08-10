@@ -121,8 +121,10 @@ public class mainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        int pid=android.os.Process.myPid();
-        android.os.Process.killProcess(pid);
+//        int pid=android.os.Process.myPid();
+//        android.os.Process.killProcess(pid);
+        SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
+        prefs.edit().putInt("persistent", 1).apply();
     }
 
     @Override

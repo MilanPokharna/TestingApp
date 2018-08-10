@@ -13,8 +13,8 @@
         android:layout_height="match_parent">
         <com.github.florent37.arclayout.ArcLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:arc_cropDirection="cropOutside"
+            android:layout_height="200dp"
+            app:arc_cropDirection="cropInside"
             app:arc_height="50dp"
             android:id="@+id/arc"
             android:elevation="5dp"
@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:id="@+id/profileImage1"
-                android:src="@drawable/index"
+                android:src="@drawable/shubhamimg"
                 />
 
         </com.github.florent37.arclayout.ArcLayout>

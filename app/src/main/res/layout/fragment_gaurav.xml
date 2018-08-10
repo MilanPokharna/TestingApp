@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
         <com.github.florent37.arclayout.ArcLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             app:arc_cropDirection="cropOutside"
             app:arc_height="50dp"
             android:id="@+id/arc"
@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:id="@+id/profileImage1"
-                android:src="@drawable/index"
+                android:src="@drawable/gauravimg"
                 />
 
         </com.github.florent37.arclayout.ArcLayout>
@@ -34,7 +34,7 @@
             android:fontFamily="@font/googlesans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:text="Gaurav Jain"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/arc"
             android:textStyle="bold"
@@ -90,8 +90,7 @@
             android:id="@+id/linkdin_pro"
             android:layout_below="@+id/email_pro"
             android:layout_marginTop="20dp"
-            android:text="Gaurav@2621998"
-            android:autoLink="all"
+            android:text="Gaurav2621998"
             android:layout_marginLeft="30dp"
             android:textAlignment="center"
             android:drawableLeft="@drawable/ic_orion_linkedin_2"
