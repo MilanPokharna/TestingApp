@@ -76,7 +76,7 @@ public class mainActivity extends AppCompatActivity {
         {
             case R.id.action_set:
             {
-                Intent intent = new Intent(mainActivity.this,aboutUs.class);
+                Intent intent = new Intent(mainActivity.this,about_us.class);
                 startActivity(intent);
                 break;
             }

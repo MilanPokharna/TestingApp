@@ -3,55 +3,121 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardViewdetails"
+    app:cardCornerRadius="16dp"
     app:cardUseCompatPadding="true"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="center">
-
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+        <com.github.florent37.arclayout.ArcLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:arc_cropDirection="cropOutside"
+            app:arc_height="50dp"
+            android:id="@+id/arc"
+            android:elevation="5dp"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:id="@+id/profileImage1"
+                android:src="@drawable/index"
+                />
+
+        </com.github.florent37.arclayout.ArcLayout>
 
 
         <TextView
             android:fontFamily="@font/googlesans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Card title"
+            android:text="Username"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/arc"
             android:textStyle="bold"
-            android:layout_margin="5dp"
-            android:textSize="16sp"
+            android:layout_marginTop="15dp"
+            android:textSize="20sp"
             android:id="@+id/name"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="20dp">
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_marginTop="24dp"
-    android:layout_height="wrap_content">
-            <TextView
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/description"
-                android:fontFamily="@font/googlesans"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam eget ligula eu lectus lobortis condimentum." />
-</ScrollView>
-
-        </LinearLayout>
-
-        <ImageView
+        <TextView
+            android:fontFamily="@font/googlesans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="-5dp"
-            android:src="@drawable/ic_bookmark_black_24dp" />
+            android:text="Computer Science"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/name"
+            android:textStyle="bold"
+            android:id="@+id/branch"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            />
 
-    </FrameLayout>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_alignLeft="@+id/branch"
+            android:layout_marginTop="10dp"
+            android:layout_height="1dp"
+            android:id="@+id/view"
+            android:layout_below="@+id/branch"
+            android:background="@android:color/darker_gray"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/email_pro"
+            android:autoLink="all"
+            android:layout_below="@+id/view"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:text="jaingaurav113@gmail.com"
+            android:drawableLeft="@drawable/ic_mail_black"
+            android:drawablePadding="20dp"
+
+            android:layout_marginLeft="30dp"
+
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/linkdin_pro"
+            android:layout_below="@+id/email_pro"
+            android:layout_marginTop="20dp"
+            android:text="Gaurav@2621998"
+            android:autoLink="all"
+            android:layout_marginLeft="30dp"
+            android:textAlignment="center"
+            android:drawableLeft="@drawable/ic_orion_linkedin_2"
+            android:drawablePadding="20dp"
+            />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mobno_pro"
+            android:autoLink="all"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@+id/linkdin_pro"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:text="9571260201"
+
+            android:drawableLeft="@drawable/ic_contact_black"
+            android:drawablePadding="20dp"
+            />
+
+
+
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
