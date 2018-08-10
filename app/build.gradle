@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword '123456789'
+            storeFile file('E:/@PRACTICE/android/signed apk\'s/TechnoTweets.jks')
+            storePassword '123456789'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.blupie.technotweets"
@@ -14,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }

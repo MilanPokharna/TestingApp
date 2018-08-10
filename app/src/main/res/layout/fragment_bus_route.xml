@@ -7,7 +7,7 @@
     tools:context=".fragments.BusRoute"
     android:id="@+id/busroute"
     android:background="@android:color/darker_gray">
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbarThumbVertical="@color/scrollcolor">
@@ -78,8 +78,9 @@
 
 <android.support.v7.widget.RecyclerView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
+    android:nestedScrollingEnabled="false"
     android:layout_marginBottom="8dp"
     android:layout_marginRight="8dp"
     android:id="@+id/recyclerView2">
@@ -87,5 +88,5 @@
 </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </FrameLayout>
