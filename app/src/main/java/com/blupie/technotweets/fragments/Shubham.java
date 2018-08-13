@@ -2,6 +2,8 @@ package com.blupie.technotweets.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class Shubham extends Fragment {
@@ -99,5 +102,10 @@ public class Shubham extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+    @OnClick(R.id.linkdin_pros)
+    public void onViewClicked() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/jshubham2304/"));
+        startActivity(intent);
     }
 }

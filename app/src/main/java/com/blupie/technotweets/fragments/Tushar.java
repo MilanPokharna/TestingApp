@@ -101,7 +101,7 @@ public class Tushar extends Fragment {
 
     @OnClick(R.id.linkdin_prot)
     public void onViewClicked() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/milanpokharna/"));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/tusharjn/"));
         startActivity(intent);
     }
 }
