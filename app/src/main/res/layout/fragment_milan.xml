@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:id="@+id/profileImage1"
-                android:src="@drawable/milan"
+                android:src="@drawable/milanpic"
                 />
 
         </com.github.florent37.arclayout.ArcLayout>

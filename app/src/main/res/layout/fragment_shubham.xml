@@ -14,7 +14,7 @@
         <com.github.florent37.arclayout.ArcLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:arc_cropDirection="cropInside"
+            app:arc_cropDirection="cropOutside"
             app:arc_height="50dp"
             android:id="@+id/arc"
             android:elevation="5dp"
