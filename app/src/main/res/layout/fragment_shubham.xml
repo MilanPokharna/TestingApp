@@ -109,7 +109,7 @@
             android:layout_below="@+id/linkdin_pros"
             android:layout_marginTop="20dp"
             android:textAlignment="center"
-            android:text="9571260201"
+            android:text="9024705920"
 
             android:drawableLeft="@drawable/ic_contact_black"
             android:drawablePadding="20dp"
