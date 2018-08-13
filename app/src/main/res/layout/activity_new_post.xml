@@ -56,7 +56,6 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_height="70dp"
             android:layout_width="70dp"
-            android:src="@drawable/avatar"
             android:id="@+id/profileImage"/>
         <EditText
             android:background="@android:color/transparent"

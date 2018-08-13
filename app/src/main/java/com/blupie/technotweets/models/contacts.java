@@ -5,6 +5,7 @@ public class contacts {
     public String name;
     public String position;
     public String number;
+    public String branch;
     public String email;
     public String image;
     public String bus;
@@ -13,13 +14,18 @@ public class contacts {
     public String route;
 
     public contacts() { }
-    public contacts(String name, String pos,String number,String emailid,String image )
+    public contacts(String name, String pos,String number,String emailid,String image,String branch )
     {
         this.name = name;
         this.position = pos;
         this.number = number;
         this.email = emailid;
         this.image = image;
+        this.branch = branch;
+    }
+
+    public String getBranch() {
+        return branch;
     }
 
     public String getBus() {

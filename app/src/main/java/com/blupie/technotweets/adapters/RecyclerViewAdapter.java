@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blupie.technotweets.fragments.ContactLinkFragement;
 import com.blupie.technotweets.models.contacts;
@@ -93,34 +94,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String  image = contacts.getImage();
         AssetManager am = context.getApplicationContext().getAssets();
         String name =  contacts.getName();
+        String branc =  contacts.getBranch();
         StorageReference ref = FirebaseStorage.getInstance().getReference();
-        //holder.posit.setText(contacts.getPos());
-
-        if (s.startsWith("AAB")) {
-            holder.posit.setVisibility(View.VISIBLE);
-            holder.posit.setText("MENTOR");
-        }
-        else if (s.startsWith("AAC")){
-            holder.posit.setVisibility(View.VISIBLE);
-            holder.posit.setText("CSE");
-        }
-
-        else if (s.startsWith("AAD")){
-            holder.posit.setVisibility(View.VISIBLE);
-            holder.posit.setText("ECE");
-        }
-        else if (s.startsWith("AAE")){
-            holder.posit.setVisibility(View.VISIBLE);
-            holder.posit.setText("EEE");
-        }
-        else if (s.startsWith("AAF")){
-            holder.posit.setVisibility(View.VISIBLE);
-            holder.posit.setText("CE");
-        }
-        else if (s.startsWith("AAG")){
-            holder.posit.setVisibility(View.VISIBLE);
-            holder.posit.setText("ME");
-        }
+        holder.posit.setText("("+branc+")");
 
 
         holder.name.setText(contacts.getName());
