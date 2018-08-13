@@ -75,27 +75,6 @@ public class ContactList extends Fragment {
                     String value = snapshot.getKey();
                     keylist.add(value);
 
-
-                    if (value.startsWith("AAB")) {
-                        myref.child(value).child("branch").setValue("CSE");
-                    }
-                    else if (value.startsWith("AAC")){
-                        myref.child(value).child("branch").setValue("CSE");
-                    }
-
-                    else if (value.startsWith("AAD")){
-                        myref.child(value).child("branch").setValue("ECE");
-                    }
-                    else if (value.startsWith("AAE")){
-                        myref.child(value).child("branch").setValue("EEE");
-                    }
-                    else if (value.startsWith("AAF")){
-                        myref.child(value).child("branch").setValue("CE");
-                    }
-                    else if (value.startsWith("AAG")){
-                        myref.child(value).child("branch").setValue("ME");
-                    }
-
                 }
                 recyclerViewAdapter = new RecyclerViewAdapter(getContext(), contactslist, keylist);
                 recyclerView.setAdapter(recyclerViewAdapter);
