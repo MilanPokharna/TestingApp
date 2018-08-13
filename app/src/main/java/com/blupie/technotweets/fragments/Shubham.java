@@ -42,7 +42,7 @@ public class Shubham extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     @BindView(R.id.email_pro)
     TextView emailPro;
-    @BindView(R.id.linkdin_pro)
+    @BindView(R.id.linkdin_pros)
     TextView linkdinPro;
     @BindView(R.id.mobno_pro)
     TextView mobnoPro;

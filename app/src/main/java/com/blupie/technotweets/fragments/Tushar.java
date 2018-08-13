@@ -1,7 +1,8 @@
 package com.blupie.technotweets.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,17 +16,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blupie.technotweets.R;
-import com.blupie.technotweets.models.URLSpanNoUnderline;
 import com.blupie.technotweets.adapters.DisplayAdaptor;
 import com.blupie.technotweets.models.URLSpanNoUnderline;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class Tushar extends Fragment {
@@ -42,7 +39,7 @@ public class Tushar extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     @BindView(R.id.email_pro)
     TextView emailPro;
-    @BindView(R.id.linkdin_pro)
+    @BindView(R.id.linkdin_prot)
     TextView linkdinPro;
     @BindView(R.id.mobno_pro)
     TextView mobnoPro;
@@ -100,5 +97,11 @@ public class Tushar extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.linkdin_prot)
+    public void onViewClicked() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/milanpokharna/"));
+        startActivity(intent);
     }
 }
