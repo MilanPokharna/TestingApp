@@ -6,10 +6,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.bottomappbar.BottomAppBar;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CoordinatorLayout;
@@ -48,6 +50,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -214,7 +217,7 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                 }
                 int i = (newList.size() - userList.size());
                 if (i >= 3) {
-                    SharedPreferences prefs = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+                    SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences("login", Context.MODE_PRIVATE);
                     int flag = prefs.getInt("flag", 1);
                     if (flag == 1) {
                         LayoutInflater inflater = getLayoutInflater();
@@ -282,9 +285,10 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         unbinder.unbind();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void setup() {
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_nav, null);
-        final BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+        final BottomSheetDialog dialog = new BottomSheetDialog(Objects.requireNonNull(getContext()), R.style.BottomSheetDialog);
         dialog.setContentView(view);
         dialog.show();
 
@@ -299,7 +303,7 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 navigationView.setCheckedItem(menuItem.getItemId());
                 Fragment newFragment;
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                FragmentTransaction transaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
                 switch (menuItem.getItemId()) {
 
                     case R.id.app_bar_fav:
@@ -329,10 +333,11 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @OnClick(R.id.fab)
     public void onFabClicked() {
 
-        if (user.getEmail().toString().endsWith("@technonjr.org")) {
+        if (Objects.requireNonNull(user.getEmail()).endsWith("@technonjr.org")) {
             Intent intent = new Intent(getActivity(), NewPostActivity.class);
             startActivityForResult(intent, 123);
         } else {
@@ -359,7 +364,17 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
 
     @Override
     public void onRefresh() {
-        Toast.makeText(getActivity().getApplicationContext(), "Refresh ", Toast.LENGTH_SHORT).show();
+
+        adapter = new TwitterAdapter(getContext(), newList);
+        userList = newList;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setStackFromEnd(true);
+        layoutManager.setReverseLayout(true);
+        twitterRecycler.setLayoutManager(layoutManager);
+        twitterRecycler.setHasFixedSize(true);
+        twitterRecycler.setAdapter(adapter);
+
+
         if(swipe.isRefreshing())
         {
             swipe.setRefreshing(false);
