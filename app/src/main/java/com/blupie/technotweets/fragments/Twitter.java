@@ -18,6 +18,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -30,13 +31,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blupie.technotweets.R;
 import com.blupie.technotweets.activities.NewPostActivity;
 import com.blupie.technotweets.adapters.TwitterAdapter;
 import com.blupie.technotweets.models.User;
 import com.bumptech.glide.Glide;
-import com.blupie.technotweets.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -54,7 +55,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Twitter extends Fragment {
+public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
     DatabaseReference mref;
@@ -75,6 +76,8 @@ public class Twitter extends Fragment {
     public FirebaseAuth mauth = FirebaseAuth.getInstance();
     @BindView(R.id.fragment_twitter)
     CoordinatorLayout fragmentTwitter;
+    @BindView(R.id.swipe)
+    SwipeRefreshLayout swipe;
 
     public Twitter() {
         //empty constructor
@@ -98,6 +101,7 @@ public class Twitter extends Fragment {
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
+        swipe.setOnRefreshListener(this);
         //      progressDialog.show();
         loadData();
         bar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -173,9 +177,6 @@ public class Twitter extends Fragment {
 //                .setDuration(Style.DURATION_LONG).show();
 
 
-
-
-
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
         mref.keepSynced(true);
 
@@ -212,10 +213,9 @@ public class Twitter extends Fragment {
                     newList.add(user);
                 }
                 int i = (newList.size() - userList.size());
-                if (i >= 3)
-                {
+                if (i >= 3) {
                     SharedPreferences prefs = getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-                    int flag = prefs.getInt("flag",1);
+                    int flag = prefs.getInt("flag", 1);
                     if (flag == 1) {
                         LayoutInflater inflater = getLayoutInflater();
                         View layout = inflater.inflate(R.layout.custom_toast_layout,
@@ -334,9 +334,9 @@ public class Twitter extends Fragment {
 
         if (user.getEmail().toString().endsWith("@technonjr.org")) {
             Intent intent = new Intent(getActivity(), NewPostActivity.class);
-            startActivityForResult(intent,123);
+            startActivityForResult(intent, 123);
         } else {
-            Snackbar snackbar = Snackbar.make(fragmentTwitter,"Please Login with College ID to upload a Post",Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(fragmentTwitter, "Please Login with College ID to upload a Post", Snackbar.LENGTH_SHORT);
 
             snackbar.show();
         }
@@ -345,8 +345,7 @@ public class Twitter extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==Activity.RESULT_OK)
-        {
+        if (resultCode == Activity.RESULT_OK) {
             adapter = new TwitterAdapter(getContext(), newList);
             userList = newList;
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -355,6 +354,15 @@ public class Twitter extends Fragment {
             twitterRecycler.setLayoutManager(layoutManager);
             twitterRecycler.setHasFixedSize(true);
             twitterRecycler.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        Toast.makeText(getActivity().getApplicationContext(), "Refresh ", Toast.LENGTH_SHORT).show();
+        if(swipe.isRefreshing())
+        {
+            swipe.setRefreshing(false);
         }
     }
 }
