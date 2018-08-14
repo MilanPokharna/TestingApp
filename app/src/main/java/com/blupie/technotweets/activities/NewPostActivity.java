@@ -92,6 +92,7 @@ public class NewPostActivity extends AppCompatActivity {
     Uri image;
     ProgressDialog progressDialog;
     int CAMERA_REQUEST = 1;
+    int i =0;
     private static final int REQUEST_CAPTURE_IMAGE = 100;
     public static final int PICK_IMAGE = 2;
     String string;
@@ -377,9 +378,8 @@ public class NewPostActivity extends AppCompatActivity {
     }
     public void checkuserpost()
     {
-        final int[] i = new int[1];
-        i[0] =0;
-        Toast.makeText(this, "checkin", Toast.LENGTH_SHORT).show();
+        i=0;
+        //Toast.makeText(this, "checkin", Toast.LENGTH_SHORT).show();
         DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference()
                 .child("root").child("twitter").child("users").child(user.getUid()).child("posts");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -388,10 +388,10 @@ public class NewPostActivity extends AppCompatActivity {
 
                 for(DataSnapshot snapshot:dataSnapshot.getChildren())
                 {
-                    i[0] = i[0] +1;
+                    i++;
                 }
                 //   Toast.makeText(NewPostActivity.this, String.valueOf(i[0]), Toast.LENGTH_SHORT).show();
-                int a=i[0]%3;
+                int a=i%3;
                 //  Toast.makeText(NewPostActivity.this, String.valueOf(a), Toast.LENGTH_SHORT).show();
                 if(a==0)
                 {
@@ -413,8 +413,9 @@ public class NewPostActivity extends AppCompatActivity {
 
                     @Override
                     public void onRewardedVideoAdClosed() {
-                        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-                                new AdRequest.Builder().build());
+//                        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+//                                new AdRequest.Builder().build());
+                        mainActivity.loadRewardedVideoAd();
                         //  Toast.makeText(NewPostActivity.this, "closed", Toast.LENGTH_SHORT).show();
 
                     }
