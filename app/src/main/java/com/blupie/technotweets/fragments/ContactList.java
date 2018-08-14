@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.blupie.technotweets.adapters.RecyclerViewAdapter;
 import com.blupie.technotweets.models.contacts;
@@ -62,29 +63,36 @@ public class ContactList extends Fragment {
     private void loaddata() {
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
         myref.keepSynced(true);
+        try {
 
-        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                contactslist.clear();
+            myref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    contactslist.clear();
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    contacts contactvar = new contacts(snapshot.child("name").getValue().toString(), snapshot.child("pos").getValue().toString(),
-                            snapshot.child("number").getValue().toString(), snapshot.child("emailid").getValue().toString(), snapshot.child("image").getValue().toString(), snapshot.child("branch").getValue().toString());
-                    contactslist.add(contactvar);
-                    String value = snapshot.getKey();
-                    keylist.add(value);
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        contacts contactvar = new contacts(snapshot.child("name").getValue().toString(), snapshot.child("pos").getValue().toString(),
+                                snapshot.child("number").getValue().toString(), snapshot.child("emailid").getValue().toString(), snapshot.child("image").getValue().toString(), snapshot.child("branch").getValue().toString());
+                        contactslist.add(contactvar);
+                        String value = snapshot.getKey();
+                        keylist.add(value);
+
+                    }
+                    recyclerViewAdapter = new RecyclerViewAdapter(getContext(), contactslist, keylist);
+                    recyclerView.setAdapter(recyclerViewAdapter);
 
                 }
-                recyclerViewAdapter = new RecyclerViewAdapter(getContext(), contactslist, keylist);
-                recyclerView.setAdapter(recyclerViewAdapter);
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getActivity().getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
     }
 
     private void init() {

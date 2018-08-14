@@ -94,72 +94,78 @@ public class Canteen extends Fragment {
     }
 
     private void callme() {
+        try {
 
-        if (dayOfTheWeek .equals("Monday"))
-        {
-            if(mon != null)
-                thaliitem.setText(mon);
-        }
-        else if (dayOfTheWeek .equals("Tuesday"))
-        {
-            if(tue != null)
-                thaliitem.setText(tue);
-        }
-        else if (dayOfTheWeek .equals("Wednesday"))
-        {
-            if(wed != null)
-                thaliitem.setText(wed);
-        }
-        else if (dayOfTheWeek .equals("Thursday"))
-        {
-            if(thur != null)
-                thaliitem.setText(thur);
-        }
-        else if (dayOfTheWeek .equals("Friday"))
-        {
-            if(fri != null)
-                thaliitem.setText(fri);
-        }
-        else if (dayOfTheWeek .equals("Saturday"))
-        {
-            if(sat != null)
-                thaliitem.setText(sat);
-        }
-        else if (dayOfTheWeek .equals("Sunday"))
-        {
-            if(sun != null)
-                thaliitem.setText(sun);
-        }
-        else
-            Toast.makeText(getContext(), dayOfTheWeek, Toast.LENGTH_SHORT).show();
+            if (dayOfTheWeek.equals("Monday")) {
+                if (mon != null)
+                    thaliitem.setText(mon);
+            } else if (dayOfTheWeek.equals("Tuesday")) {
+                if (tue != null)
+                    thaliitem.setText(tue);
+            } else if (dayOfTheWeek.equals("Wednesday")) {
+                if (wed != null)
+                    thaliitem.setText(wed);
+            } else if (dayOfTheWeek.equals("Thursday")) {
+                if (thur != null)
+                    thaliitem.setText(thur);
+            } else if (dayOfTheWeek.equals("Friday")) {
+                if (fri != null)
+                    thaliitem.setText(fri);
+            } else if (dayOfTheWeek.equals("Saturday")) {
+                if (sat != null)
+                    thaliitem.setText(sat);
+            } else if (dayOfTheWeek.equals("Sunday")) {
+                if (sun != null)
+                    thaliitem.setText(sun);
+            } else
+                Toast.makeText(getContext(), dayOfTheWeek, Toast.LENGTH_SHORT).show();
 
-        loadData();
+            loadData();
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(getActivity().getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void loadData() {
+        try {
 
-        myref = FirebaseDatabase.getInstance().getReference().child("root").child("canteen").child("breakfast");
-        myref.keepSynced(true);
-        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dishlist.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    canteen canteen = snapshot.getValue(com.blupie.technotweets.models.canteen.class);
-                    dishlist.add(canteen);
+            myref = FirebaseDatabase.getInstance().getReference().child("root").child("canteen").child("breakfast");
+            myref.keepSynced(true);
+            myref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    dishlist.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        canteen canteen = snapshot.getValue(com.blupie.technotweets.models.canteen.class);
+                        dishlist.add(canteen);
+                    }
+                    try {
+
+                            staggeredGridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+                            //recyclerView3.setHasFixedSize(true);
+                            recyclerView3.setLayoutManager(staggeredGridLayoutManager);
+                            staggeredgridviewadapter = new staggeredgridviewadapter(getContext(), dishlist);
+                            recyclerView3.setAdapter(staggeredgridviewadapter);
+
+                    }
+                    catch (Exception a)
+                    {
+
+                    }
                 }
-                staggeredGridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
-                //recyclerView3.setHasFixedSize(true);
-                recyclerView3.setLayoutManager(staggeredGridLayoutManager);
-                staggeredgridviewadapter = new staggeredgridviewadapter(getContext(), dishlist);
-                recyclerView3.setAdapter(staggeredgridviewadapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getActivity().getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

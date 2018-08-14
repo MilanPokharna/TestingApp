@@ -72,43 +72,49 @@ public class BusRoute extends Fragment {
     }
 
     private void loadData() {
-        dt = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
-        dt.keepSynced(true);
-        dt.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String d = dataSnapshot.child("date").getValue().toString();
-                String t = dataSnapshot.child("time").getValue().toString();
-                date.setText(d);
-                time.setText(t);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes").child("going buses");
-        myref.keepSynced(true);
-        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-                contactsList.clear();
-                for (DataSnapshot snapshot : datasnapshot.getChildren()) {
-                    contacts contactvar = new contacts(snapshot.child("bus").getValue().toString(), snapshot.child("driver").getValue().toString() ,snapshot.child("number").getValue().toString(),
-                            snapshot.child("route").getValue().toString());
-                    contactsList.add(contactvar);
+        try {
+            dt = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
+            dt.keepSynced(true);
+            dt.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String d = dataSnapshot.child("date").getValue().toString();
+                    String t = dataSnapshot.child("time").getValue().toString();
+                    date.setText(d);
+                    time.setText(t);
                 }
-                recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList );
-                recyclerView.setAdapter(recyclerViewAdapterTwo);
-                //Toast.makeText(getContext(), "buslist :"+contactsList.size(), Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+            myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes").child("going buses");
+            myref.keepSynced(true);
+            myref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                    contactsList.clear();
+                    for (DataSnapshot snapshot : datasnapshot.getChildren()) {
+                        contacts contactvar = new contacts(snapshot.child("bus").getValue().toString(), snapshot.child("driver").getValue().toString(), snapshot.child("number").getValue().toString(),
+                                snapshot.child("route").getValue().toString());
+                        contactsList.add(contactvar);
+                    }
+                    recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
+                    recyclerView.setAdapter(recyclerViewAdapterTwo);
+                    //Toast.makeText(getContext(), "buslist :"+contactsList.size(), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        catch(Exception e)
+        {
+
+        }
     }
 
 
