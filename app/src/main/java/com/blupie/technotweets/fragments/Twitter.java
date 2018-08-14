@@ -119,67 +119,6 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
     @SuppressLint("NewApi")
     private void loadData() {
 
-//        LayoutInflater inflater = getLayoutInflater();
-//        View layout = inflater.inflate(R.layout.custom_toast_layout,
-//                (ViewGroup)getActivity().findViewById(R.id.toast_layout_root));
-//        // get the reference of TextView and ImageVIew from inflated layout
-//        TextView toastTextView = (TextView) layout.findViewById(R.id.toastTextView);
-//        ImageView toastImageView = (ImageView) layout.findViewById(R.id.toastImageView);
-//        // set the text in the TextView
-//        toastTextView.setText("Custom Toast In Android");
-////
-////        // set the Image in the ImageView
-//        toastImageView.setImageResource(R.drawable.ic_refresh_black_24dp);
-////        // create a new Toast using context
-////        Toast toast = new Toast(getActivity().getApplicationContext());
-////        toast.setDuration(Toast.LENGTH_LONG); // set the duration for the Toast
-////        toast.setView(layout); // set the inflated layout
-////        toast.show(); // display the custom Toast
-////        layout.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////                Toast.makeText(getActivity().getApplicationContext(), "helloo toast clicked", Toast.LENGTH_SHORT).show();
-////            }
-////        });
-//
-//
-//        final PopupWindow pw = new PopupWindow(layout,
-//                LinearLayout.LayoutParams.WRAP_CONTENT,
-//                LinearLayout.LayoutParams.WRAP_CONTENT, true);
-//        pw.setWindowLayoutType(WindowManager.LayoutParams.TYPE_TOAST);
-//        pw.showAtLocation(layout, Gravity.CENTER | Gravity.TOP, 0, 500);
-//
-//        layout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // do anything when popupWindow was clicked
-//                pw.dismiss(); // dismiss the window
-//            }
-//        });
-//        new Handler().postDelayed(new Runnable() {
-//            public void run() {
-//                pw.dismiss();
-//            }
-//        }, 10000);
-
-//        SuperActivityToast.OnButtonClickListener onButtonClickListener =
-//                new SuperActivityToast.OnButtonClickListener() {
-//
-//                    @Override
-//                    public void onClick(View view, Parcelable token) {
-//                        SuperToast.create(view.getContext(), "OnClick!", Style.DURATION_SHORT)
-//                                .setPriorityLevel(Style.PRIORITY_HIGH).show();
-//                    }
-//                };
-//        SuperActivityToast.create(getActivity(), new Style(), Style.TYPE_BUTTON)
-//                .setButtonText("Refresh")
-//                .setButtonIconResource(R.drawable.ic_refresh_black_24dp)
-//                .setOnButtonClickListener("good_tag_name", null, onButtonClickListener)
-//                .setGravity(Gravity.CENTER|Gravity.TOP,0,350)
-//                .setText("New Posts Available")
-//                .setDuration(Style.DURATION_LONG).show();
-
-
         mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
         mref.keepSynced(true);
 
@@ -239,15 +178,17 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                             @Override
                             public void onClick(View view) {
                                 pw.dismiss();
-                                adapter = new TwitterAdapter(getContext(), newList);
-                                userList = newList;
-                                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                                layoutManager.setStackFromEnd(true);
-                                layoutManager.setReverseLayout(true);
-                                twitterRecycler.setLayoutManager(layoutManager);
-                                twitterRecycler.setHasFixedSize(true);
-                                twitterRecycler.setAdapter(adapter);
-
+                                try {
+                                    adapter = new TwitterAdapter(getContext(), newList);
+                                    userList = newList;
+                                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                                    layoutManager.setStackFromEnd(true);
+                                    layoutManager.setReverseLayout(true);
+                                    twitterRecycler.setLayoutManager(layoutManager);
+                                    twitterRecycler.setHasFixedSize(true);
+                                    twitterRecycler.setAdapter(adapter);
+                                }
+                                catch (Exception e){}
                             }
                         });
                         new Handler().postDelayed(new Runnable() {
@@ -353,12 +294,16 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         if (resultCode == Activity.RESULT_OK) {
             adapter = new TwitterAdapter(getContext(), newList);
             userList = newList;
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-            layoutManager.setStackFromEnd(true);
-            layoutManager.setReverseLayout(true);
-            twitterRecycler.setLayoutManager(layoutManager);
-            twitterRecycler.setHasFixedSize(true);
-            twitterRecycler.setAdapter(adapter);
+            try {
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                layoutManager.setStackFromEnd(true);
+                layoutManager.setReverseLayout(true);
+                twitterRecycler.setLayoutManager(layoutManager);
+                twitterRecycler.setHasFixedSize(true);
+                twitterRecycler.setAdapter(adapter);
+            }
+            catch (Exception e){}
+
         }
     }
 

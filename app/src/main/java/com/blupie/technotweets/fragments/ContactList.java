@@ -63,7 +63,7 @@ public class ContactList extends Fragment {
     private void loaddata() {
         myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
         myref.keepSynced(true);
-        try {
+
 
             myref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -77,8 +77,10 @@ public class ContactList extends Fragment {
                         keylist.add(value);
 
                     }
+                    try{
                     recyclerViewAdapter = new RecyclerViewAdapter(getContext(), contactslist, keylist);
-                    recyclerView.setAdapter(recyclerViewAdapter);
+                    recyclerView.setAdapter(recyclerViewAdapter);}
+                    catch (Exception e){}
 
                 }
 
@@ -87,12 +89,7 @@ public class ContactList extends Fragment {
                 }
             });
         }
-        catch (Exception e)
-        {
-            Toast.makeText(getActivity().getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
-        }
 
-    }
 
     private void init() {
 

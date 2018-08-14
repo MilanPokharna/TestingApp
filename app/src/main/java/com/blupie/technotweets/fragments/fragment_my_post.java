@@ -207,13 +207,17 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
                     User user = dataSnapshot.child(z).getValue(User.class);
                     posts.add(user);
                 }
-                adapter = new profileAdapter(getContext(), posts, userList, check);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                layoutManager.setStackFromEnd(true);
-                layoutManager.setReverseLayout(true);
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(adapter);
+                try {
+                    adapter = new profileAdapter(getContext(), posts, userList, check);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    layoutManager.setStackFromEnd(true);
+                    layoutManager.setReverseLayout(true);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(adapter);
+                }
+                catch (Exception e){}
+
 //                progressDialog.cancel();
             }
 

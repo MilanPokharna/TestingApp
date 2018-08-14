@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/bg_screen4">
 
 
         <TextView
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_marginTop="56dp"
             android:textAlignment="center"
             android:textColor="#ffffff"
-            android:id="@+id/begin"
             android:fontFamily="@font/robo_thin"
             android:text="@string/slide_3_title"
             android:textSize="@dimen/slide_title"
@@ -23,9 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:layout_marginTop="16dp"
-            android:layout_below="@id/begin"
-            android:id="@+id/desc"
+            android:layout_marginTop="24dp"
+            android:paddingLeft="56dp"
+            android:paddingRight="56dp"
             android:fontFamily="@font/googlesans"
             android:text="@string/slide_3_desc"
             android:textAlignment="center"
@@ -33,9 +32,11 @@
 
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_width="164dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:rotationY="180"
+        android:layout_marginBottom="64dp"
         android:src="@drawable/begin_flag" />
 
-</RelativeLayout>
+</LinearLayout>

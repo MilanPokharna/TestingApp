@@ -72,7 +72,7 @@ public class BusRoute extends Fragment {
     }
 
     private void loadData() {
-        try {
+
             dt = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
             dt.keepSynced(true);
             dt.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -100,8 +100,15 @@ public class BusRoute extends Fragment {
                                 snapshot.child("route").getValue().toString());
                         contactsList.add(contactvar);
                     }
-                    recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
-                    recyclerView.setAdapter(recyclerViewAdapterTwo);
+                    try {
+                        recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
+                        recyclerView.setAdapter(recyclerViewAdapterTwo);
+                    }
+
+                    catch(Exception e)
+                    {
+
+                    }
                     //Toast.makeText(getContext(), "buslist :"+contactsList.size(), Toast.LENGTH_SHORT).show();
                 }
 
@@ -110,11 +117,7 @@ public class BusRoute extends Fragment {
 
                 }
             });
-        }
-        catch(Exception e)
-        {
 
-        }
     }
 
 

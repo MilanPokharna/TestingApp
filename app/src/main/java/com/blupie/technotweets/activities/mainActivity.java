@@ -77,6 +77,47 @@ public class mainActivity extends AppCompatActivity {
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         AppRater.app_launched(this);
         loadRewardedVideoAd();
+
+        final SharedPreferences pref=this.getSharedPreferences("admob",0);
+        int a=pref.getInt("admoblaunch",0);
+        if(a>=6)
+        {
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    // Code to be executed when an ad finishes loading.
+                    mInterstitialAd.show();
+
+                }
+
+                @Override
+                public void onAdFailedToLoad(int errorCode) {
+                }
+
+                @Override
+                public void onAdOpened() {
+                    // Code to be executed when the ad is displayed.
+
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+                    // Code to be executed when the user has left the app.
+
+                }
+
+                @Override
+                public void onAdClosed() {
+                    // Code to be executed when when the interstitial ad is closed.
+                    pref.edit().putInt("admoblaunch",0).apply();
+                }
+            });
+        }
+        else
+        {
+            pref.edit().putInt("admoblaunch",a+1).apply();
+
+        }
     }
     private boolean isNetworkConnected(mainActivity mainActivity) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
