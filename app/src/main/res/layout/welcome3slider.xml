@@ -4,46 +4,38 @@
     android:layout_height="match_parent"
     android:background="@color/bg_screen4">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
 
         <TextView
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textStyle="bold"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="56dp"
+            android:textAlignment="center"
             android:textColor="#ffffff"
+            android:id="@+id/begin"
             android:fontFamily="@font/robo_thin"
             android:text="@string/slide_3_title"
             android:textSize="@dimen/slide_title"
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:textColor="#ffffff"
-            android:paddingLeft="@dimen/desc_padding"
-            android:paddingRight="@dimen/desc_padding"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/begin"
+            android:id="@+id/desc"
             android:fontFamily="@font/googlesans"
             android:text="@string/slide_3_desc"
             android:textAlignment="center"
             android:textSize="@dimen/slide_desc" />
 
 
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="80dp"
-            android:rotationY="180"
-            android:src="@drawable/begin_flag"/>
-    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/begin_flag" />
 
 </RelativeLayout>

@@ -71,8 +71,7 @@ public class ContactList extends Fragment {
                     contactslist.clear();
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        contacts contactvar = new contacts(snapshot.child("name").getValue().toString(), snapshot.child("pos").getValue().toString(),
-                                snapshot.child("number").getValue().toString(), snapshot.child("emailid").getValue().toString(), snapshot.child("image").getValue().toString(), snapshot.child("branch").getValue().toString());
+                        contacts contactvar = new contacts(snapshot.child("name").getValue().toString(), snapshot.child("pos").getValue().toString(), snapshot.child("number").getValue().toString(), snapshot.child("emailid").getValue().toString(), snapshot.child("image").getValue().toString(), snapshot.child("branch").getValue().toString());
                         contactslist.add(contactvar);
                         String value = snapshot.getKey();
                         keylist.add(value);
