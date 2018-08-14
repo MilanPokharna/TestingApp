@@ -47,6 +47,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
                 android:paddingBottom="4dp"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@color/scrollcolor"
                 android:layout_marginRight="8dp"
                 android:id="@+id/recyclerView3">
 

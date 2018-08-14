@@ -63,10 +63,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             ButterKnife.bind(this,itemView);
             }
 
+
         @NonNull
         @Override
         public String getSectionName(int position) {
-            return contactsList.get(position).getName().substring(0,1);
+               return contactsList.get(position).getName().substring(0,1);
         }
     }
 
@@ -137,4 +138,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         return contactsList.size();
     }
+
 }
