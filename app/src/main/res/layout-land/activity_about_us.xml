@@ -25,15 +25,14 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager1"
                 android:layout_width="match_parent"
-                android:layout_height="520dp"
+                android:layout_height="250dp"
                 android:layout_gravity="bottom"
                 android:clipToPadding="false"
                 android:overScrollMode="never"
-                android:paddingTop="20dp"
-                android:paddingEnd="@dimen/card_padding"
-                android:paddingLeft="@dimen/card_padding"
-                android:paddingRight="@dimen/card_padding"
-                android:paddingStart="@dimen/card_padding" />
+                android:paddingEnd="50dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:paddingStart="50dp" />
 
         </android.support.design.widget.CoordinatorLayout>
     </RelativeLayout>

@@ -19,6 +19,12 @@ import android.widget.LinearLayout;
 
 import com.blupie.technotweets.adapters.sectionAdapter;
 import com.blupie.technotweets.R;
+import com.blupie.technotweets.models.AppRater;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
@@ -37,6 +43,8 @@ public class mainActivity extends AppCompatActivity {
     ViewPager pager;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    public static RewardedVideoAd mRewardedVideoAd;
+    public static InterstitialAd mInterstitialAd;
     private int tabIcons = R.drawable.ic_group_black_24dp;
     ProgressDialog progressDialog;
     @Override
@@ -57,11 +65,27 @@ public class mainActivity extends AppCompatActivity {
             layoutParams.weight = 0.5f;
 
             layout.setLayoutParams(layoutParams);
+            if (getIntent().getIntExtra("notify",2)==123)
+            {
+                tablayout.getTabAt(2).select();
+            }
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        AppRater.app_launched(this);
+        loadRewardedVideoAd();
     }
-    private boolean isNetworkConnected() {
+    private boolean isNetworkConnected(mainActivity mainActivity) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
+    }
+    public static void loadRewardedVideoAd() {
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
     }
 
     @Override
@@ -72,44 +96,103 @@ public class mainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.action_set:
-            {
-                Intent intent = new Intent(mainActivity.this,about_us.class);
+        switch (item.getItemId()) {
+            case R.id.action_set: {
+                Intent intent = new Intent(mainActivity.this, about_us.class);
                 startActivity(intent);
                 break;
             }
-            case R.id.action_logout:
-            {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
-                dialog.setTitle("Logout");
-                dialog.setCancelable(false);
-                dialog.setMessage("Logout from Techno Tweets Are You Sure ?" );
-                dialog.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+            case R.id.action_logout: {
+                {
+                    if (isNetworkConnected(this)) {
+
+                        if (mInterstitialAd.isLoaded()) {
+                            mInterstitialAd.show();
+
+                        } else {
+                            // Toast.makeText(this, "not", Toast.LENGTH_SHORT).show();
+                            open();
+                        }
+                        mInterstitialAd.setAdListener(new AdListener() {
+                            @Override
+                            public void onAdLoaded() {
+                                // Code to be executed when an ad finishes loading.
+                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                            }
+
+                            @Override
+                            public void onAdFailedToLoad(int errorCode) {
+                                // Code to be executed when an ad request fails.
+                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                                open();
+                            }
+
+                            @Override
+                            public void onAdOpened() {
+                                // Code to be executed when the ad is displayed.
+                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+                            }
+
+                            @Override
+                            public void onAdLeftApplication() {
+                                // Code to be executed when the user has left the app.
+                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                                open();
+                            }
+
+                            @Override
+                            public void onAdClosed() {
+                                // Code to be executed when when the interstitial ad is closed.
+                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                                open();
+                            }
+                        });
+                    } else {
+
+                        open();
+                    }
+                    break;
+                }
+            }
+                    case R.id.action_share: {
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        sharingIntent.setType("text/plain");
+                        String shareBody = "https://play.google.com/store/apps/details?id=com.blupie.technotweets";
+                        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+                        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                        break;
+                    }
+                }
+
+            return true;
+        }
+        public  void open()
+        {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
+            dialog.setTitle("Logout");
+            dialog.setCancelable(false);
+            dialog.setMessage("Logout from Techno Tweets Are You Sure ?" );
+            dialog.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 //                        FirebaseAuth mauth = FirebaseAuth.getInstance();
 //                        FirebaseUser user = mauth.getCurrentUser();
-                        SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
-                        prefs.edit().putInt("loginvar", 0).apply();
-                        prefs.edit().putInt("persistent",1).apply();
-                        Intent intent = new Intent(mainActivity.this,StartActivity.class);
-                        startActivity(intent);
-                    }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
+                    prefs.edit().putInt("loginvar", 0).apply();
+                    prefs.edit().putInt("persistent",1).apply();
+                    Intent intent = new Intent(mainActivity.this,StartActivity.class);
+                    startActivity(intent);
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                }).show();
-
-                break;
-            }
+                }
+            }).show();
 
         }
-        return  true;
-    }
 
     @Override
     protected void onResume() {

@@ -43,7 +43,7 @@
             android:layout_gravity="center"
             android:background="@color/bg_screen1"
             android:layout_marginTop="100dp"
-            android:src="@drawable/schoolar"/>
+            android:src="@drawable/students_achi"/>
 
 
 

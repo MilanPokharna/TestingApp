@@ -7,7 +7,10 @@
                 android:orderInCategory="101"
                 app:showAsAction="never"
                 android:title="About Us" />
-
+        <item android:id="@+id/action_share"
+            android:orderInCategory="102"
+            android:icon="@drawable/ic_share_black_24dp"
+            android:title="Share" />
             <item android:id="@+id/action_logout"
                 android:orderInCategory="102"
                 android:icon="@drawable/ic_power_settings_new_black_24dp"

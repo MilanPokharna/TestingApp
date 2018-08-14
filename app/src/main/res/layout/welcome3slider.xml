@@ -42,10 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="80dp"
-            android:src="@drawable/spacecraft"/>
-
-
-
+            android:rotationY="180"
+            android:src="@drawable/begin_flag"/>
     </LinearLayout>
 
 </RelativeLayout>

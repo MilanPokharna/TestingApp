@@ -28,16 +28,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.blupie.technotweets.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -57,6 +65,7 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.blupie.technotweets.activities.mainActivity.mRewardedVideoAd;
 
 public class NewPostActivity extends AppCompatActivity {
 
@@ -107,6 +116,8 @@ public class NewPostActivity extends AppCompatActivity {
         imageRemoveButton.setVisibility(View.INVISIBLE);
         cardv.setVisibility(View.GONE);
         progressDialog = new ProgressDialog(this);
+
+
     }
 
     @OnClick({R.id.closeButton, R.id.postButton, R.id.imageRemoveButton, R.id.CameraIntent, R.id.ImageChooser})
@@ -144,7 +155,7 @@ public class NewPostActivity extends AppCompatActivity {
                                             myref.child("userid").setValue(user.getUid());
                                             //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
                                             progressDialog.cancel();
-
+                                            checkuserpost();
                                             Intent returnIntent = new Intent();
                                             setResult(Activity.RESULT_OK, returnIntent);
                                             finish();
@@ -171,6 +182,7 @@ public class NewPostActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+                                                    checkuserpost();
 
                                                     progressDialog.cancel();
 
@@ -363,4 +375,81 @@ public class NewPostActivity extends AppCompatActivity {
         } else
             return false;
     }
+    public void checkuserpost()
+    {
+        final int[] i = new int[1];
+        i[0] =0;
+        Toast.makeText(this, "checkin", Toast.LENGTH_SHORT).show();
+        DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference()
+                .child("root").child("twitter").child("users").child(user.getUid()).child("posts");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot:dataSnapshot.getChildren())
+                {
+                    i[0] = i[0] +1;
+                }
+                //   Toast.makeText(NewPostActivity.this, String.valueOf(i[0]), Toast.LENGTH_SHORT).show();
+                int a=i[0]%3;
+                //  Toast.makeText(NewPostActivity.this, String.valueOf(a), Toast.LENGTH_SHORT).show();
+                if(a==0)
+                {
+                    mRewardedVideoAd.show();
+                }
+                mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+                    @Override
+                    public void onRewardedVideoAdLoaded() {
+
+                    }
+
+                    @Override
+                    public void onRewardedVideoAdOpened() {
+                    }
+
+                    @Override
+                    public void onRewardedVideoStarted() {
+                    }
+
+                    @Override
+                    public void onRewardedVideoAdClosed() {
+                        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                                new AdRequest.Builder().build());
+                        //  Toast.makeText(NewPostActivity.this, "closed", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onRewarded(RewardItem rewardItem) {
+
+                    }
+
+                    @Override
+                    public void onRewardedVideoAdLeftApplication() {
+
+                    }
+
+                    @Override
+                    public void onRewardedVideoAdFailedToLoad(int i) {
+                        mainActivity.loadRewardedVideoAd();
+                    }
+
+                    @Override
+                    public void onRewardedVideoCompleted() {
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
 }
