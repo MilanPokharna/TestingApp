@@ -84,7 +84,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@android:color/darker_gray" />
+            android:background="#D3D3D3" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

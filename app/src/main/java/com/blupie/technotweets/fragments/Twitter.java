@@ -160,6 +160,7 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                     SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences("login", Context.MODE_PRIVATE);
                     int flag = prefs.getInt("flag", 1);
                     if (flag == 1) {
+
                         LayoutInflater inflater = getLayoutInflater();
                         View layout = inflater.inflate(R.layout.custom_toast_layout,
                                 (ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
