@@ -31,6 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.blupie.technotweets.activities.mainActivity.pager;
+
 public class Canteen extends Fragment {
 
     public View view;
@@ -55,6 +57,7 @@ public class Canteen extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_canteen, container, false);
         unbinder = ButterKnife.bind(this, view);
+        Toast.makeText(getActivity().getApplicationContext(), ""+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
         return view;
     }
 

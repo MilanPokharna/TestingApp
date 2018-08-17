@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebBackForwardList;
 import android.widget.LinearLayout;
 
 import com.blupie.technotweets.adapters.sectionAdapter;
@@ -39,8 +40,7 @@ public class mainActivity extends AppCompatActivity {
     TabLayout tablayout;
     @BindView(R.id.appbar)
     AppBarLayout appbar;
-    @BindView(R.id.mpager)
-    ViewPager pager;
+    public static ViewPager pager;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     public static RewardedVideoAd mRewardedVideoAd;
@@ -55,7 +55,7 @@ public class mainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+            pager = (ViewPager)findViewById(R.id.mpager);
             msectionAdapter = new sectionAdapter(getSupportFragmentManager());
             pager.setAdapter(msectionAdapter);
             tablayout.setupWithViewPager(pager);

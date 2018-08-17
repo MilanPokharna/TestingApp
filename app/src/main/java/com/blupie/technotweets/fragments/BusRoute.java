@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blupie.technotweets.R;
 import com.blupie.technotweets.adapters.RecyclerViewAdaptertwo;
@@ -32,6 +33,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.blupie.technotweets.activities.mainActivity.pager;
 
 public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -65,6 +68,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         View rootView = inflater.inflate(R.layout.fragment_bus_route, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         bus = (FrameLayout) rootView.findViewById(R.id.busroute);
+        Toast.makeText(getActivity().getApplicationContext(), ""+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
         return rootView;
     }
 

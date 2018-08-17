@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.blupie.technotweets.R;
 import com.blupie.technotweets.activities.NewPostActivity;
+import com.blupie.technotweets.activities.mainActivity;
 import com.blupie.technotweets.adapters.TwitterAdapter;
 import com.blupie.technotweets.models.User;
 import com.bumptech.glide.Glide;
@@ -57,6 +58,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.blupie.technotweets.activities.mainActivity.pager;
 
 public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -100,6 +103,7 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
+        Toast.makeText(getActivity().getApplicationContext(), ""+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
         twitterRecycler = (RecyclerView) v.findViewById(R.id.twitter_recycler);
         progressDialog.setMessage("Loading");
         progressDialog.setCancelable(false);
@@ -131,15 +135,19 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                     User user = snapshot.getValue(User.class);
                     userList.add(user);
                 }
-                adapter = new TwitterAdapter(getContext(), userList);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                layoutManager.setStackFromEnd(true);
-                layoutManager.setReverseLayout(true);
-                twitterRecycler.setLayoutManager(layoutManager);
-                twitterRecycler.setHasFixedSize(true);
-                twitterRecycler.setAdapter(adapter);
-            }
+                try {
+                    adapter = new TwitterAdapter(getContext(), userList);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    layoutManager.setStackFromEnd(true);
+                    layoutManager.setReverseLayout(true);
+                    twitterRecycler.setLayoutManager(layoutManager);
+                    twitterRecycler.setHasFixedSize(true);
+                    twitterRecycler.setAdapter(adapter);
+                }
+                catch (Exception e){
 
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -311,20 +319,22 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
 
     @Override
     public void onRefresh() {
+        try {
+            adapter = new TwitterAdapter(getContext(), newList);
+            userList = newList;
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            layoutManager.setStackFromEnd(true);
+            layoutManager.setReverseLayout(true);
+            twitterRecycler.setLayoutManager(layoutManager);
+            twitterRecycler.setHasFixedSize(true);
+            twitterRecycler.setAdapter(adapter);
 
-        adapter = new TwitterAdapter(getContext(), newList);
-        userList = newList;
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setStackFromEnd(true);
-        layoutManager.setReverseLayout(true);
-        twitterRecycler.setLayoutManager(layoutManager);
-        twitterRecycler.setHasFixedSize(true);
-        twitterRecycler.setAdapter(adapter);
 
+            if (swipe.isRefreshing()) {
+                swipe.setRefreshing(false);
+            }
+        }catch (Exception e){
 
-        if(swipe.isRefreshing())
-        {
-            swipe.setRefreshing(false);
         }
     }
 }
