@@ -28,6 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.blupie.technotweets.activities.mainActivity.pager;
+
 public class ContactList extends Fragment {
 
     public RecyclerViewAdapter recyclerViewAdapter;
@@ -56,6 +58,7 @@ public class ContactList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.v = view;
+        //Toast.makeText(getActivity().getApplicationContext(), "contacts"+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
         init();
         loaddata();
     }

@@ -57,7 +57,7 @@ public class Canteen extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_canteen, container, false);
         unbinder = ButterKnife.bind(this, view);
-        Toast.makeText(getActivity().getApplicationContext(), ""+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
+
         return view;
     }
 
@@ -65,7 +65,7 @@ public class Canteen extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
-
+        //Toast.makeText(getActivity().getApplicationContext(), "canteen"+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date d = new Date();
         dayOfTheWeek = sdf.format(d);
@@ -127,7 +127,7 @@ public class Canteen extends Fragment {
         }
         catch(Exception e)
         {
-            Toast.makeText(getActivity().getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Canteen"+e, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -167,7 +167,7 @@ public class Canteen extends Fragment {
         }
         catch (Exception e)
         {
-            Toast.makeText(getActivity().getApplicationContext(), ""+e, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Canteen"+e, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -97,9 +97,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="viewEnd"
-                android:text="(Bus Incharge)Raj Singh Ji :"
+                android:text="(Bus Incharge) Raj Singh Ji :"
                 android:fontFamily="@font/googlesans"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:id="@+id/raj" />
             <TextView
                 android:layout_width="match_parent"

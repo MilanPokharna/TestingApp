@@ -68,7 +68,6 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         View rootView = inflater.inflate(R.layout.fragment_bus_route, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         bus = (FrameLayout) rootView.findViewById(R.id.busroute);
-        Toast.makeText(getActivity().getApplicationContext(), ""+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
         return rootView;
     }
 
@@ -76,6 +75,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
+        //Toast.makeText(getActivity().getApplicationContext(), "busroutes"+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
         try {
             layoutManager = new LinearLayoutManager(this.getActivity());
             recyclerView.setLayoutManager(layoutManager);
@@ -147,6 +147,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     @Override
     public void onRefresh() {
         try {
+            //Toast.makeText(getActivity().getApplicationContext(), "bus refresh"+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
             dt.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
