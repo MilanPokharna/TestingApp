@@ -108,6 +108,7 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         //      progressDialog.show();
         loadData();
         bar.setNavigationOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
                 setup();

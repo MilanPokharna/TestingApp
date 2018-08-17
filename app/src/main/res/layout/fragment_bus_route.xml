@@ -7,7 +7,11 @@
     tools:context=".fragments.BusRoute"
     android:id="@+id/busroute"
     android:background="@android:color/darker_gray">
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe2"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        >
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,6 +81,37 @@
                 android:textSize="20sp"
                 android:id="@+id/timebus" />
         </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:color/darker_gray" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:background="@color/materiallightblue"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"
+                android:text="Raj Singh Ji   :"
+                android:fontFamily="@font/googlesans"
+                android:textSize="16sp"
+                android:id="@+id/raj" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="viewStart"
+                android:text="   8696932780"
+                android:textColor="@color/materiablue"
+                android:fontFamily="@font/googlesans"
+                android:textSize="16sp"
+                android:id="@+id/num" />
+        </LinearLayout>
 
 <android.support.v7.widget.RecyclerView
     android:layout_width="match_parent"
@@ -91,4 +126,5 @@
 
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>
