@@ -36,7 +36,7 @@ import butterknife.Unbinder;
 
 import static com.blupie.technotweets.activities.mainActivity.pager;
 
-public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class BusRoute extends Fragment {
 
     @BindView(R.id.recyclerView2)
     RecyclerView recyclerView;
@@ -53,8 +53,8 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     TextView time;
     Boolean perm = false;
     public static FrameLayout bus;
-    @BindView(R.id.swipe2)
-    SwipeRefreshLayout swipe2;
+//    @BindView(R.id.swipe2)
+//    SwipeRefreshLayout swipe2;
     @BindView(R.id.num)
     TextView num;
 
@@ -79,7 +79,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         try {
             layoutManager = new LinearLayoutManager(this.getActivity());
             recyclerView.setLayoutManager(layoutManager);
-            swipe2.setOnRefreshListener(this);
+            //swipe2.setOnRefreshListener(this);
             loadData();
         } catch (Exception e) {
 
@@ -91,7 +91,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         try {
             dt = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
             dt.keepSynced(true);
-            dt.addListenerForSingleValueEvent(new ValueEventListener() {
+            dt.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String d = dataSnapshot.child("date").getValue().toString();
@@ -107,10 +107,11 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
             });
             myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes").child("going buses");
             myref.keepSynced(true);
-            myref.addListenerForSingleValueEvent(new ValueEventListener() {
+            myref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                     contactsList.clear();
+                    recyclerViewAdapterTwo.notifyDataSetChanged();
                     for (DataSnapshot snapshot : datasnapshot.getChildren()) {
                         contacts contactvar = new contacts(snapshot.child("bus").getValue().toString(), snapshot.child("driver").getValue().toString(), snapshot.child("number").getValue().toString(),
                                 snapshot.child("route").getValue().toString());
@@ -144,56 +145,56 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         unbinder.unbind();
     }
 
-    @Override
-    public void onRefresh() {
-        try {
-            //Toast.makeText(getActivity().getApplicationContext(), "bus refresh"+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
-            dt.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String d = dataSnapshot.child("date").getValue().toString();
-                    String t = dataSnapshot.child("time").getValue().toString();
-                    date.setText(d);
-                    time.setText(t);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-            myref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot datasnapshot) {
-                    contactsList.clear();
-                    for (DataSnapshot snapshot : datasnapshot.getChildren()) {
-                        contacts contactvar = new contacts(snapshot.child("bus").getValue().toString(), snapshot.child("driver").getValue().toString(), snapshot.child("number").getValue().toString(),
-                                snapshot.child("route").getValue().toString());
-                        contactsList.add(contactvar);
-                    }
-                    try {
-                        recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
-                        recyclerView.setAdapter(recyclerViewAdapterTwo);
-                    } catch (Exception e) {
-
-                    }
-                    //Toast.makeText(getContext(), "buslist :"+contactsList.size(), Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-            if(swipe2.isRefreshing())
-            {
-                swipe2.setRefreshing(false);
-            }
-        } catch (Exception e) {
-
-        }
-
-    }
+//    @Override
+//    public void onRefresh() {
+//        try {
+//            //Toast.makeText(getActivity().getApplicationContext(), "bus refresh"+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
+//            dt.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    String d = dataSnapshot.child("date").getValue().toString();
+//                    String t = dataSnapshot.child("time").getValue().toString();
+//                    date.setText(d);
+//                    time.setText(t);
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+//            myref.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+//                    contactsList.clear();
+//                    for (DataSnapshot snapshot : datasnapshot.getChildren()) {
+//                        contacts contactvar = new contacts(snapshot.child("bus").getValue().toString(), snapshot.child("driver").getValue().toString(), snapshot.child("number").getValue().toString(),
+//                                snapshot.child("route").getValue().toString());
+//                        contactsList.add(contactvar);
+//                    }
+//                    try {
+//                        recyclerViewAdapterTwo = new RecyclerViewAdaptertwo(getContext(), contactsList);
+//                        recyclerView.setAdapter(recyclerViewAdapterTwo);
+//                    } catch (Exception e) {
+//
+//                    }
+//                    //Toast.makeText(getContext(), "buslist :"+contactsList.size(), Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+//            if(swipe2.isRefreshing())
+//            {
+//                swipe2.setRefreshing(false);
+//            }
+//        } catch (Exception e) {
+//
+//        }
+//
+//    }
 
     @OnClick(R.id.num)
     public void onViewClicked() {
