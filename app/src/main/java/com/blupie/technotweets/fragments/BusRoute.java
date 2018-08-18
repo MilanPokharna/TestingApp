@@ -91,7 +91,7 @@ public class BusRoute extends Fragment {
         try {
             dt = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
             dt.keepSynced(true);
-            dt.addValueEventListener(new ValueEventListener() {
+            dt.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String d = dataSnapshot.child("date").getValue().toString();
@@ -107,11 +107,10 @@ public class BusRoute extends Fragment {
             });
             myref = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes").child("going buses");
             myref.keepSynced(true);
-            myref.addValueEventListener(new ValueEventListener() {
+            myref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                     contactsList.clear();
-                    recyclerViewAdapterTwo.notifyDataSetChanged();
                     for (DataSnapshot snapshot : datasnapshot.getChildren()) {
                         contacts contactvar = new contacts(snapshot.child("bus").getValue().toString(), snapshot.child("driver").getValue().toString(), snapshot.child("number").getValue().toString(),
                                 snapshot.child("route").getValue().toString());
@@ -135,6 +134,18 @@ public class BusRoute extends Fragment {
         } catch (Exception e) {
 
         }
+
+        myref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                recyclerViewAdapterTwo.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

@@ -165,61 +165,61 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                 }
                 int i = (newList.size() - userList.size());
                 if (i >= 3) {
-                    SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences("login", Context.MODE_PRIVATE);
-                    int flag = prefs.getInt("flag", 1);
-                    if (flag == 1) {
-                        if (pager.getCurrentItem() == 0) {
-                            LayoutInflater inflater = getLayoutInflater();
-                            View layout = inflater.inflate(R.layout.custom_toast_layout,
-                                    (ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
-                            TextView toastTextView = (TextView) layout.findViewById(R.id.toastTextView);
-                            ImageView toastImageView = (ImageView) layout.findViewById(R.id.toastImageView);
-                            // set the text in the TextView
-                            toastTextView.setText("New Posts Available");
-                            toastImageView.setImageResource(R.drawable.ic_refresh_black_24dp);
-                            final PopupWindow pw = new PopupWindow(layout,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT, true);
-                            pw.setWindowLayoutType(WindowManager.LayoutParams.TYPE_TOAST);
-                            pw.showAtLocation(layout, Gravity.CENTER | Gravity.TOP, 0, 350);
-                            pw.setTouchable(true);
-
-                            layout.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    pw.dismiss();
-                                    try {
-                                        adapter = new TwitterAdapter(getContext(), newList);
-                                        userList = newList;
-                                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                                        layoutManager.setStackFromEnd(true);
-                                        layoutManager.setReverseLayout(true);
-                                        twitterRecycler.setLayoutManager(layoutManager);
-                                        twitterRecycler.setHasFixedSize(true);
-                                        twitterRecycler.setAdapter(adapter);
-                                    } catch (Exception e) {
-                                    }
-                                }
-                            });
-                            new Handler().postDelayed(new Runnable() {
-                                public void run() {
-                                    pw.dismiss();
-                                }
-                            }, 2000);
-                        }
-                    }
+//                    SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences("login", Context.MODE_PRIVATE);
+//                    int flag = prefs.getInt("flag", 1);
+//                    if (flag == 1) {
+//                        if (pager.getCurrentItem() == 0) {
+//                            LayoutInflater inflater = getLayoutInflater();
+//                            View layout = inflater.inflate(R.layout.custom_toast_layout,
+//                                    (ViewGroup) getActivity().findViewById(R.id.toast_layout_root));
+//                            TextView toastTextView = (TextView) layout.findViewById(R.id.toastTextView);
+//                            ImageView toastImageView = (ImageView) layout.findViewById(R.id.toastImageView);
+//                            // set the text in the TextView
+//                            toastTextView.setText("New Posts Available");
+//                            toastImageView.setImageResource(R.drawable.ic_refresh_black_24dp);
+//                            final PopupWindow pw = new PopupWindow(layout,
+//                                    LinearLayout.LayoutParams.WRAP_CONTENT,
+//                                    LinearLayout.LayoutParams.WRAP_CONTENT, true);
+//                            pw.setWindowLayoutType(WindowManager.LayoutParams.TYPE_TOAST);
+//                            pw.showAtLocation(layout, Gravity.CENTER | Gravity.TOP, 0, 350);
+//                            pw.setTouchable(true);
+//
+//                            layout.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//                                    pw.dismiss();
+//                                    try {
+//                                        adapter = new TwitterAdapter(getContext(), newList);
+//                                        userList = newList;
+//                                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//                                        layoutManager.setStackFromEnd(true);
+//                                        layoutManager.setReverseLayout(true);
+//                                        twitterRecycler.setLayoutManager(layoutManager);
+//                                        twitterRecycler.setHasFixedSize(true);
+//                                        twitterRecycler.setAdapter(adapter);
+//                                    } catch (Exception e) {
+//                                    }
+//                                }
+//                            });
+//                            new Handler().postDelayed(new Runnable() {
+//                                public void run() {
+//                                    pw.dismiss();
+//                                }
+//                            }, 2000);
+//                        }
+//                    }
                 }
-//                else if (i<0)
-//                {
-//                    adapter = new TwitterAdapter(getContext(), newList);
-//                    userList = newList;
-//                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//                    layoutManager.setStackFromEnd(true);
-//                    layoutManager.setReverseLayout(true);
-//                    twitterRecycler.setLayoutManager(layoutManager);
-//                    twitterRecycler.setHasFixedSize(true);
-//                    twitterRecycler.setAdapter(adapter);
-//                }
+                else if (i<0)
+                {
+                    adapter = new TwitterAdapter(getContext(), newList);
+                    userList = newList;
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    layoutManager.setStackFromEnd(true);
+                    layoutManager.setReverseLayout(true);
+                    twitterRecycler.setLayoutManager(layoutManager);
+                    twitterRecycler.setHasFixedSize(true);
+                    twitterRecycler.setAdapter(adapter);
+                }
 
             }
 
