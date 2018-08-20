@@ -25,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blupie.technotweets.R;
-import com.blupie.technotweets.activities.MapsActivity;
 import com.blupie.technotweets.models.contacts;
 
 import java.util.ArrayList;
@@ -104,8 +103,8 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
                 final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                 if (isNetworkConnected()) {
                     if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        Intent i = new Intent(context, MapsActivity.class);
-                        context.startActivity(i);
+//                        Intent i = new Intent(context, MapsActivity.class);
+//                        context.startActivity(i);
                     } else {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         context.startActivity(intent);

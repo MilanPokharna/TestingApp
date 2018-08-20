@@ -53,8 +53,6 @@
         <activity
             android:name=".activities.NewPostActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity android:name=".activities.MapsActivity"
-            />
         <activity
             android:name=".activities.StartActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
