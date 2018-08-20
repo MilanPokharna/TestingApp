@@ -91,40 +91,44 @@ public class ContactLinkFragement extends Fragment {
     }
 
     private void loadData() {
-        myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
-        final StorageReference ref = FirebaseStorage.getInstance().getReference();
-        myref.keepSynced(true);
-        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                semail = dataSnapshot.child(key).child("emailid").getValue().toString();
-                sname = dataSnapshot.child(key).child("name").getValue().toString();
-                spos = dataSnapshot.child(key).child("pos").getValue().toString();
+        try {
+            myref = FirebaseDatabase.getInstance().getReference().child("root").child("contact list").child("chairpersons");
+            final StorageReference ref = FirebaseStorage.getInstance().getReference();
+            myref.keepSynced(true);
+            myref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    semail = dataSnapshot.child(key).child("emailid").getValue().toString();
+                    sname = dataSnapshot.child(key).child("name").getValue().toString();
+                    spos = dataSnapshot.child(key).child("pos").getValue().toString();
 //                snum = dataSnapshot.child(key).child("number").getValue().toString();
-                imgurl = dataSnapshot.child(key).child("image").getValue().toString();
-                squal = dataSnapshot.child(key).child("qualification").getValue().toString();
-                sarea = dataSnapshot.child(key).child("area").getValue().toString();
-                sexp = dataSnapshot.child(key).child("experience").getValue().toString();
-                username.setText(sname);
-                cardposition.setText(spos);
-                qual.setText(squal);
-                area.setText(sarea);
-                if (!sexp.equals("00"))
-                    exp.setText(sexp);
-                else
-                {
-                    explayout.setVisibility(View.GONE);
+                    imgurl = dataSnapshot.child(key).child("image").getValue().toString();
+                    squal = dataSnapshot.child(key).child("qualification").getValue().toString();
+                    sarea = dataSnapshot.child(key).child("area").getValue().toString();
+                    sexp = dataSnapshot.child(key).child("experience").getValue().toString();
+                    username.setText(sname);
+                    cardposition.setText(spos);
+                    qual.setText(squal);
+                    area.setText(sarea);
+                    if (!sexp.equals("00"))
+                        exp.setText(sexp);
+                    else {
+                        explayout.setVisibility(View.GONE);
+                    }
+                    Glide.with(getContext()).using(new FirebaseImageLoader()).load(ref.child(imgurl)).into(profileimageContactlink);
+                    //Glide.with(getContext()).load(imgurl).into(profileimageContactlink);
                 }
-                Glide.with(getContext()).using(new FirebaseImageLoader()).load(ref.child(imgurl)).into(profileimageContactlink);
-                //Glide.with(getContext()).load(imgurl).into(profileimageContactlink);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
+        }
+        catch(Exception e){
+
+        }
     }
 
 

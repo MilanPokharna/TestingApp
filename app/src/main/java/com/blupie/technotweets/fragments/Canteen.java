@@ -127,7 +127,7 @@ public class Canteen extends Fragment {
         }
         catch(Exception e)
         {
-            Toast.makeText(getActivity().getApplicationContext(), "Canteen"+e, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity().getApplicationContext(), "Canteen"+e, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -167,7 +167,7 @@ public class Canteen extends Fragment {
         }
         catch (Exception e)
         {
-            Toast.makeText(getActivity().getApplicationContext(), "Canteen"+e, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity().getApplicationContext(), "Canteen"+e, Toast.LENGTH_SHORT).show();
         }
     }
 

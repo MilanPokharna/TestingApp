@@ -89,6 +89,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:weightSum="2"
+            android:divider="?attr/dividerHorizontal"
+            android:showDividers="middle"
             android:background="@color/materiallightblue"
             android:layout_height="wrap_content">
 
@@ -96,8 +98,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAlignment="viewEnd"
-                android:text="(Bus Incharge) Raj Singh Ji |"
+                android:textAlignment="center"
+                android:text="(Bus Incharge) Raj Singh Ji"
                 android:fontFamily="@font/googlesans"
                 android:textSize="14sp"
                 android:id="@+id/raj" />

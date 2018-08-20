@@ -103,37 +103,43 @@ public class fragment_my_post extends Fragment implements AppBarLayout.OnOffsetC
         check = 0;
         this.v = view;
         if (data != null) {
-            DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("root").child("twitter")
-                    .child("users");
-            database.keepSynced(true);
-            database.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        if (data.equals(snapshot.getKey().toString())) {
-                            uid = snapshot.child("uid").getValue().toString();
-                            name.setText(snapshot.child("name").getValue().toString());
-                            email.setText(snapshot.child("email").getValue().toString());
-                            Glide.with(getActivity()).load(snapshot.child("profileimage").getValue().toString()).into(circleImageView);
-                            check = 1;
-                            if (uid.equals(user.getUid()))
-                                check = 0;
-                            loadData();
-                            break;
+            try {
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("root").child("twitter")
+                        .child("users");
+                database.keepSynced(true);
+                database.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            if (data.equals(snapshot.getKey().toString())) {
+                                uid = snapshot.child("uid").getValue().toString();
+                                name.setText(snapshot.child("name").getValue().toString());
+                                email.setText(snapshot.child("email").getValue().toString());
+                                Glide.with(getActivity()).load(snapshot.child("profileimage").getValue().toString()).into(circleImageView);
+                                check = 1;
+                                if (uid.equals(user.getUid()))
+                                    check = 0;
+                                loadData();
+                                break;
+                            }
                         }
+                        // name.setText(.getDisplayName());
+                        //email.setText(user.getEmail());
+
+
                     }
-                    // name.setText(.getDisplayName());
-                    //email.setText(user.getEmail());
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
+                    }
+                });
+            }
+            catch (Exception e){
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        } else {
+            }
+        }
+        else {
             uid = user.getUid().toString();
             name.setText(user.getDisplayName());
             email.setText(user.getEmail());

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/gradientforprofile"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-    <RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:id="@+id/tool_bar">
+    </android.support.v7.widget.Toolbar>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.Toolbar
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:id="@+id/tool_bar">
-        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -36,5 +36,5 @@
                 android:paddingStart="@dimen/card_padding" />
 
         </android.support.design.widget.CoordinatorLayout>
-    </RelativeLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

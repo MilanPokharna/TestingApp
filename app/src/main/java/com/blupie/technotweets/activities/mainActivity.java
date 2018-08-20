@@ -71,7 +71,7 @@ public class mainActivity extends AppCompatActivity {
             }
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-2028698845219479/2538403123");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
@@ -125,7 +125,7 @@ public class mainActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null;
     }
     public static void loadRewardedVideoAd() {
-        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+        mRewardedVideoAd.loadAd("ca-app-pub-2028698845219479/2137688698",
                 new AdRequest.Builder().build());
     }
 

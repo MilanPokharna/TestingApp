@@ -96,8 +96,12 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String d = dataSnapshot.child("date").getValue().toString();
                     String t = dataSnapshot.child("time").getValue().toString();
-                    date.setText(d);
-                    time.setText(t);
+                    try {
+                        date.setText(d);
+                        time.setText(t);
+                    }catch(Exception e){
+
+                    }
                 }
 
                 @Override

@@ -129,82 +129,89 @@ public class NewPostActivity extends AppCompatActivity {
                 break;
             case R.id.postButton: {
                 if (isNetworkConnected()) {
-                    final String des = Description.getText().toString().trim();
-                    if (!(TextUtils.isEmpty(des))) {
-                        progressDialog.setMessage("Uploading Post");
-                        progressDialog.setCancelable(false);
-                        progressDialog.setCanceledOnTouchOutside(false);
-                        progressDialog.show();
-                        mydate = String.valueOf(System.currentTimeMillis());
-                        myref = myref.push();
-                        string = myref.getKey().toString();
+                    try {
+                        final String des = Description.getText().toString().trim();
+                        if (!(TextUtils.isEmpty(des))) {
+                            progressDialog.setMessage("Uploading Post");
+                            progressDialog.setCancelable(false);
+                            progressDialog.setCanceledOnTouchOutside(false);
+                            progressDialog.show();
+                            mydate = String.valueOf(System.currentTimeMillis());
+                            myref = myref.push();
+                            string = myref.getKey().toString();
 
-                        if (postImage.getDrawable() == null) {
-                            myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    myref.child("posttime").setValue(mydate).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            myref.child("postimage").setValue("0");
-                                            refe = refe.child(user.getUid());
-                                            refe.child("value").setValue("1");
-                                            refe.child("posts").child(string).setValue(string);
-                                            myref.child("email").setValue(user.getEmail());
-                                            myref.child("name").setValue(user.getDisplayName());
-                                            myref.child("postdata").setValue(des);
-                                            myref.child("userid").setValue(user.getUid());
-                                            //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
-                                            progressDialog.cancel();
-                                            checkuserpost();
-                                            Intent returnIntent = new Intent();
-                                            setResult(Activity.RESULT_OK, returnIntent);
-                                            finish();
-                                        }
-                                    });
-                                }
-                            });
+                            if (postImage.getDrawable() == null) {
+                                myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        myref.child("posttime").setValue(mydate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                myref.child("postimage").setValue("0");
+                                                refe = refe.child(user.getUid());
+                                                refe.child("value").setValue("1");
+                                                refe.child("posts").child(string).setValue(string);
+                                                myref.child("email").setValue(user.getEmail());
+                                                myref.child("name").setValue(user.getDisplayName());
+                                                myref.child("postdata").setValue(des);
+                                                myref.child("userid").setValue(user.getUid());
+                                                //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+                                                progressDialog.cancel();
+                                                checkuserpost();
+                                                Intent returnIntent = new Intent();
+                                                setResult(Activity.RESULT_OK, returnIntent);
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                });
+                            } else {
+                                reference.child(string).putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        myref.child("postimage").setValue(string);
+                                        myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                refe = refe.child(user.getUid());
+                                                refe.child("value").setValue("1");
+                                                refe.child("posts").child(string).setValue(string);
+                                                myref.child("email").setValue(user.getEmail());
+                                                myref.child("userid").setValue(user.getUid());
+                                                myref.child("name").setValue(user.getDisplayName());
+                                                myref.child("postdata").setValue(des);
+                                                myref.child("posttime").setValue(mydate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
+                                                        checkuserpost();
+
+                                                        progressDialog.cancel();
+
+                                                        Intent returnIntent = getIntent();
+                                                        setResult(Activity.RESULT_OK, returnIntent);
+                                                        finish();
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                    }
+                                });
+                            }
+
                         } else {
-                            reference.child(string).putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    myref.child("postimage").setValue(string);
-                                    myref.child("profileimage").setValue(user.getPhotoUrl().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            refe = refe.child(user.getUid());
-                                            refe.child("value").setValue("1");
-                                            refe.child("posts").child(string).setValue(string);
-                                            myref.child("email").setValue(user.getEmail());
-                                            myref.child("userid").setValue(user.getUid());
-                                            myref.child("name").setValue(user.getDisplayName());
-                                            myref.child("postdata").setValue(des);
-                                            myref.child("posttime").setValue(mydate).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    //Toast.makeText(getApplicationContext(), "No Image Selected", Toast.LENGTH_SHORT).show();
-                                                    checkuserpost();
-
-                                                    progressDialog.cancel();
-
-                                                    Intent returnIntent =getIntent();
-                                                    setResult(Activity.RESULT_OK, returnIntent);
-                                                    finish();
-                                                }
-                                            });
-                                        }
-                                    });
-
-                                }
-                            });
+                            Snackbar snackbar1 = Snackbar.make(newpostlayout, "Can't Upload Empty Post", Snackbar.LENGTH_SHORT);
+                            snackbar1.show();
+                            //Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
                         }
-
-                    } else {
-                        Snackbar snackbar1 = Snackbar.make(newpostlayout, "Can't Upload Empty Post", Snackbar.LENGTH_SHORT);
-                        snackbar1.show();
-                        //Toast.makeText(this, "Can't Upload Empty Post", Toast.LENGTH_SHORT).show();
                     }
-                } else {
+                    catch (Exception e)
+                    {
+
+                    }
+                }
+                else {
                     Snackbar snackbar1 = Snackbar.make(newpostlayout, "No Internet Connection", Snackbar.LENGTH_SHORT);
                     snackbar1.show();
                 }

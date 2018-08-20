@@ -121,51 +121,62 @@ public class profileAdapter extends RecyclerView.Adapter<profileAdapter.ViewHold
             @Override
             public void onClick(final View vieww) {
                 if (isNetworkConnected()) {
-                    Snackbar snackbar = Snackbar
-                            .make(snakebar, "Delete this Post", Snackbar.LENGTH_LONG)
-                            .setAction("Delete", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    ref.child(key.getPostimage()).delete();
-                                    delete.child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            delet.child(user.getUid()).child("posts").child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    delet.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                                        @Override
-                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        Snackbar snackbar = Snackbar
+                                .make(snakebar, "Delete this Post", Snackbar.LENGTH_LONG)
+                                .setAction("Delete", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        ref.child(key.getPostimage()).delete();
+                                        delete.child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                delet.child(user.getUid()).child("posts").child(post.get(i)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        delet.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                            if (!(dataSnapshot.hasChild("posts"))) {
-                                                                delet.child(user.getUid()).child("value").setValue("0").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                    @Override
-                                                                    public void onSuccess(Void aVoid) {
-                                                                        text.setVisibility(View.VISIBLE);
-                                                                        Snackbar snackbar1 = Snackbar.make(snakebar, "Post Deleted Successfully", Snackbar.LENGTH_SHORT);
-                                                                        snackbar1.show();
+                                                                if (!(dataSnapshot.hasChild("posts"))) {
+                                                                    try {
+                                                                        delet.child(user.getUid()).child("value").setValue("0").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void aVoid) {
+                                                                                text.setVisibility(View.VISIBLE);
+                                                                                Snackbar snackbar1 = Snackbar.make(snakebar, "Post Deleted Successfully", Snackbar.LENGTH_SHORT);
+                                                                                snackbar1.show();
+                                                                            }
+                                                                        });
+
                                                                     }
-                                                                });
+                                                                    catch (Exception e){
 
-                                                            } else {
+                                                                    }
+                                                                }else {
+
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                                             }
-                                                        }
+                                                        });
+                                                    }
+                                                });
 
-                                                        @Override
-                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            }
+                                        });
+                                    }
+                                });
 
-                                                        }
-                                                    });
-                                                }
-                                            });
+                        snackbar.show();
+                    }
+                    catch (Exception e)
+                    {
 
-                                        }
-                                    });
-                                }
-                            });
-
-                    snackbar.show();
+                    }
                 }
                 else
                 {
