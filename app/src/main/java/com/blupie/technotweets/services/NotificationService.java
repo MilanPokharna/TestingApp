@@ -52,7 +52,7 @@ public class NotificationService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.icon)
                 .setTicker(remoteMessage.getData().get("body"))
                 .setContentIntent(pendingIntent)
                 .setContentTitle(remoteMessage.getData().get("title"))
