@@ -154,7 +154,7 @@ public class mainActivity extends AppCompatActivity {
 
                         if (mInterstitialAd.isLoaded()) {
                             mInterstitialAd.show();
-
+                            open();
                         } else {
                             // Toast.makeText(this, "not", Toast.LENGTH_SHORT).show();
                             mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -171,7 +171,7 @@ public class mainActivity extends AppCompatActivity {
                             public void onAdFailedToLoad(int errorCode) {
                                 // Code to be executed when an ad request fails.
                                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                                open();
+
                             }
 
                             @Override
@@ -185,14 +185,12 @@ public class mainActivity extends AppCompatActivity {
                             public void onAdLeftApplication() {
                                 // Code to be executed when the user has left the app.
                                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                                open();
                             }
 
                             @Override
                             public void onAdClosed() {
                                 // Code to be executed when when the interstitial ad is closed.
                                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                                open();
                             }
                         });
                     } else {

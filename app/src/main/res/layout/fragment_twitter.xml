@@ -20,7 +20,6 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="44dp"
         android:id="@+id/twitter_recycler"
         />
     </android.support.v4.widget.SwipeRefreshLayout>
