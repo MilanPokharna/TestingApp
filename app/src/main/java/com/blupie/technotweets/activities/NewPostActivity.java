@@ -112,6 +112,7 @@ public class NewPostActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         myref = myref.child("root").child("twitter").child("posts");
         user = mauth.getCurrentUser();
+        mainActivity.loadRewardedVideoAd();
 
         Glide.with(getApplicationContext()).load(user.getPhotoUrl()).into(profileImage);
         imageRemoveButton.setVisibility(View.INVISIBLE);

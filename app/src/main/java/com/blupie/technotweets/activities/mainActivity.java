@@ -56,7 +56,7 @@ public class mainActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             pager = (ViewPager)findViewById(R.id.mpager);
-            MobileAds.initialize(this,"ca-app-pub-2028698845219479~3499109503");
+            MobileAds.initialize(getApplicationContext(),"ca-app-pub-2028698845219479~3499109503");
             msectionAdapter = new sectionAdapter(getSupportFragmentManager());
             pager.setAdapter(msectionAdapter);
             tablayout.setupWithViewPager(pager);
@@ -126,8 +126,10 @@ public class mainActivity extends AppCompatActivity {
         return cm.getActiveNetworkInfo() != null;
     }
     public static void loadRewardedVideoAd() {
-        mRewardedVideoAd.loadAd("ca-app-pub-2028698845219479/2137688698",
-                new AdRequest.Builder().build());
+        if (!mRewardedVideoAd.isLoaded()) {
+            mRewardedVideoAd.loadAd("ca-app-pub-2028698845219479/2137688698",
+                    new AdRequest.Builder().build());
+        }
     }
 
     @Override
