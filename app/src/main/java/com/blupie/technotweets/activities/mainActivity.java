@@ -77,6 +77,7 @@ public class mainActivity extends AppCompatActivity {
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        loadRewardedVideoAd();
         AppRater.app_launched(this);
         loadRewardedVideoAd();
 
@@ -156,6 +157,7 @@ public class mainActivity extends AppCompatActivity {
 
                         } else {
                             // Toast.makeText(this, "not", Toast.LENGTH_SHORT).show();
+                            mInterstitialAd.loadAd(new AdRequest.Builder().build());
                             open();
                         }
                         mInterstitialAd.setAdListener(new AdListener() {
@@ -215,6 +217,7 @@ public class mainActivity extends AppCompatActivity {
         }
         public  void open()
         {
+            loadRewardedVideoAd();
             AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
             dialog.setTitle("Logout");
             dialog.setCancelable(false);
@@ -227,6 +230,7 @@ public class mainActivity extends AppCompatActivity {
                     SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
                     prefs.edit().putInt("loginvar", 0).apply();
                     prefs.edit().putInt("persistent",1).apply();
+                    mRewardedVideoAd.show();
                     Intent intent = new Intent(mainActivity.this,StartActivity.class);
                     startActivity(intent);
                 }
