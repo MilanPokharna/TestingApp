@@ -321,7 +321,7 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
     @Override
     public void onRefresh() {
         try {
-            //Toast.makeText(getActivity().getApplicationContext(), "twitter refresh"+pager.getCurrentItem(), Toast.LENGTH_SHORT).show();
+
             adapter = new TwitterAdapter(getContext(), newList);
             userList = newList;
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
