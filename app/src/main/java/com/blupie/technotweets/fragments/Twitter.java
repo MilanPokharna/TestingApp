@@ -86,7 +86,7 @@ public class Twitter extends Fragment implements SwipeRefreshLayout.OnRefreshLis
     SwipeRefreshLayout swipe;
 
     public Twitter() {
-        //empty constructor
+
     }
 
     @Override
