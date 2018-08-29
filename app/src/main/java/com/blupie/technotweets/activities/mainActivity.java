@@ -264,8 +264,5 @@ public class mainActivity extends AppCompatActivity {
         prefs.edit().putInt("flag",0).apply();
     }
 
-    //    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//    }
+
 }
