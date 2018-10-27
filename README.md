@@ -1,2 +1,4 @@
-# TestingApp
-## It is just a prototype model of our project to test certain functionalities of our major project.
+# TechnoTweets
+## College applicaton
+This is a real world application for our college and can be found on playstore named Techno Tweets. 
+Updated by - Tushar jain
