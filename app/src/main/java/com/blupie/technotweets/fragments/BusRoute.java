@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,17 +102,28 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                         time.setText(t);
                         if (t.contains("AM"))
                         {
-                            if (s.contains("2"))
-                                shift.setText(R.string.shiftm2);
-                            else
-                                shift.setText(R.string.shiftm1);
+                            if (s.contains("2")) {
+                                String temp = "There are " + "<b><font color='#3D8CE5'>two</font></b>" + " shifts of buses available in the morning";
+                                shift.setText(Html.fromHtml(temp));
+                            }
+                            else {
+                                String temp = "There is only " + "<b><font color='#EE0000'>one</font></b>" + " shift of buses available in the morning";
+                                shift.setText(Html.fromHtml(temp));
+                            }
                         }
                         else if(t.contains("PM"))
                         {
                             if (s.contains("2"))
+                            {
+                                String temp = "There are "+"<b><font color='#3D8CE5'>two</font></b>"+" shifts of buses available in the evening";
                                 shift.setText(R.string.shifte2);
+                            }
                             else
+                            {
+                                String temp = "There is only "+"<b><font color='#EE0000'>one</font></b>"+" shift of buses available in the evening";
                                 shift.setText(R.string.shifte1);
+                            }
+
                         }
                     } catch (Exception e) {
 
@@ -183,8 +195,34 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String d = dataSnapshot.child("date").getValue().toString();
                     String t = dataSnapshot.child("time").getValue().toString();
+                    String s = dataSnapshot.child("shifts").getValue().toString();
                     date.setText(d);
                     time.setText(t);
+                    if (t.contains("AM"))
+                    {
+                        if (s.contains("2")) {
+                            String temp = "There are " + "<b><font color='#3D8CE5'>two</font></b>" + " shifts of buses available in the morning";
+                            shift.setText(Html.fromHtml(temp));
+                        }
+                        else {
+                            String temp = "There is only " + "<b><font color='#EE0000'>one</font></b>" + " shift of buses available in the morning";
+                            shift.setText(Html.fromHtml(temp));
+                        }
+                    }
+                    else if(t.contains("PM"))
+                    {
+                        if (s.contains("2"))
+                        {
+                            String temp = "There are "+"<b><font color='#3D8CE5'>two</font></b>"+" shifts of buses available in the evening";
+                            shift.setText(R.string.shifte2);
+                        }
+                        else
+                        {
+                            String temp = "There is only "+"<b><font color='#EE0000'>one</font></b>"+" shift of buses available in the evening";
+                            shift.setText(R.string.shifte1);
+                        }
+
+                    }
                 }
 
                 @Override
