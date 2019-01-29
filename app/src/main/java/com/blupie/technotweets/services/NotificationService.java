@@ -31,7 +31,7 @@ public class NotificationService extends FirebaseMessagingService {
 
             notificationChannel.setDescription(remoteMessage.getData().get("body"));
             notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setLightColor(Color.BLUE);
             notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
             notificationChannel.enableVibration(true);
             if (notificationManager != null) {

@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Techno Tweets</string>
     <string name="a"></string>
+    <string name="shiftm1">There is only <b>one</b> shift of buses available in the morning</string>
+    <string name="shiftm2">There are <b>two</b> shifts of buses available in the morning</string>
+
+    <string name="shifte1">There is only <b>one</b> shift of buses available in the evening</string>
+    <string name="shifte2">There are <b>two</b> shifts of buses available in the evening</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blupie.technotweets.R;
 import com.blupie.technotweets.adapters.RecyclerViewAdaptertwo;
@@ -33,8 +32,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
-import static com.blupie.technotweets.activities.mainActivity.pager;
 
 public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -57,6 +54,8 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     SwipeRefreshLayout swipe2;
     @BindView(R.id.num)
     TextView num;
+    @BindView(R.id.shift)
+    TextView shift;
 
     public BusRoute() {
     }
@@ -96,10 +95,25 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String d = dataSnapshot.child("date").getValue().toString();
                     String t = dataSnapshot.child("time").getValue().toString();
+                    String s = dataSnapshot.child("shifts").getValue().toString();
                     try {
                         date.setText(d);
                         time.setText(t);
-                    }catch(Exception e){
+                        if (t.contains("AM"))
+                        {
+                            if (s.contains("2"))
+                                shift.setText(R.string.shiftm2);
+                            else
+                                shift.setText(R.string.shiftm1);
+                        }
+                        else if(t.contains("PM"))
+                        {
+                            if (s.contains("2"))
+                                shift.setText(R.string.shifte2);
+                            else
+                                shift.setText(R.string.shifte1);
+                        }
+                    } catch (Exception e) {
 
                     }
                 }
@@ -201,8 +215,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
                 }
             });
-            if(swipe2.isRefreshing())
-            {
+            if (swipe2.isRefreshing()) {
                 swipe2.setRefreshing(false);
             }
         } catch (Exception e) {
