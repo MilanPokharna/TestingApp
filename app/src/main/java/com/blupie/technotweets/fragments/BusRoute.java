@@ -103,7 +103,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                         if (t.contains("AM"))
                         {
                             if (s.contains("2")) {
-                                shift.setText(R.string.shiftm1);
+                                shift.setText(R.string.shiftm2);
                             }
                             else {
                                 shift.setText(R.string.shiftm1);
@@ -197,7 +197,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                     try {
                         if (t.contains("AM")) {
                             if (s.contains("2")) {
-                                shift.setText(R.string.shiftm1);
+                                shift.setText(R.string.shiftm2);
                             } else {
                                 shift.setText(R.string.shiftm1);
                             }

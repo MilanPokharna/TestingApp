@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Techno Tweets</string>
     <string name="a"></string>
-    <string name="shiftm1">There is only <b><font color='#EE0000'>one</font></b> shift available in the morning</string>
-    <string name="shiftm2">There are <b><font color='#3D8CE5'>two</font></b> shifts available in the morning</string>
+    <string name="shiftm1">There is only <b><font color='#EE0000'>one shift</font></b> available in the morning</string>
+    <string name="shiftm2">There are <b><font color='#3D8CE5'>two shifts</font></b> available in the morning</string>
 
-    <string name="shifte1">There is only <b><font style='bold' color='#EE0000'>one</font></b> shift available in the evening</string>
-    <string name="shifte2">There are <b><font style='bold' color='#3D8CE5'>two</font></b> shifts available in the evening</string>
+    <string name="shifte1">There is only <b><font style='bold' color='#EE0000'>one shift</font></b> available in the evening</string>
+    <string name="shifte2">There are <b><font style='bold' color='#3D8CE5'>two shifts</font></b> available in the evening</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
