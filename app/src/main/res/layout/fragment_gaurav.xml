@@ -8,9 +8,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -69,58 +66,67 @@
             android:background="@android:color/darker_gray"
             />
 
-
-        <TextView
+        <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/email_pro"
-            android:autoLink="all"
             android:layout_below="@+id/view"
-            android:layout_marginTop="20dp"
-            android:textAlignment="center"
-            android:text="jaingaurav113@gmail.com"
-            android:drawableLeft="@drawable/ic_mail_black"
-            android:drawablePadding="20dp"
+            >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="4dp"
+                >
 
-            android:layout_marginLeft="30dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/email_pro"
+                    android:autoLink="all"
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"
+                    android:text="jaingaurav113@gmail.com"
+                    android:drawableLeft="@drawable/ic_mail_black"
+                    android:drawablePadding="20dp"
 
-            />
+                    android:layout_marginLeft="30dp"
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/linkdin_prog"
-            android:layout_below="@+id/email_pro"
-            android:layout_marginTop="20dp"
-            android:text="gaurav2621998"
-            android:textColor="@color/materiablue"
-            android:layout_marginLeft="30dp"
-            android:textAlignment="center"
-            android:drawableLeft="@drawable/ic_orion_linkedin_2"
-            android:drawablePadding="20dp"
-            />
+                    />
 
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/mobno_pro"
-            android:autoLink="all"
-            android:layout_marginLeft="30dp"
-            android:layout_below="@+id/linkdin_prog"
-            android:layout_marginTop="20dp"
-            android:textAlignment="center"
-            android:text="9571260201"
-
-            android:drawableLeft="@drawable/ic_contact_black"
-            android:drawablePadding="20dp"
-            />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linkdin_pro"
+                    android:layout_below="@+id/email_pro"
+                    android:layout_marginTop="20dp"
+                    android:text="gaurav2621998"
+                    android:layout_marginLeft="30dp"
+                    android:textAlignment="center"
+                    android:drawableLeft="@drawable/ic_orion_linkedin_2"
+                    android:drawablePadding="20dp"
+                    />
 
 
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mobno_pro"
+                    android:autoLink="all"
+                    android:layout_marginLeft="30dp"
+                    android:layout_below="@+id/linkdin_pro"
+                    android:layout_marginTop="20dp"
+                    android:textAlignment="center"
+                    android:text="9571260201"
+
+                    android:drawableLeft="@drawable/ic_contact_black"
+                    android:drawablePadding="20dp"
+                    />
+
+            </RelativeLayout>
+        </ScrollView>
 
 
     </RelativeLayout>
-    </ScrollView>
+
 </android.support.v7.widget.CardView>

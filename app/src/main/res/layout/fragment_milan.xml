@@ -29,91 +29,105 @@
 
         </com.github.florent37.arclayout.ArcLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/arc"
+            android:id="@+id/rel2"
+            >
+            <TextView
+                android:fontFamily="@font/googlesans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Milan Pokharna"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:textSize="20sp"
+                android:id="@+id/name"/>
 
-        <TextView
-            android:fontFamily="@font/googlesans"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Milan Pokharna"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/arc"
-            android:textStyle="bold"
-            android:layout_marginTop="15dp"
-            android:textSize="20sp"
-            android:id="@+id/name"/>
+            <TextView
+                android:fontFamily="@font/googlesans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Computer Science"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/name"
+                android:textStyle="bold"
+                android:id="@+id/branch"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                />
 
-        <TextView
-            android:fontFamily="@font/googlesans"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Computer Science"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/name"
-            android:textStyle="bold"
-            android:id="@+id/branch"
-            android:textAlignment="center"
-            android:layout_marginTop="10dp"
-            android:textSize="15sp"
-            />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_alignLeft="@+id/branch"
+                android:layout_marginTop="10dp"
+                android:layout_height="1dp"
+                android:id="@+id/view"
+                android:layout_below="@+id/branch"
+                android:background="@android:color/darker_gray"
+                />
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="4dp"
+                    >
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_alignLeft="@+id/branch"
-            android:layout_marginTop="10dp"
-            android:layout_height="1dp"
-            android:id="@+id/view"
-            android:layout_below="@+id/branch"
-            android:background="@android:color/darker_gray"
-            />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/email_pro"
+                        android:autoLink="all"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:text="milan.pokharna1998@gmail.com"
+                        android:drawableLeft="@drawable/ic_mail_black"
+                        android:drawablePadding="20dp"
+                        android:layout_marginLeft="30dp"
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/email_pro"
-            android:autoLink="all"
-            android:layout_below="@+id/view"
-            android:layout_marginTop="20dp"
-            android:textAlignment="center"
-            android:text="milan.pokharna1998@gmail.com"
-            android:drawableLeft="@drawable/ic_mail_black"
-            android:drawablePadding="20dp"
-
-            android:layout_marginLeft="30dp"
-
-            />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/linkdin_prom"
-            android:layout_below="@+id/email_pro"
-            android:layout_marginTop="20dp"
-            android:text="milanpokharna"
-            android:textColor="@color/materiablue"
-            android:layout_marginLeft="30dp"
-            android:textAlignment="center"
-            android:drawableLeft="@drawable/ic_orion_linkedin_2"
-            android:drawablePadding="20dp"
-            />
+                        />
 
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linkdin_pro"
+                        android:layout_below="@+id/email_pro"
+                        android:layout_marginTop="20dp"
+                        android:text="milanpokharna"
+                        android:layout_marginLeft="30dp"
+                        android:textAlignment="center"
+                        android:drawableLeft="@drawable/ic_orion_linkedin_2"
+                        android:drawablePadding="20dp"
+                        />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/mobno_pro"
-            android:autoLink="all"
-            android:layout_marginLeft="30dp"
-            android:layout_below="@+id/linkdin_prom"
-            android:layout_marginTop="20dp"
-            android:textAlignment="center"
-            android:text="8290058113"
 
-            android:drawableLeft="@drawable/ic_contact_black"
-            android:drawablePadding="20dp"
-            />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/mobno_pro"
+                        android:autoLink="all"
+                        android:layout_marginLeft="30dp"
+                        android:layout_below="@+id/linkdin_pro"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:text="8290058113"
+                        android:drawableLeft="@drawable/ic_contact_black"
+                        android:drawablePadding="20dp"
+                        />
+
+                </RelativeLayout>
+            </ScrollView>
+
+        </RelativeLayout>
 
 
 
