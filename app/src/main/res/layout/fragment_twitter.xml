@@ -42,7 +42,6 @@
         android:layout_gravity="bottom"
         android:layout_height="?attr/actionBarSize"
         app:fabAlignmentMode="center"
-        app:fabAttached="true"
         app:navigationIcon="@drawable/ic_dehaze_black_24dp">
 
     </android.support.design.bottomappbar.BottomAppBar>

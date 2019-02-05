@@ -91,6 +91,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         try {
             dt = FirebaseDatabase.getInstance().getReference().child("root").child("bus routes");
             dt.keepSynced(true);
+
             dt.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -212,6 +213,9 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                     }catch (Exception e){
 
                     }
+                    if (swipe2.isRefreshing()) {
+                        swipe2.setRefreshing(false);
+                    }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -233,6 +237,9 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                     } catch (Exception e) {
 
                     }
+                    if (swipe2.isRefreshing()) {
+                        swipe2.setRefreshing(false);
+                    }
                     //Toast.makeText(getContext(), "buslist :"+contactsList.size(), Toast.LENGTH_SHORT).show();
                 }
 
@@ -241,9 +248,7 @@ public class BusRoute extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
                 }
             });
-            if (swipe2.isRefreshing()) {
-                swipe2.setRefreshing(false);
-            }
+
         } catch (Exception e) {
 
         }

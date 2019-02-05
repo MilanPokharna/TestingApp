@@ -32,10 +32,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.blupie.technotweets.R;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -65,7 +61,7 @@ import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static com.blupie.technotweets.activities.mainActivity.mRewardedVideoAd;
+
 
 public class NewPostActivity extends AppCompatActivity {
 
@@ -112,7 +108,7 @@ public class NewPostActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         myref = myref.child("root").child("twitter").child("posts");
         user = mauth.getCurrentUser();
-        mainActivity.loadRewardedVideoAd();
+
 
         Glide.with(getApplicationContext()).load(user.getPhotoUrl()).into(profileImage);
         imageRemoveButton.setVisibility(View.INVISIBLE);
@@ -401,55 +397,6 @@ public class NewPostActivity extends AppCompatActivity {
                 //   Toast.makeText(NewPostActivity.this, String.valueOf(i[0]), Toast.LENGTH_SHORT).show();
                 int a=i%3;
                 //  Toast.makeText(NewPostActivity.this, String.valueOf(a), Toast.LENGTH_SHORT).show();
-                if(a==0)
-                {
-                    mRewardedVideoAd.show();
-                }
-                mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-                    @Override
-                    public void onRewardedVideoAdLoaded() {
-
-                    }
-
-                    @Override
-                    public void onRewardedVideoAdOpened() {
-                    }
-
-                    @Override
-                    public void onRewardedVideoStarted() {
-                    }
-
-                    @Override
-                    public void onRewardedVideoAdClosed() {
-//                        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
-//                                new AdRequest.Builder().build());
-                        mainActivity.loadRewardedVideoAd();
-                        //  Toast.makeText(NewPostActivity.this, "closed", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    @Override
-                    public void onRewarded(RewardItem rewardItem) {
-
-                    }
-
-                    @Override
-                    public void onRewardedVideoAdLeftApplication() {
-
-                    }
-
-                    @Override
-                    public void onRewardedVideoAdFailedToLoad(int i) {
-                        mainActivity.loadRewardedVideoAd();
-                    }
-
-                    @Override
-                    public void onRewardedVideoCompleted() {
-
-                    }
-                });
-
-
             }
 
             @Override

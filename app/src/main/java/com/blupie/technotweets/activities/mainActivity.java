@@ -22,11 +22,6 @@ import android.widget.Toast;
 import com.blupie.technotweets.adapters.sectionAdapter;
 import com.blupie.technotweets.R;
 import com.blupie.technotweets.models.AppRater;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
@@ -44,8 +39,6 @@ public class mainActivity extends AppCompatActivity {
     public static ViewPager pager;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    public static RewardedVideoAd mRewardedVideoAd;
-    public static InterstitialAd mInterstitialAd;
     private int tabIcons = R.drawable.ic_group_black_24dp;
     ProgressDialog progressDialog;
     @Override
@@ -57,7 +50,6 @@ public class mainActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             pager = (ViewPager)findViewById(R.id.mpager);
-            MobileAds.initialize(getApplicationContext(),"ca-app-pub-2028698845219479~3499109503");
             msectionAdapter = new sectionAdapter(getSupportFragmentManager());
             pager.setAdapter(msectionAdapter);
             tablayout.setupWithViewPager(pager);
@@ -72,68 +64,19 @@ public class mainActivity extends AppCompatActivity {
                 tablayout.getTabAt(2).select();
             }
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-2028698845219479/2538403123");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        loadRewardedVideoAd();
         AppRater.app_launched(this);
-        loadRewardedVideoAd();
+
 
         final SharedPreferences pref=this.getSharedPreferences("admob",0);
         int a=pref.getInt("admoblaunch",0);
-        if(a>=6)
-        {
-            mInterstitialAd.setAdListener(new AdListener() {
-                @Override
-                public void onAdLoaded() {
-                    // Code to be executed when an ad finishes loading.
-                    mInterstitialAd.show();
 
-                }
-
-                @Override
-                public void onAdFailedToLoad(int errorCode) {
-                }
-
-                @Override
-                public void onAdOpened() {
-                    // Code to be executed when the ad is displayed.
-
-                }
-
-                @Override
-                public void onAdLeftApplication() {
-                    // Code to be executed when the user has left the app.
-
-                }
-
-                @Override
-                public void onAdClosed() {
-                    // Code to be executed when when the interstitial ad is closed.
-                    pref.edit().putInt("admoblaunch",0).apply();
-                }
-            });
-        }
-        else
-        {
-            pref.edit().putInt("admoblaunch",a+1).apply();
-
-        }
     }
     private boolean isNetworkConnected(mainActivity mainActivity) {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         return cm.getActiveNetworkInfo() != null;
     }
-    public static void loadRewardedVideoAd() {
-        if (!mRewardedVideoAd.isLoaded()) {
-            mRewardedVideoAd.loadAd("ca-app-pub-2028698845219479/2137688698",
-                    new AdRequest.Builder().build());
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.threebutton,menu);
@@ -149,56 +92,9 @@ public class mainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.action_logout: {
-                {
-                    if (isNetworkConnected(this)) {
-
-                        if (mInterstitialAd.isLoaded()) {
-                            mInterstitialAd.show();
-                            open();
-                        } else {
-                            // Toast.makeText(this, "not", Toast.LENGTH_SHORT).show();
-                            mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                            open();
-                        }
-                        mInterstitialAd.setAdListener(new AdListener() {
-                            @Override
-                            public void onAdLoaded() {
-                                // Code to be executed when an ad finishes loading.
-                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                            }
-
-                            @Override
-                            public void onAdFailedToLoad(int errorCode) {
-                                // Code to be executed when an ad request fails.
-                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-                            }
-
-                            @Override
-                            public void onAdOpened() {
-                                // Code to be executed when the ad is displayed.
-                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-                            }
-
-                            @Override
-                            public void onAdLeftApplication() {
-                                // Code to be executed when the user has left the app.
-                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                            }
-
-                            @Override
-                            public void onAdClosed() {
-                                // Code to be executed when when the interstitial ad is closed.
-                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                            }
-                        });
-                    } else {
-
-                        open();
-                    }
+                open();
                     break;
-                }
+
             }
                     case R.id.action_share: {
                         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -215,7 +111,7 @@ public class mainActivity extends AppCompatActivity {
         }
         public  void open()
         {
-            loadRewardedVideoAd();
+
             AlertDialog.Builder dialog = new AlertDialog.Builder(mainActivity.this);
             dialog.setTitle("Logout");
             dialog.setCancelable(false);
@@ -228,7 +124,7 @@ public class mainActivity extends AppCompatActivity {
                     SharedPreferences prefs = getSharedPreferences("login",MODE_PRIVATE);
                     prefs.edit().putInt("loginvar", 0).apply();
                     prefs.edit().putInt("persistent",1).apply();
-                    mRewardedVideoAd.show();
+
                     Intent intent = new Intent(mainActivity.this,StartActivity.class);
                     startActivity(intent);
                 }
